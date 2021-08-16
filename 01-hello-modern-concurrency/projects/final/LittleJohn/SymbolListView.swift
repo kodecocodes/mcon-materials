@@ -88,7 +88,7 @@ struct SymbolListView: View {
             .font(.custom("FantasqueSansMono-Regular", size: 18))
           }, header: {
             Label(" LittleJohn", systemImage: "chart.bar.xaxis")
-              .foregroundColor(Color.teal)
+              .foregroundColor(Color(uiColor: .systemGreen))
               .font(.custom("FantasqueSansMono-Regular", size: 42))
               .padding(.bottom, 20)
           })

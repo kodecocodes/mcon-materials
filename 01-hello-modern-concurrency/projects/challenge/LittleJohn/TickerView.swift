@@ -58,7 +58,7 @@ struct TickerView: View {
         }
       }, header: {
         Label(" Live", systemImage: "clock.arrow.2.circlepath")
-          .foregroundColor(Color.teal)
+          .foregroundColor(Color(uiColor: .systemGreen))
           .font(.custom("FantasqueSansMono-Regular", size: 48))
           .padding(.bottom, 20)
       })

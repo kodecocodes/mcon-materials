@@ -93,14 +93,19 @@ class SuperStorageModel: ObservableObject {
     
   /// Downloads a file using multiple concurrent connections, returns the final content, and updates the download progress.
   func multiDownloadWithProgress(file: DownloadFile) async throws -> Data {
-    var numBatches = 6
-    let batchSize = Double(file.size) / Double(numBatches)
-    let roundedBatchSize = Int(batchSize.rounded(.down))
-
-    if Double(roundedBatchSize) < batchSize {
-      numBatches += 1
+    func partInfo(index: Int, of count: Int) -> (offset: Int, size: Int, name: String) {
+      let standardPartSize = Int((Double(file.size)/Double(count)).rounded(.up))
+      let partOffset = index * standardPartSize
+      let partSize = min(standardPartSize, file.size - partOffset)
+      let partName = "\(file.name) (part \(index+1))"
+      return (offset: partOffset, size: partSize, name: partName)
     }
+    
+    let total = 4
+    let parts = (0..<total).map { partInfo(index: $0, of: total) }
 
+    // Add challenge code here.
+    
     return Data()
   }
   

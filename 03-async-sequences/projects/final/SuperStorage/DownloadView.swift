@@ -32,6 +32,7 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 /// The file download view.
 struct DownloadView: View {
@@ -45,9 +46,34 @@ struct DownloadView: View {
   
   /// Should display a download activity indicator.
   @State var isDownloadActive = false
+  {
+    didSet {
+      timerTask?.cancel()
+      
+      if isDownloadActive {
+        let startTime = Date().timeIntervalSince1970
+        let timerSequence = Timer.publish(every: 1, tolerance: 1, on: .main, in: .common)
+          .autoconnect()
+          .map({ _ -> String in
+            let duration = Int(Date().timeIntervalSince1970 - startTime)
+            return "\(duration)s"
+          })
+          .values
+
+        timerTask = Task {
+          for await duration in timerSequence {
+            self.duration = duration
+          }
+        }
+      }
+    }
+  }
+  
+  @State var timerTask: Task<Void, Error>?
   
   @State var downloadTask: Task<Void, Error>?
-  
+  @State var duration = ""
+
   var body: some View {
     List {
       // Show the details of the selected file and download buttons.
@@ -90,6 +116,11 @@ struct DownloadView: View {
       if !model.downloads.isEmpty {
         // Show progress for any ongoing downloads.
         Downloads(downloads: model.downloads)
+      }
+      
+      if !duration.isEmpty {
+        Text("Duration: \(duration)")
+          .font(.caption)
       }
       
       if let fileData = fileData {

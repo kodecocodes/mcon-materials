@@ -126,7 +126,7 @@ class SuperStorageModel: ObservableObject {
       throw CancellationError()
     }
 
-    return Data(accumulator.data)
+    return accumulator.data
   }
   
   /// Downloads a file using multiple concurrent connections, returns the final content, and updates the download progress.

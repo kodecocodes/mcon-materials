@@ -11,7 +11,7 @@ import Vapor
 fileprivate var messages = [String]()
 fileprivate let queue = DispatchQueue(label: "sync")
 
-struct CLIChat {
+struct Clipper {
   static var formatter: DateFormatter {
     let formatter = DateFormatter()
     formatter.dateStyle = .none

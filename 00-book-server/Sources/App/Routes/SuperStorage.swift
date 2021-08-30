@@ -18,7 +18,7 @@ extension String: LocalizedError {
 struct DownloadFile: Codable {
   init(nr: Int, type: String) {
     name = "graphics-project-ver-\(nr).\(type)"
-    size = Downloader.imageFileSize(type: type)
+    size = SuperStorage.imageFileSize(type: type)
     date = Date().addingTimeInterval(TimeInterval(nr*27*60*60 - 30*24*60*60))
   }
   
@@ -47,7 +47,7 @@ extension NSImage {
   }
 }
 
-struct Downloader {
+struct SuperStorage {
   static func imageURL(type: String) -> URL {
     URL(fileURLWithPath: NSTemporaryDirectory().appending("concurrency-book-image.\(type)"))
   }

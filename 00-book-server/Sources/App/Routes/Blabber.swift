@@ -31,7 +31,7 @@ func countActiveUsers() -> Int {
   return users.values.filter { $0 > Date().addingTimeInterval(-300) }.count
 }
 
-struct ChatUI {
+struct Blabber {
   static var formatter: DateFormatter {
     let formatter = DateFormatter()
     formatter.dateStyle = .none
@@ -87,9 +87,11 @@ struct ChatUI {
       if let bodyData = req.body.data, var newMessage = try? bodyData.getJSONDecodable(Message.self, at: 0, length: bodyData.readableBytes) {
         newMessage.date = Date()
         queue.sync {
-          users[newMessage.user!] = Date()
+          if let user = newMessage.user {
+            users[user] = Date()
+            bot(last: newMessage)
+          }
           messages.append(newMessage)
-          bot(last: newMessage)
         }
       }
       return "OK"

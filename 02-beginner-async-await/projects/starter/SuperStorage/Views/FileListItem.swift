@@ -34,7 +34,6 @@ import SwiftUI
 
 struct FileListItem: View {
   let file: DownloadFile
-  
   var body: some View {
     VStack(spacing: 8) {
       HStack {

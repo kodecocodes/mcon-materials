@@ -35,46 +35,37 @@ import Foundation
 /// The download model.
 class SuperStorageModel: ObservableObject {
   /// The list of currently running downloads.
-  @Published var downloads = [DownloadInfo]()
+  @Published var downloads: [DownloadInfo] = []
 
   /// Downloads a file and returns its content.
   func download(file: DownloadFile) async throws -> Data {
     let url = URL(string: "http://localhost:8080/files/download?\(file.name)")!
-    
     return Data()
   }
-  
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
   func downloadWithProgress(file: DownloadFile) async throws -> Data {
     return try await downloadWithProgress(fileName: file.name, name: file.name, size: file.size)
   }
-  
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
   private func downloadWithProgress(fileName: String, name: String, size: Int, offset: Int? = nil) async throws -> Data {
     let url = URL(string: "http://localhost:8080/files/download?\(fileName)")!
     await addDownload(name: name)
-    
     return Data()
   }
-    
   /// Downloads a file using multiple concurrent connections, returns the final content, and updates the download progress.
   func multiDownloadWithProgress(file: DownloadFile) async throws -> Data {
     func partInfo(index: Int, of count: Int) -> (offset: Int, size: Int, name: String) {
-      let standardPartSize = Int((Double(file.size)/Double(count)).rounded(.up))
+      let standardPartSize = Int((Double(file.size) / Double(count)).rounded(.up))
       let partOffset = index * standardPartSize
       let partSize = min(standardPartSize, file.size - partOffset)
-      let partName = "\(file.name) (part \(index+1))"
+      let partName = "\(file.name) (part \(index + 1))"
       return (offset: partOffset, size: partSize, name: partName)
     }
-    
     let total = 4
     let parts = (0..<total).map { partInfo(index: $0, of: total) }
-    
     // Add challenge code here.
-    
     return Data()
   }
-  
   /// Flag that stops ongoing downloads.
   var stopDownloads = false
 
@@ -90,7 +81,6 @@ extension SuperStorageModel {
     let downloadInfo = DownloadInfo(id: UUID(), name: name, progress: 0.0)
     downloads.append(downloadInfo)
   }
-  
   /// Updates a the progress of a given download.
   func updateDownload(name: String, progress: Double) {
     if let index = downloads.firstIndex(where: { $0.name == name }) {

@@ -37,7 +37,7 @@ extension InputStream {
   var data: Data {
     var data = Data()
     open()
-    
+
     let maxLength = 1024
     let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: maxLength)
     while hasBytesAvailable {
@@ -45,7 +45,7 @@ extension InputStream {
       guard read > 0 else { break }
       data.append(buffer, count: read)
     }
-    
+
     buffer.deallocate()
     close()
 

@@ -33,5 +33,4 @@
 import Foundation
 
 extension NotificationCenter {
-
 }

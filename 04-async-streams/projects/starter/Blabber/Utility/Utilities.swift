@@ -38,4 +38,3 @@ extension String: LocalizedError {
     return self
   }
 }
-

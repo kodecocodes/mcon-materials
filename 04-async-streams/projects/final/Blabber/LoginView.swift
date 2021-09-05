@@ -36,17 +36,17 @@ struct LoginView: View {
   @AppStorage("username") var username = ""
   @State var isDisplayingChat = false
   @State var model = BlabberModel()
-  
+
   var body: some View {
     VStack {
       Text("Blabber")
         .font(.custom("Lemon", size: 48))
         .foregroundColor(Color.teal)
-      
+
       HStack {
-        TextField(text: $username, prompt: Text("Username"), label: {})
-          .textFieldStyle(RoundedBorderTextFieldStyle())
-        
+        TextField(text: $username, prompt: Text("Username")) { }
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+
         Button(action: {
           model.username = username
           self.isDisplayingChat = true
@@ -55,9 +55,9 @@ struct LoginView: View {
             .font(.title)
             .foregroundColor(Color.teal)
         })
-        .sheet(isPresented: $isDisplayingChat, onDismiss: { }) {
+        .sheet(isPresented: $isDisplayingChat, onDismiss: {}, content: {
           ChatView(model: model)
-        }
+        })
       }
       .padding(.horizontal)
     }

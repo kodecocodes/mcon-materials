@@ -121,7 +121,9 @@
 				9C22D31B26D6A0F200983935 /* BlabberTests */,
 				9C6C0FD526BE532800DD99B3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9C6C0FD526BE532800DD99B3 /* Products */ = {
 			isa = PBXGroup;
@@ -200,6 +202,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C6C0FE226BE532A00DD99B3 /* Build configuration list for PBXNativeTarget "Blabber" */;
 			buildPhases = (
+				795EF16326E4D0C20074D4C2 /* ShellScript */,
 				9C6C0FD026BE532800DD99B3 /* Sources */,
 				9C6C0FD126BE532800DD99B3 /* Frameworks */,
 				9C6C0FD226BE532800DD99B3 /* Resources */,
@@ -271,6 +274,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		795EF16326E4D0C20074D4C2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9C22D31626D6A0F200983935 /* Sources */ = {

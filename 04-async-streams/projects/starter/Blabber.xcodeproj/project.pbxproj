@@ -121,7 +121,9 @@
 				9C22D31B26D6A0F200983935 /* BlabberTests */,
 				9C6C0FD526BE532800DD99B3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9C6C0FD526BE532800DD99B3 /* Products */ = {
 			isa = PBXGroup;

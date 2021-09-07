@@ -34,7 +34,6 @@ import SwiftUI
 
 struct FilePreview: View {
   let fileData: Data
-  
   var body: some View {
     Section("Preview") {
       VStack(alignment: .center) {

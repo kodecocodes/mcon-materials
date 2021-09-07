@@ -39,7 +39,9 @@ class SuperStorageModel: ObservableObject {
 
   /// Downloads a file and returns its content.
   func download(file: DownloadFile) async throws -> Data {
-    let url = URL(string: "http://localhost:8080/files/download?\(file.name)")!
+    guard let url = URL(string: "http://localhost:8080/files/download?\(file.name)") else {
+      throw "Could not create the URL."
+    }
     return Data()
   }
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
@@ -48,7 +50,9 @@ class SuperStorageModel: ObservableObject {
   }
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
   private func downloadWithProgress(fileName: String, name: String, size: Int, offset: Int? = nil) async throws -> Data {
-    let url = URL(string: "http://localhost:8080/files/download?\(fileName)")!
+    guard let url = URL(string: "http://localhost:8080/files/download?\(fileName)") else {
+      throw "Could not create the URL."
+    }
     await addDownload(name: name)
     return Data()
   }

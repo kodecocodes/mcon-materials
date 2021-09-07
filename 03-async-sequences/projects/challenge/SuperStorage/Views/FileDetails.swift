@@ -37,11 +37,9 @@ struct FileDetails: View {
   let isDownloading: Bool
 
   @Binding var isDownloadActive: Bool
-  
   let downloadSingleAction: () -> Void
   let downloadWithUpdatesAction: () -> Void
   let downloadMultipleAction: () -> Void
-  
   var body: some View {
     Section(content: {
       VStack(alignment: .leading) {
@@ -49,35 +47,30 @@ struct FileDetails: View {
           if isDownloadActive {
             ProgressView()
           }
-          
           Text(file.name)
             .font(.title3)
         }
         .padding(.leading, 8)
-        
         Text(sizeFormatter.string(fromByteCount: Int64(file.size)))
           .font(.body)
           .foregroundColor(Color.indigo)
           .padding(.leading, 8)
-        
         if !isDownloading {
           HStack {
-            Button(action: downloadSingleAction, label: {
+            Button(action: downloadSingleAction) {
               Image(systemName: "arrow.down.app")
               Text("Silver")
-            })
+            }
             .tint(Color.teal)
-            
-            Button(action: downloadWithUpdatesAction, label: {
+            Button(action: downloadWithUpdatesAction) {
               Image(systemName: "arrow.down.app.fill")
               Text("Gold")
-            })
+            }
             .tint(Color.pink)
-            
-            Button(action: downloadMultipleAction, label: {
+            Button(action: downloadMultipleAction) {
               Image(systemName: "dial.max.fill")
               Text("Cloud 9")
-            })
+            }
             .buttonStyle(.borderedProminent)
             .tint(Color.purple)
           }

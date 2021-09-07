@@ -35,14 +35,11 @@ import UIKit
 
 /// The file download view.
 struct DownloadView: View {
-  
   /// The selected file.
   let file: DownloadFile
   @EnvironmentObject var model: SuperStorageModel
-  
   /// The downloaded data.
   @State var fileData: Data?
-  
   /// Should display a download activity indicator.
   @State var isDownloadActive = false
   @State var duration = ""
@@ -66,14 +63,11 @@ struct DownloadView: View {
         },
         downloadWithUpdatesAction: {
           // Download a file with UI progress updates.
-          
         },
         downloadMultipleAction: {
           // Download a file in multiple concurrent parts.
-          
         }
       )
-      
       if !model.downloads.isEmpty {
         // Show progress for any ongoing downloads.
         Downloads(downloads: model.downloads)
@@ -93,7 +87,6 @@ struct DownloadView: View {
     .listStyle(InsetGroupedListStyle())
     .toolbar(content: {
       Button(action: {
-        
       }, label: { Text("Cancel All") })
         .disabled(model.downloads.isEmpty)
     })

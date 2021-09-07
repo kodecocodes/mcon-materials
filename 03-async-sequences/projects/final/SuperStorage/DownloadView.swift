@@ -36,28 +36,23 @@ import Combine
 
 /// The file download view.
 struct DownloadView: View {
-  
   /// The selected file.
   let file: DownloadFile
   @EnvironmentObject var model: SuperStorageModel
-  
   /// The downloaded data.
   @State var fileData: Data?
-  
   /// Should display a download activity indicator.
-  @State var isDownloadActive = false
-  {
+  @State var isDownloadActive = false {
     didSet {
       timerTask?.cancel()
-      
       if isDownloadActive {
         let startTime = Date().timeIntervalSince1970
         let timerSequence = Timer.publish(every: 1, tolerance: 1, on: .main, in: .common)
           .autoconnect()
-          .map({ _ -> String in
+          .map { _ -> String in
             let duration = Int(Date().timeIntervalSince1970 - startTime)
             return "\(duration)s"
-          })
+          }
           .values
 
         timerTask = Task {
@@ -68,9 +63,7 @@ struct DownloadView: View {
       }
     }
   }
-  
   @State var timerTask: Task<Void, Error>?
-  
   @State var downloadTask: Task<Void, Error>?
   @State var duration = ""
 
@@ -109,20 +102,16 @@ struct DownloadView: View {
         },
         downloadMultipleAction: {
           // Download a file in multiple concurrent parts.
-          
         }
       )
-      
       if !model.downloads.isEmpty {
         // Show progress for any ongoing downloads.
         Downloads(downloads: model.downloads)
       }
-      
       if !duration.isEmpty {
         Text("Duration: \(duration)")
           .font(.caption)
       }
-      
       if let fileData = fileData {
         // Show a preview of the file if it's a valid image.
         FilePreview(fileData: fileData)

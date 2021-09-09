@@ -34,13 +34,13 @@ import SwiftUI
 
 struct ChatView: View {
   @ObservedObject var model: BlabberModel
-  
+
   /// `true` if the message text field is focused.
   @FocusState var focused: Bool
 
   /// The message that the user has typed.
   @State var message = ""
-  
+
   /// The last error message that happened.
   @State var lastErrorMessage = "" {
     didSet {
@@ -50,17 +50,17 @@ struct ChatView: View {
   @State var isDisplayingError = false
 
   @Environment(\.presentationMode) var presentationMode
-  
+
   var body: some View {
     VStack {
       ScrollView(.vertical) {
         ScrollViewReader { reader in
           ForEach($model.messages) { message in
-            MessageView(message: message, me: model.username)
+            MessageView(message: message, myUser: model.username)
           }
           .onChange(of: model.messages.count) { _ in
             guard let last = model.messages.last else { return }
-            
+
             withAnimation(.easeOut) {
               reader.scrollTo(last.id, anchor: .bottomTrailing)
             }
@@ -68,7 +68,7 @@ struct ChatView: View {
         }
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      
+
       HStack {
         Button(action: {
           Task {
@@ -112,7 +112,7 @@ struct ChatView: View {
           }
           focused = true
         }
-        
+
         Button(action: {
           Task {
             try await model.say(message)

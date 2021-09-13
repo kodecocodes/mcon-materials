@@ -57,28 +57,11 @@ class ScanModel: ObservableObject {
     self.total = total
   }
 
-  func worker(number: Int) async -> Result<String, Error> {
-    onScheduled()
-
-    let task = ScanTask(input: number)
-    let result: String
-    do {
-      result = try await task.run()
-    } catch {
-      print("Skipping over failed task")
-      return .failure(error)
-    }
-
-    onTaskCompleted()
-    return .success(result)
-  }
-
   func runAllTasks() async throws {
     try await withThrowingTaskGroup(of: Result<String, Error>.self) { [weak self] group in
       guard let self = self else {
         throw "The model failed"
       }
-
       let batchSize = 4
 
       for index in 0..<batchSize {
@@ -86,7 +69,6 @@ class ScanModel: ObservableObject {
           await self.worker(number: index)
         }
       }
-
       var index = batchSize
 
       for try await result in group {
@@ -107,6 +89,21 @@ class ScanModel: ObservableObject {
       countPerSecond = 0
       print("Done.")
     }
+  }
+
+  func worker(number: Int) async -> Result<String, Error> {
+    onScheduled()
+
+    let task = ScanTask(input: number)
+    let result: String
+    do {
+      result = try await task.run()
+    } catch {
+      return .failure(error)
+    }
+
+    onTaskCompleted()
+    return .success(result)
   }
 }
 

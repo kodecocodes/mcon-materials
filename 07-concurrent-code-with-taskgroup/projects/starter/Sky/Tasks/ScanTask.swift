@@ -34,10 +34,11 @@ import Foundation
 
 /// A single scanning task.
 struct ScanTask: Identifiable {
-  let id = UUID()
+  let id: UUID
   let input: Int
 
-  init(input: Int) {
+  init(input: Int, id: UUID = UUID()) {
+    self.id = id
     self.input = input
   }
 

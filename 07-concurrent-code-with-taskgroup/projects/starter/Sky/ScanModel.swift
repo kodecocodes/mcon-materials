@@ -32,7 +32,6 @@
 
 import Foundation
 
-@MainActor
 class ScanModel: ObservableObject {
   // MARK: - Private state
   private var counted = 0
@@ -41,13 +40,13 @@ class ScanModel: ObservableObject {
   // MARK: - Public, bindable state
 
   /// Currently scheduled for execution tasks.
-  @Published var scheduled = 0
+  @MainActor @Published var scheduled = 0
 
   /// Completed scan tasks per second.
-  @Published var countPerSecond = 0
+  @MainActor @Published var countPerSecond = 0
 
   /// Completed scan tasks.
-  @Published var completed = 0
+  @MainActor @Published var completed = 0
 
   @Published var total: Int
 
@@ -63,6 +62,7 @@ class ScanModel: ObservableObject {
 
 // MARK: - Tracking task progress.
 extension ScanModel {
+  @MainActor
   private func onTaskCompleted() {
     completed += 1
     counted += 1
@@ -76,6 +76,7 @@ extension ScanModel {
     }
   }
 
+  @MainActor
   private func onScheduled() {
     scheduled += 1
   }

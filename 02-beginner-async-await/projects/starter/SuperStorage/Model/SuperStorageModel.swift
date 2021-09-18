@@ -44,10 +44,12 @@ class SuperStorageModel: ObservableObject {
     }
     return Data()
   }
+
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
   func downloadWithProgress(file: DownloadFile) async throws -> Data {
     return try await downloadWithProgress(fileName: file.name, name: file.name, size: file.size)
   }
+
   /// Downloads a file, returns its data, and updates the download progress in ``downloads``.
   private func downloadWithProgress(fileName: String, name: String, size: Int, offset: Int? = nil) async throws -> Data {
     guard let url = URL(string: "http://localhost:8080/files/download?\(fileName)") else {
@@ -56,6 +58,7 @@ class SuperStorageModel: ObservableObject {
     await addDownload(name: name)
     return Data()
   }
+
   /// Downloads a file using multiple concurrent connections, returns the final content, and updates the download progress.
   func multiDownloadWithProgress(file: DownloadFile) async throws -> Data {
     func partInfo(index: Int, of count: Int) -> (offset: Int, size: Int, name: String) {
@@ -70,6 +73,7 @@ class SuperStorageModel: ObservableObject {
     // Add challenge code here.
     return Data()
   }
+
   /// Flag that stops ongoing downloads.
   var stopDownloads = false
 
@@ -85,6 +89,7 @@ extension SuperStorageModel {
     let downloadInfo = DownloadInfo(id: UUID(), name: name, progress: 0.0)
     downloads.append(downloadInfo)
   }
+  
   /// Updates a the progress of a given download.
   func updateDownload(name: String, progress: Double) {
     if let index = downloads.firstIndex(where: { $0.name == name }) {

@@ -89,7 +89,9 @@
 				9C972CD126C116F600E48FAC /* SuperStorage */,
 				9C972CD026C116F600E48FAC /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9C972CD026C116F600E48FAC /* Products */ = {
 			isa = PBXGroup;

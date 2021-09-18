@@ -38,7 +38,6 @@ struct DownloadFile: Codable, Identifiable, Equatable {
   let name: String
   let size: Int
   let date: Date
-
   static let empty = DownloadFile(name: "", size: 0, date: Date())
 }
 

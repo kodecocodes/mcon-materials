@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79E7ECF726F3D3CD00231189 /* TimeoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E7ECF626F3D3CD00231189 /* TimeoutTask.swift */; };
 		9C1B549326D7611200CE4F70 /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */; };
 		9C1B549526D7626100CE4F70 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549426D7626100CE4F70 /* Utilities.swift */; };
 		9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C22D31C26D6A0F200983935 /* BlabberTests.swift */; };
@@ -21,7 +22,6 @@
 		9C6C0FE626BE5D1200DD99B3 /* BlabberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FE526BE5D1200DD99B3 /* BlabberModel.swift */; };
 		9C6C0FE826BE609600DD99B3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FE726BE609600DD99B3 /* LoginView.swift */; };
 		9C6C0FEB26BED0E800DD99B3 /* 19919.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C6C0FEA26BED0E800DD99B3 /* 19919.ttf */; };
-		9CB40E3926E24A9F000C4130 /* TimeoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB40E3826E24A9F000C4130 /* TimeoutTask.swift */; };
 		9CCA913A26BF95A800066CF6 /* AddressEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCA913926BF95A800066CF6 /* AddressEncoder.swift */; };
 		9CE044E826C29EBD00BDF5AF /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E726C29EBD00BDF5AF /* DataModels.swift */; };
 		9CE044EA26C29EE100BDF5AF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E926C29EE100BDF5AF /* MessageView.swift */; };
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79E7ECF626F3D3CD00231189 /* TimeoutTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeoutTask.swift; sourceTree = "<group>"; };
 		9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
 		9C1B549426D7626100CE4F70 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9C22D31A26D6A0F200983935 /* BlabberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlabberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,7 +56,6 @@
 		9C6C0FE726BE609600DD99B3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9C6C0FEA26BED0E800DD99B3 /* 19919.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 19919.ttf; sourceTree = "<group>"; };
 		9C6C0FEC26BED0F000DD99B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9CB40E3826E24A9F000C4130 /* TimeoutTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeoutTask.swift; sourceTree = "<group>"; };
 		9CCA913926BF95A800066CF6 /* AddressEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressEncoder.swift; sourceTree = "<group>"; };
 		9CE044E726C29EBD00BDF5AF /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		9CE044E926C29EE100BDF5AF /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 			children = (
 				9C22D32426D6C55600983935 /* InputStream+.swift */,
 				9C22D32626D6C59500983935 /* TestURLProtocol.swift */,
-				9CB40E3826E24A9F000C4130 /* TimeoutTask.swift */,
+				79E7ECF626F3D3CD00231189 /* TimeoutTask.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -124,7 +124,9 @@
 				9C22D31B26D6A0F200983935 /* BlabberTests */,
 				9C6C0FD526BE532800DD99B3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9C6C0FD526BE532800DD99B3 /* Products */ = {
 			isa = PBXGroup;
@@ -203,6 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C6C0FE226BE532A00DD99B3 /* Build configuration list for PBXNativeTarget "Blabber" */;
 			buildPhases = (
+				795EF16326E4D0C20074D4C2 /* ShellScript */,
 				9C6C0FD026BE532800DD99B3 /* Sources */,
 				9C6C0FD126BE532800DD99B3 /* Frameworks */,
 				9C6C0FD226BE532800DD99B3 /* Resources */,
@@ -275,6 +278,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		795EF16326E4D0C20074D4C2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9C22D31626D6A0F200983935 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -282,7 +305,7 @@
 			files = (
 				9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */,
 				9C22D32526D6C55600983935 /* InputStream+.swift in Sources */,
-				9CB40E3926E24A9F000C4130 /* TimeoutTask.swift in Sources */,
+				79E7ECF726F3D3CD00231189 /* TimeoutTask.swift in Sources */,
 				9C22D32726D6C59500983935 /* TestURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

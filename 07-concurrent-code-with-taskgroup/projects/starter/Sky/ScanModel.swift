@@ -35,7 +35,7 @@ import Foundation
 class ScanModel: ObservableObject {
   // MARK: - Private state
   private var counted = 0
-  private var lastSec = 0
+  private var started = Date()
 
   // MARK: - Public, bindable state
 
@@ -43,7 +43,7 @@ class ScanModel: ObservableObject {
   @MainActor @Published var scheduled = 0
 
   /// Completed scan tasks per second.
-  @MainActor @Published var countPerSecond = 0
+  @MainActor @Published var countPerSecond: Double = 0
 
   /// Completed scan tasks.
   @MainActor @Published var completed = 0
@@ -57,6 +57,7 @@ class ScanModel: ObservableObject {
   }
 
   func runAllTasks() async throws {
+    started = Date()
   }
 }
 
@@ -68,12 +69,7 @@ extension ScanModel {
     counted += 1
     scheduled -= 1
 
-    let now = Int(Date.now.timeIntervalSinceReferenceDate.rounded())
-    if lastSec != now {
-      self.countPerSecond = self.counted / (now - lastSec)
-      self.counted = 0
-      lastSec = now
-    }
+    countPerSecond = Double(counted) / Date().timeIntervalSince(started)
   }
 
   @MainActor

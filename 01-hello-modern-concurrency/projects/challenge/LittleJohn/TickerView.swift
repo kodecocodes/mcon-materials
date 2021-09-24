@@ -37,7 +37,6 @@ struct TickerView: View {
   let selectedSymbols: [String]
   @EnvironmentObject var model: LittleJohnModel
   @Environment(\.presentationMode) var presentationMode
-  
   /// Description of the latest error to display to the user.
   @State var lastErrorMessage = "" {
     didSet { isDisplayingError = true }

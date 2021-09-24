@@ -35,21 +35,16 @@ import SwiftUI
 /// Displays a list of stock symbols.
 struct SymbolListView: View {
   let model: LittleJohnModel
-  
   /// The list of stocks available on the server.
   @State var symbols: [String] = []
-  
   /// The currently selected stocks.
   @State var selected: Set<String> = []
-  
   /// Description of the latest error to display to the user.
   @State var lastErrorMessage = "" {
     didSet { isDisplayingError = true }
   }
   @State var isDisplayingError = false
-  
   @State var isDisplayingTicker = false
-  
   var body: some View {
     NavigationView {
       VStack {
@@ -58,20 +53,18 @@ struct SymbolListView: View {
                        isActive: $isDisplayingTicker) {
           EmptyView()
         }.hidden()
-        
         // The list of stock symbols.
         List {
           Section(content: {
             if symbols.isEmpty {
               ProgressView().padding()
             }
-            
             ForEach(symbols, id: \.self) { symbolName in
               Button(action: {
                 if !selected.insert(symbolName).inserted {
                   selected.remove(symbolName)
                 }
-              }) {
+              }, label: {
                 HStack {
                   HStack {
                     if selected.contains(symbolName) {
@@ -79,11 +72,10 @@ struct SymbolListView: View {
                     }
                   }
                   .frame(width: 20)
-                  
                   Text(symbolName)
                     .fontWeight(.bold)
                 }
-              }
+              })
             }
             .font(.custom("FantasqueSansMono-Regular", size: 18))
           }, header: {
@@ -113,8 +105,7 @@ struct SymbolListView: View {
           guard symbols.isEmpty else { return }
           do {
             symbols = try await model.availableSymbols()
-          }
-          catch {
+          } catch {
             lastErrorMessage = error.localizedDescription
           }
         }

@@ -38,23 +38,25 @@ extension String: Error { }
 /// The app model that communicates with the server.
 class LittleJohnModel: ObservableObject {
   func availableSymbols() async throws -> [String] {
-    let url = URL(string: "http://localhost:8080/littlejohn/symbols")!
+    guard let url = URL(string: "http://localhost:8080/littlejohn/symbols") else {
+      throw "The URL could not be created."
+    }
+
     let (data, response) = try await URLSession.shared.data(from: url, delegate: nil)
-    
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
     }
     return try JSONDecoder().decode([String].self, from: data)
   }
-  
   /// Current live updates.
-  @Published private(set) var tickerSymbols = [Stock]()
+  @Published private(set) var tickerSymbols: [Stock] = []
 
   /// Start live updates for the provided stock symbols.
   func startTicker(_ selectedSymbols: [String]) async throws {
     tickerSymbols = []
-    let url = URL(string: "http://localhost:8080/littlejohn/ticker?\(selectedSymbols.joined(separator: ","))")!
-    
+    guard let url = URL(string: "http://localhost:8080/littlejohn/ticker?\(selectedSymbols.joined(separator: ","))") else {
+      throw "The URL could not be created."
+    }
     let (stream, response) = try await liveURLSession.bytes(from: url, delegate: nil)
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
@@ -63,23 +65,20 @@ class LittleJohnModel: ObservableObject {
       if let data = line.data(using: .utf8),
         let update = try? JSONDecoder().decode([Stock].self, from: data) {
         await MainActor.run {
-          tickerSymbols = update.sorted(by: { $0.name < $1.name })
+          tickerSymbols = update.sorted { $0.name < $1.name }
           print("Updated: \(Date())")
         }
       }
     }
-    
     // Challenge code.
     await MainActor.run {
       tickerSymbols = []
     }
   }
-  
   /// A URL session that lets requests run indefinitely so we can receive live updates from server.
   private lazy var liveURLSession: URLSession = {
     var configuration = URLSessionConfiguration.default
     configuration.timeoutIntervalForRequest = .infinity
     return URLSession(configuration: configuration)
   }()
-
 }

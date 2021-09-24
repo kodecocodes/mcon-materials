@@ -97,13 +97,13 @@ class SuperStorageModel: ObservableObject {
         let byte = try await asyncDownloadIterator.next() {
         accumulator.append(byte)
       }
+
+      Task.detached(priority: .medium) { [weak self] in
+        await self?
+          .updateDownload(name: name, progress: accumulator.progress)
+      }
     }) {
       print(accumulator.description)
-    }
-
-    Task.detached(priority: .medium) { [weak self] in
-      await self?
-        .updateDownload(name: name, progress: accumulator.progress)
     }
 
     if stopDownloads, !Self.supportsPartialDownloads {

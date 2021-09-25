@@ -36,7 +36,7 @@ import SwiftUI
 struct ScanningView: View {
   @Binding var total: Int
   @Binding var completed: Int
-  @Binding var perSecond: Int
+  @Binding var perSecond: Double
   @Binding var scheduled: Int
 
   private func colorForAvg(_ num: Int) -> Color {
@@ -50,12 +50,12 @@ struct ScanningView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      ProgressView("\(scheduled) scheduled", value: Double(min(1.0, Double(scheduled) / 10.0)))
+      ProgressView("\(scheduled) scheduled", value: Double(scheduled), total: Double(total))
         .tint(colorForAvg(scheduled))
         .padding()
 
-      ProgressView("\(perSecond) per sec.", value: Double(min(1.0, Double(perSecond) / 10.0)))
-        .tint(colorForAvg(perSecond))
+      ProgressView(String(format: "%.2f per sec.", perSecond), value: perSecond, total: 10)
+        .tint(colorForAvg(Int(perSecond)))
         .padding()
 
       ProgressView("\(completed) tasks completed", value: min(1.0, Double(completed) / Double(total)))

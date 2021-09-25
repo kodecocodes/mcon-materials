@@ -107,7 +107,9 @@
 				9CD5AE5F26A13FB00010330C /* Sky */,
 				9CD5AE6826A13FB10010330C /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9CD5AE5F26A13FB00010330C /* Sky */ = {
 			isa = PBXGroup;

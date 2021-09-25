@@ -44,7 +44,7 @@ class BlabberModel: ObservableObject {
   }
 
   /// Current live updates
-    @Published var messages: [Message] = []
+  @Published var messages: [Message] = []
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {

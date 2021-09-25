@@ -92,17 +92,15 @@ class SuperStorageModel: ObservableObject {
 
     let accumulator = ByteAccumulator(name: name, size: size)
 
-    while !stopDownloads, try await accumulator.batch({
+    while !stopDownloads, !accumulator.checkCompleted() {
       while !accumulator.isBatchCompleted,
         let byte = try await asyncDownloadIterator.next() {
         accumulator.append(byte)
       }
-
       Task.detached(priority: .medium) { [weak self] in
         await self?
           .updateDownload(name: name, progress: accumulator.progress)
       }
-    }) {
       print(accumulator.description)
     }
 

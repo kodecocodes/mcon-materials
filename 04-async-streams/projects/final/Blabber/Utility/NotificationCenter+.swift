@@ -38,7 +38,8 @@ extension NotificationCenter {
       NotificationCenter.default.addObserver(
         forName: name,
         object: nil,
-        queue: nil) { notification in
+        queue: nil
+      ) { notification in
         continuation.yield(notification)
       }
     }

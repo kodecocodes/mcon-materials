@@ -44,7 +44,7 @@ class BlabberModel: ObservableObject {
   }
 
   /// Current live updates
-    @Published var messages: [Message] = []
+  @Published var messages: [Message] = []
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {
@@ -53,18 +53,24 @@ class BlabberModel: ObservableObject {
   /// Does a countdown and sends the message.
   func countdown(to message: String) async throws {
     guard !message.isEmpty else { return }
-    let counter = AsyncStream(String.self) { continuation in
+
+    let counter = AsyncStream<String> { continuation in
       var countdown = 3
-      Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+      Timer.scheduledTimer(
+        withTimeInterval: 1.0,
+        repeats: true
+      ) { timer in
         guard countdown > 0 else {
           timer.invalidate()
           continuation.yield(with: .success("🎉 " + message))
           return
         }
+
         continuation.yield("\(countdown) ...")
         countdown -= 1
       }
     }
+
     try await counter.forEach { [weak self] in
       try await self?.say($0)
     }
@@ -103,19 +109,16 @@ class BlabberModel: ObservableObject {
     guard let first = try await iterator.next() else {
       throw "No response from server"
     }
-    guard
-      let data = first.data(using: .utf8),
-      let status = try? JSONDecoder().decode(ServerStatus.self, from: data)
-    else {
+
+    guard let data = first.data(using: .utf8),
+          let status = try? JSONDecoder()
+            .decode(ServerStatus.self, from: data) else {
       throw "Invalid response from server"
     }
 
     messages.append(
       Message(
-        id: UUID(),
-        user: nil,
-        message: "\(status.activeUsers) active users",
-        date: Date()
+        message: "\(status.activeUsers) active users"
       )
     )
 
@@ -179,9 +182,9 @@ class BlabberModel: ObservableObject {
 }
 
 extension AsyncSequence {
-  func forEach(_ block: (Element) async throws -> Void) async throws {
+  func forEach(_ body: (Element) async throws -> Void) async throws {
     for try await element in self {
-      try await block(element)
+      try await body(element)
     }
   }
 }

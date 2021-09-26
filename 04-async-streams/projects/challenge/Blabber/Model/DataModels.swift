@@ -44,3 +44,12 @@ struct Message: Codable, Identifiable, Hashable {
   let message: String
   var date: Date
 }
+
+extension Message {
+  init(message: String) {
+    self.id = .init()
+    self.date = .init()
+    self.user = nil
+    self.message = message
+  }
+}

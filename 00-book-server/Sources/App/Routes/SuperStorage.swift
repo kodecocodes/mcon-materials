@@ -28,7 +28,7 @@ struct DownloadFile: Codable {
 }
 
 extension NSImage {
-  convenience init?(gradientColors: [NSColor], imageSize: NSSize) {
+  convenience init?(gradientColors: [NSColor], imageSize: NSSize, includeDate: Bool = true) {
     guard let gradient = NSGradient(colors: gradientColors) else { return nil }
     let rect = NSRect(origin: CGPoint.zero, size: imageSize)
     self.init(size: rect.size)
@@ -38,11 +38,12 @@ extension NSImage {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     formatter.timeStyle = .medium
-    print(formatter.string(from: Date()))
-    NSString(string: formatter.string(from: Date())).draw(at: .zero, withAttributes: [
-      NSAttributedString.Key.font: NSFont.systemFont(ofSize: 48),
-      NSAttributedString.Key.foregroundColor: NSColor.white
-    ])
+    if includeDate {
+      NSString(string: formatter.string(from: Date())).draw(at: .zero, withAttributes: [
+        NSAttributedString.Key.font: NSFont.systemFont(ofSize: 48),
+        NSAttributedString.Key.foregroundColor: NSColor.white
+      ])
+    }
     self.unlockFocus()
   }
 }

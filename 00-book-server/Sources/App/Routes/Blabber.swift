@@ -105,7 +105,7 @@ struct Blabber {
     "Something, something, this way comes 🤫",
     "Today's lottery numbers are: 4, 8, 15, 16, 23, 42",
     "Hey hey hey",
-    "I wish it was tacco Tuesday today 🥺",
+    "I wish it was taco Tuesday today 🥺",
     "Sorry for jumping in but how do I turn on my camera in this chat?",
     "parrot"
   ]

@@ -6,4 +6,5 @@ func routes(_ app: Application) throws {
   try SuperStorage.routes(app)
   try Blabber.routes(app)
   try Clipper.routes(app)
+  try Gallery.routes(app)
 }

@@ -33,9 +33,9 @@
 import Foundation
 
 class DiskStorage {
-  private var folder = URL(fileURLWithPath: "/dev/null")
+  private var folder: URL
 
-  func open() throws {
+  init() throws {
     guard let supportFolderURL = FileManager.default
       .urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
       fatalError("Couldn't open the application support folder")

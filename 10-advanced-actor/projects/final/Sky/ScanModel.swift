@@ -35,7 +35,7 @@ import Foundation
 class ScanModel: ObservableObject {
   // MARK: - Private state
   private var counted = 0
-  private var lastSec = 0
+  private var started = Date()
 
   // MARK: - Public, bindable state
 
@@ -50,18 +50,20 @@ class ScanModel: ObservableObject {
   }
 
   /// Completed scan tasks per second.
-  @MainActor @Published var countPerSecond = 0
+  @MainActor @Published var countPerSecond: Double = 0
 
   /// Completed scan tasks.
   @MainActor @Published var completed = 0
 
   @Published var total: Int
 
+  @MainActor @Published var isCollaborating = false
+
+  // MARK: - Distributed actors
+
   @MainActor @Published var isConnected = false
   private var systems: Systems
   private(set) var service: ScanTransport
-
-  @MainActor @Published var isCollaborating = false
 
   // MARK: - Methods
 
@@ -74,12 +76,53 @@ class ScanModel: ObservableObject {
     systemConnectivityHandler()
   }
 
-  func run(_ task: ScanTask) async throws -> String {
-    Task { @MainActor in scheduled += 1 }
-    defer {
-      Task { @MainActor in scheduled -= 1 }
+  func runAllTasks() async throws {
+    started = Date()
+    try await withThrowingTaskGroup(
+      of: ScanTaskResult.self) { [unowned self] group in
+      for number in 0 ..< total {
+        let system = await systems.firstAvailableSystem()
+        group.addTask {
+          return await self.worker(number: number, system: system)
+        }
+      }
+
+      for try await result in group {
+        switch result {
+        case .success(let result):
+          print("Completed: \(result)")
+        case .failed(let task):
+          group.addTask(priority: .high) {
+            print("Re-run task: \(task.input)")
+            return await self.worker(
+              number: task.input,
+              system: self.systems.localSystem)
+          }
+        }
+      }
+      await MainActor.run {
+        completed = 0
+        countPerSecond = 0
+        scheduled = 0
+      }
+      print("Done.")
     }
-    return try await systems.localSystem.run(task)
+  }
+
+  func worker(number: Int, system: ScanSystem) async -> ScanTaskResult {
+    await onScheduled()
+
+    let task = ScanTask(input: number)
+
+    let result: String
+    do {
+      result = try await system.run(task)
+    } catch {
+      return .failed(task)
+    }
+
+    await onTaskCompleted()
+    return .success(result)
   }
 
   func systemConnectivityHandler() {
@@ -109,59 +152,17 @@ class ScanModel: ObservableObject {
     }
   }
 
+  func run(_ task: ScanTask) async throws -> String {
+    Task { @MainActor in scheduled += 1 }
+    defer {
+      Task { @MainActor in scheduled -= 1 }
+    }
+    return try await systems.localSystem.run(task)
+  }
+
   enum ScanTaskResult {
     case success(String)
     case failed(ScanTask)
-  }
-
-  func runAllTasks() async throws {
-    try await withThrowingTaskGroup(
-      of: ScanTaskResult.self
-    ) { [weak self] group in
-      guard let self = self else {
-        throw "The model failed"
-      }
-
-      for number in 0 ..< total {
-        let system = await systems.firstAvailableSystem()
-        group.addTask {
-          return await self.worker(number: number, system: system)
-        }
-      }
-
-      for try await result in group {
-        switch result {
-        case .success(let result):
-          print("Completed: \(result)")
-        case .failed(let task):
-          group.addTask(priority: .high) {
-            print("Re-run task: \(task.input)")
-            return await self.worker(number: task.input, system: self.systems.localSystem)
-          }
-        }
-      }
-      await MainActor.run {
-        countPerSecond = 0
-        scheduled = 0
-      }
-      print("Done.")
-    }
-  }
-
-  func worker(number: Int, system: ScanSystem) async
-  -> ScanTaskResult {
-    Task { @MainActor in onScheduled() }
-
-    let task = ScanTask(input: number)
-    let result: String
-    do {
-      result = try await system.run(task)
-    } catch {
-      return .failed(task)
-    }
-
-    Task { @MainActor in onTaskCompleted() }
-    return .success(result)
   }
 }
 
@@ -173,12 +174,7 @@ extension ScanModel {
     counted += 1
     scheduled -= 1
 
-    let now = Int(Date.now.timeIntervalSinceReferenceDate.rounded())
-    if lastSec != now {
-      self.countPerSecond = self.counted / (now - lastSec)
-      self.counted = 0
-      lastSec = now
-    }
+    countPerSecond = Double(counted) / Date().timeIntervalSince(started)
   }
 
   @MainActor

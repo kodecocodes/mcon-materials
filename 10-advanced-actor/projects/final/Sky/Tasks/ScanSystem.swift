@@ -49,12 +49,10 @@ actor ScanSystem {
 
   func run(_ task: ScanTask) async throws -> String {
     defer { count -= 1 }
-    return try await Task.detached { [weak self] in
-      if let service = self?.service, let name = self?.name {
-        return try await service.send(task: task, to: name)
-      } else {
-        return try await task.run()
-      }
-    }.value
+    if let service = service {
+      return try await service.send(task: task, to: name)
+    } else {
+      return try await task.run()
+    }
   }
 }

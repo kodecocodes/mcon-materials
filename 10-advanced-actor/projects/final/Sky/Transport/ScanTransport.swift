@@ -79,13 +79,12 @@ class ScanTransport: NSObject {
     serviceBrowser.delegate = nil
   }
 
-  func send(task: ScanTask, to recipient: String) async throws
-  -> String {
+  func send(task: ScanTask, to recipient: String)
+  async throws -> String {
     guard let targetPeer = session.connectedPeers.first(
-      where: { $0.displayName == recipient }
-    ) else {
-      throw "Peer '\(recipient)' not connected anymore."
-    }
+      where: { $0.displayName == recipient }) else {
+        throw "Peer '\(recipient)' not connected anymore."
+      }
     let payload = try JSONEncoder().encode(task)
     try session.send(payload, toPeers: [targetPeer], with: .reliable)
 
@@ -142,6 +141,7 @@ extension ScanTransport: MCSessionDelegate {
   /// Handles incoming data.
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
     let decoder = JSONDecoder()
+
     if let task = try? decoder.decode(ScanTask.self, from: data) {
       Task { [weak self] in
         guard let self = self,
@@ -159,7 +159,6 @@ extension ScanTransport: MCSessionDelegate {
         name: .response,
         object: response
       )
-      return
     }
   }
 }

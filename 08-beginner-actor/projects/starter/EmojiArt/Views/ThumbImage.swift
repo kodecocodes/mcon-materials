@@ -46,10 +46,10 @@ struct ThumbImage: View {
       .resizable()
       .aspectRatio(contentMode: .fill)
       .foregroundColor(.gray)
-      .overlay(content: {
+      .overlay {
         if !overlay.isEmpty {
           Image(systemName: overlay)
         }
-      })
+      }
   }
 }

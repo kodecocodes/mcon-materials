@@ -48,11 +48,11 @@ struct ThumbImage: View {
       .resizable()
       .aspectRatio(contentMode: .fill)
       .foregroundColor(.gray)
-      .overlay(content: {
+      .overlay {
         if !overlay.isEmpty {
           Image(systemName: overlay)
         }
-      })
+      }
       .task {
         guard let image = try? await ImageDatabase.shared.image(file.url) else {
           overlay = "camera.metering.unknown"

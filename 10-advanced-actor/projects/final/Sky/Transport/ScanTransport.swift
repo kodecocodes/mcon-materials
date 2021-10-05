@@ -93,7 +93,7 @@ class ScanTransport: NSObject {
         NotificationCenter.default.notifications(named: .response) {
         if let response = notification.object as? TaskResponse,
           response.id == task.id {
-          return response.result
+          return "\(response.result) by \(recipient)"
         }
       }
       fatalError("Will never execute")

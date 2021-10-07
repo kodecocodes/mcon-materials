@@ -88,7 +88,7 @@ actor ImageLoader: ObservableObject {
   private var inMemoryAccessCounter = 0
   private var inMemoryAcccessContinuation: AsyncStream<Int>.Continuation?
 
-  func setup() async {
+  func setUp() async {
     let accessStream = AsyncStream<Int> { continuation in
       inMemoryAcccessContinuation = continuation
     }

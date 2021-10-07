@@ -68,7 +68,7 @@ struct LoadingView: View {
       guard model.imageFeed.isEmpty else { return }
       Task {
         do {
-          try await ImageDatabase.shared.setup()
+          try await ImageDatabase.shared.setUp()
           try await model.loadImages()
           try await model.verifyImages()
           withAnimation {

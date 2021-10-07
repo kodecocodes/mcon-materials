@@ -41,8 +41,6 @@ struct ThumbImage: View {
     self.image = image
   }
 
-  @EnvironmentObject var imageLoader: ImageLoader
-
   var body: some View {
     Image(uiImage: image)
       .resizable()

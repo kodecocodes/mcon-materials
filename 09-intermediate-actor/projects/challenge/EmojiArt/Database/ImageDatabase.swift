@@ -40,12 +40,12 @@ import UIKit
   private var storage: DiskStorage!
   private var storedImagesIndex: [String] = []
 
-  func setup() async throws {
+  func setUp() async throws {
     storage = try await DiskStorage()
     for fileURL in try await storage.persistedFiles() {
       storedImagesIndex.append(fileURL.lastPathComponent)
     }
-    await imageLoader.setup()
+    await imageLoader.setUp()
     let accessStream = AsyncStream<Int> { continuation in
       onDiskAcccessContinuation = continuation
     }

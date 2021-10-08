@@ -75,9 +75,10 @@ struct TickerView: View {
         try await model.startTicker(selectedSymbols)
       } catch {
         if let error = error as? URLError,
-          error.code == .cancelled {
+           error.code == .cancelled {
           return
         }
+
         lastErrorMessage = error.localizedDescription
       }
     }

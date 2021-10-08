@@ -45,6 +45,7 @@ struct SymbolListView: View {
   }
   @State var isDisplayingError = false
   @State var isDisplayingTicker = false
+
   var body: some View {
     NavigationView {
       VStack {
@@ -81,7 +82,7 @@ struct SymbolListView: View {
           }, header: {
             Label(" LittleJohn", systemImage: "chart.bar.xaxis")
               .foregroundColor(Color(uiColor: .systemGreen))
-              .font(.custom("FantasqueSansMono-Regular", size: 34))
+              .font(.custom("FantasqueSansMono-Regular", size: 42))
               .padding(.bottom, 20)
           })
         }
@@ -103,6 +104,7 @@ struct SymbolListView: View {
         .padding(.horizontal)
         .task {
           guard symbols.isEmpty else { return }
+
           do {
             symbols = try await model.availableSymbols()
           } catch {

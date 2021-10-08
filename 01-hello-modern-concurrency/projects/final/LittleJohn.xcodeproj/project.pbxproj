@@ -78,7 +78,9 @@
 				9CA9D30526B6DFBD00F9C822 /* LittleJohn */,
 				9CA9D30426B6DFBD00F9C822 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9CA9D30426B6DFBD00F9C822 /* Products */ = {
 			isa = PBXGroup;

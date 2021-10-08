@@ -47,6 +47,7 @@ class LittleJohnModel: ObservableObject {
       throw "The URL could not be created."
     }
   }
+
   /// A URL session that lets requests run indefinitely so we can receive live updates from server.
   private lazy var liveURLSession: URLSession = {
     var configuration = URLSessionConfiguration.default

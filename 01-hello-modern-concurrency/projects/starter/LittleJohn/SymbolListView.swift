@@ -45,6 +45,7 @@ struct SymbolListView: View {
   }
   @State var isDisplayingError = false
   @State var isDisplayingTicker = false
+
   var body: some View {
     NavigationView {
       VStack {

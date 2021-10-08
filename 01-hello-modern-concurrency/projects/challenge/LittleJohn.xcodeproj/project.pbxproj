@@ -12,7 +12,7 @@
 		9C39C0D926B9C64E007A318E /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C39C0D826B9C64E007A318E /* DataModels.swift */; };
 		9C39C0DB26B9C781007A318E /* LittleJohnModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C39C0DA26B9C781007A318E /* LittleJohnModel.swift */; };
 		9C59D76726B6F45200AB05B4 /* TickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C59D76626B6F45200AB05B4 /* TickerView.swift */; };
-		9CA9D30726B6DFBD00F9C822 /* LittleJohnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */; };
+		9CA9D30726B6DFBD00F9C822 /* StockedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA9D30626B6DFBD00F9C822 /* StockedApp.swift */; };
 		9CA9D30926B6DFBD00F9C822 /* SymbolListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA9D30826B6DFBD00F9C822 /* SymbolListView.swift */; };
 		9CA9D30B26B6DFBF00F9C822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CA9D30A26B6DFBF00F9C822 /* Assets.xcassets */; };
 		9CC9E05426C50CCF00E2B42E /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9CC9E05326C50CCF00E2B42E /* LICENSE */; };
@@ -26,7 +26,7 @@
 		9C39C0DA26B9C781007A318E /* LittleJohnModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleJohnModel.swift; sourceTree = "<group>"; };
 		9C59D76626B6F45200AB05B4 /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
 		9CA9D30326B6DFBD00F9C822 /* LittleJohn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleJohn.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleJohnApp.swift; sourceTree = "<group>"; };
+		9CA9D30626B6DFBD00F9C822 /* StockedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockedApp.swift; sourceTree = "<group>"; };
 		9CA9D30826B6DFBD00F9C822 /* SymbolListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolListView.swift; sourceTree = "<group>"; };
 		9CA9D30A26B6DFBF00F9C822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CC9E05326C50CCF00E2B42E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -78,7 +78,9 @@
 				9CA9D30526B6DFBD00F9C822 /* LittleJohn */,
 				9CA9D30426B6DFBD00F9C822 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9CA9D30426B6DFBD00F9C822 /* Products */ = {
 			isa = PBXGroup;
@@ -93,7 +95,7 @@
 			children = (
 				9C1AFC5626C284430009636E /* Assets */,
 				9C39C0D726B9C632007A318E /* Model */,
-				9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */,
+				9CA9D30626B6DFBD00F9C822 /* StockedApp.swift */,
 				9CA9D30826B6DFBD00F9C822 /* SymbolListView.swift */,
 				9C59D76626B6F45200AB05B4 /* TickerView.swift */,
 			);
@@ -175,7 +177,7 @@
 				9CA9D30926B6DFBD00F9C822 /* SymbolListView.swift in Sources */,
 				9C39C0DB26B9C781007A318E /* LittleJohnModel.swift in Sources */,
 				9C39C0D926B9C64E007A318E /* DataModels.swift in Sources */,
-				9CA9D30726B6DFBD00F9C822 /* LittleJohnApp.swift in Sources */,
+				9CA9D30726B6DFBD00F9C822 /* StockedApp.swift in Sources */,
 				9C59D76726B6F45200AB05B4 /* TickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

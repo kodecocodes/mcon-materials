@@ -36,9 +36,13 @@ import CoreLocation
 class ChatLocationDelegate: NSObject, CLLocationManagerDelegate {
   typealias LocationContinuation = CheckedContinuation<CLLocation, Error>
   private var continuation: LocationContinuation?
+  private let manager = CLLocationManager()
 
   init(continuation: LocationContinuation) {
     self.continuation = continuation
+    super.init()
+    manager.delegate = self
+    manager.requestWhenInUseAuthorization()
   }
 
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -59,7 +63,8 @@ class ChatLocationDelegate: NSObject, CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]
   ) {
-    continuation?.resume(returning: locations[0])
+    guard let location = locations.first else { return }
+    continuation?.resume(returning: location)
     continuation = nil
   }
 

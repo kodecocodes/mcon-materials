@@ -61,30 +61,10 @@ struct SymbolListView: View {
               ProgressView().padding()
             }
             ForEach(symbols, id: \.self) { symbolName in
-              Button(action: {
-                if !selected.insert(symbolName).inserted {
-                  selected.remove(symbolName)
-                }
-              }, label: {
-                HStack {
-                  HStack {
-                    if selected.contains(symbolName) {
-                      Image(systemName: "checkmark")
-                    }
-                  }
-                  .frame(width: 20)
-                  Text(symbolName)
-                    .fontWeight(.bold)
-                }
-              })
+              SymbolRow(symbolName: symbolName, selected: $selected)
             }
             .font(.custom("FantasqueSansMono-Regular", size: 18))
-          }, header: {
-            Label(" LittleJohn", systemImage: "chart.bar.xaxis")
-              .foregroundColor(Color(uiColor: .systemGreen))
-              .font(.custom("FantasqueSansMono-Regular", size: 42))
-              .padding(.bottom, 20)
-          })
+          }, header: Header.init)
         }
         .listStyle(PlainListStyle())
         .statusBar(hidden: true)

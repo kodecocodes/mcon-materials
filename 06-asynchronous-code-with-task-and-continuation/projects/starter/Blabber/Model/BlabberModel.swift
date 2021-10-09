@@ -44,36 +44,37 @@ class BlabberModel: ObservableObject {
   }
 
   /// Current live updates
-    @Published var messages: [Message] = []
+  @Published var messages: [Message] = []
+
+  /// A chat location delegate
+  private var delegate: ChatLocationDelegate?
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {
-    let manager = CLLocationManager()
-    manager.requestWhenInUseAuthorization()
-
-    var delegate: ChatLocationDelegate?
     let location: CLLocation = try await
-    withCheckedThrowingContinuation { continuation in
-      delegate = ChatLocationDelegate(continuation: continuation)
-      manager.delegate = delegate
+    withCheckedThrowingContinuation { [weak self] continuation in
+      self?.delegate = ChatLocationDelegate(continuation: continuation)
     }
+
     print(location.description)
+
     let address: String = try await
     withCheckedThrowingContinuation { continuation in
       AddressEncoder.addressFor(location: location) { address, error in
         switch (address, error) {
-        case (nil, .some(let error)):
+        case (nil, let error?):
           continuation.resume(throwing: error)
-        case (.some(let address), nil):
+        case (let address?, nil):
           continuation.resume(returning: address)
         case (nil, nil):
           continuation.resume(throwing: "Address encoding failed")
-        case let (.some(address), .some(error)):
+        case let (address?, error?):
           continuation.resume(returning: address)
           print(error)
         }
       }
     }
+
     try await say("📍 \(address)")
   }
 
@@ -135,19 +136,16 @@ class BlabberModel: ObservableObject {
     guard let first = try await iterator.next() else {
       throw "No response from server"
     }
-    guard
-      let data = first.data(using: .utf8),
-      let status = try? JSONDecoder().decode(ServerStatus.self, from: data)
-    else {
+
+    guard let data = first.data(using: .utf8),
+          let status = try? JSONDecoder()
+            .decode(ServerStatus.self, from: data) else {
       throw "Invalid response from server"
     }
 
     messages.append(
       Message(
-        id: UUID(),
-        user: nil,
-        message: "\(status.activeUsers) active users",
-        date: Date()
+        message: "\(status.activeUsers) active users"
       )
     )
 
@@ -211,9 +209,9 @@ class BlabberModel: ObservableObject {
 }
 
 extension AsyncSequence {
-  func forEach(_ block: (Element) async throws -> Void) async throws {
+  func forEach(_ body: (Element) async throws -> Void) async throws {
     for try await element in self {
-      try await block(element)
+      try await body(element)
     }
   }
 }

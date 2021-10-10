@@ -78,13 +78,16 @@ class BlabberModel: ObservableObject {
     try await say("📍 \(address)")
   }
 
+  var sleep: (UInt64) async throws -> Void = Task.sleep(nanoseconds:)
+
   /// Does a countdown and sends the message.
   func countdown(to message: String) async throws {
+    let sleep = self.sleep
     guard !message.isEmpty else { return }
     var countdown = 3
     let counter = AsyncStream<String> {
       do {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+        try await sleep(1_000_000_000)
       } catch {
         return nil
       }

@@ -43,13 +43,11 @@ class TestURLProtocol: URLProtocol {
   }
 
   static private var continuation: AsyncStream<URLRequest>.Continuation?
-
-  static var requests: AsyncStream<URLRequest> {
-    continuation?.finish()
+  static var requests: AsyncStream<URLRequest> = {
     return AsyncStream { continuation in
-      Self.continuation = continuation
+      TestURLProtocol.continuation = continuation
     }
-  }
+  }()
 
   override class func canInit(with request: URLRequest) -> Bool {
     return true

@@ -77,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				9C659CD72700FE530048C168 /* Database */,
-				9C659CD62700FE3C0048C168 /* Networking */,
 				9C8AFE1326FCDB5B00EC76D3 /* Model */,
 				9C8AFE1226FCDB5700EC76D3 /* Views */,
 				9C8AFE1126FCDAB500EC76D3 /* Assets */,
@@ -93,13 +92,6 @@
 				9C12FDB627011D0300A4AC4F /* LICENSE */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		9C659CD62700FE3C0048C168 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		9C659CD72700FE530048C168 /* Database */ = {

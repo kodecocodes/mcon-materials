@@ -83,13 +83,12 @@ struct LoadingView: View {
     }, message: {
       Text(lastErrorMessage)
     })
-    .onReceive(timer, perform: { _ in
+    .onReceive(timer) { _ in
       guard !model.imageFeed.isEmpty else { return }
 
       Task {
-        progress = await Double(model.verifiedCount) /
-          Double(model.imageFeed.count)
+        progress = await Double(model.verifiedCount) / Double(model.imageFeed.count)
       }
-    })
+    }
   }
 }

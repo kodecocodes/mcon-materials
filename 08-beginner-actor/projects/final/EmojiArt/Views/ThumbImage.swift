@@ -36,12 +36,11 @@ struct ThumbImage: View {
   let file: ImageFile
   @State var image = UIImage()
   @State var overlay = ""
+  @EnvironmentObject var imageLoader: ImageLoader
 
   @MainActor func updateImage(_ image: UIImage) {
     self.image = image
   }
-
-  @EnvironmentObject var imageLoader: ImageLoader
 
   var body: some View {
     Image(uiImage: image)

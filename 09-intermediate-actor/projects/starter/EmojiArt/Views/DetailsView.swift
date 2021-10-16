@@ -35,7 +35,6 @@ import SwiftUI
 struct DetailsView: View {
   let file: ImageFile
   @State var image: UIImage?
-
   @EnvironmentObject var imageLoader: ImageLoader
 
   var body: some View {

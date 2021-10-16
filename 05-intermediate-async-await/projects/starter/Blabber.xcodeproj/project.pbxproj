@@ -1,0 +1,596 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C1B549326D7611200CE4F70 /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */; };
+		9C1B549526D7626100CE4F70 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549426D7626100CE4F70 /* Utilities.swift */; };
+		9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C22D31C26D6A0F200983935 /* BlabberTests.swift */; };
+		9C22D32526D6C55600983935 /* InputStream+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C22D32426D6C55600983935 /* InputStream+.swift */; };
+		9C22D32726D6C59500983935 /* TestURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C22D32626D6C59500983935 /* TestURLProtocol.swift */; };
+		9C4B37CD26C289F500300602 /* StartUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C4B37CC26C289F500300602 /* StartUp.storyboard */; };
+		9C67694026D5548E00502FA3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9C67693F26D5548E00502FA3 /* LICENSE */; };
+		9C67694226D56DA700502FA3 /* ChatLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C67694126D56DA700502FA3 /* ChatLocationDelegate.swift */; };
+		9C6C0FD826BE532800DD99B3 /* BlabberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FD726BE532800DD99B3 /* BlabberApp.swift */; };
+		9C6C0FDA26BE532800DD99B3 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FD926BE532800DD99B3 /* ChatView.swift */; };
+		9C6C0FDC26BE532A00DD99B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C6C0FDB26BE532A00DD99B3 /* Assets.xcassets */; };
+		9C6C0FE626BE5D1200DD99B3 /* BlabberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FE526BE5D1200DD99B3 /* BlabberModel.swift */; };
+		9C6C0FE826BE609600DD99B3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6C0FE726BE609600DD99B3 /* LoginView.swift */; };
+		9C6C0FEB26BED0E800DD99B3 /* 19919.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C6C0FEA26BED0E800DD99B3 /* 19919.ttf */; };
+		9CCA913A26BF95A800066CF6 /* AddressEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCA913926BF95A800066CF6 /* AddressEncoder.swift */; };
+		9CE044E826C29EBD00BDF5AF /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E726C29EBD00BDF5AF /* DataModels.swift */; };
+		9CE044EA26C29EE100BDF5AF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E926C29EE100BDF5AF /* MessageView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C22D32126D6A38A00983935 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C6C0FCC26BE532800DD99B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C6C0FD326BE532800DD99B3;
+			remoteInfo = ChatUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
+		9C1B549426D7626100CE4F70 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		9C22D31A26D6A0F200983935 /* BlabberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlabberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C22D31C26D6A0F200983935 /* BlabberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlabberTests.swift; sourceTree = "<group>"; };
+		9C22D32426D6C55600983935 /* InputStream+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputStream+.swift"; sourceTree = "<group>"; };
+		9C22D32626D6C59500983935 /* TestURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLProtocol.swift; sourceTree = "<group>"; };
+		9C4B37CC26C289F500300602 /* StartUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartUp.storyboard; sourceTree = "<group>"; };
+		9C67693F26D5548E00502FA3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9C67694126D56DA700502FA3 /* ChatLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLocationDelegate.swift; sourceTree = "<group>"; };
+		9C6C0FD426BE532800DD99B3 /* Blabber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blabber.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C6C0FD726BE532800DD99B3 /* BlabberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlabberApp.swift; sourceTree = "<group>"; };
+		9C6C0FD926BE532800DD99B3 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		9C6C0FDB26BE532A00DD99B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C6C0FE526BE5D1200DD99B3 /* BlabberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlabberModel.swift; sourceTree = "<group>"; };
+		9C6C0FE726BE609600DD99B3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9C6C0FEA26BED0E800DD99B3 /* 19919.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 19919.ttf; sourceTree = "<group>"; };
+		9C6C0FEC26BED0F000DD99B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CCA913926BF95A800066CF6 /* AddressEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressEncoder.swift; sourceTree = "<group>"; };
+		9CE044E726C29EBD00BDF5AF /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		9CE044E926C29EE100BDF5AF /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C22D31726D6A0F200983935 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C6C0FD126BE532800DD99B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C22D31B26D6A0F200983935 /* BlabberTests */ = {
+			isa = PBXGroup;
+			children = (
+				9C22D32326D6C54A00983935 /* Utility */,
+				9C22D31C26D6A0F200983935 /* BlabberTests.swift */,
+			);
+			path = BlabberTests;
+			sourceTree = "<group>";
+		};
+		9C22D32326D6C54A00983935 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9C22D32426D6C55600983935 /* InputStream+.swift */,
+				9C22D32626D6C59500983935 /* TestURLProtocol.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9C4B37CB26C289B900300602 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9C6C0FDB26BE532A00DD99B3 /* Assets.xcassets */,
+				9C6C0FE926BED0DE00DD99B3 /* Fonts */,
+				9C6C0FEC26BED0F000DD99B3 /* Info.plist */,
+				9C4B37CC26C289F500300602 /* StartUp.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		9C67694326D56FBD00502FA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9CE044E926C29EE100BDF5AF /* MessageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9C6C0FCB26BE532800DD99B3 = {
+			isa = PBXGroup;
+			children = (
+				9C6C0FD626BE532800DD99B3 /* Blabber */,
+				9C22D31B26D6A0F200983935 /* BlabberTests */,
+				9C6C0FD526BE532800DD99B3 /* Products */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		9C6C0FD526BE532800DD99B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C6C0FD426BE532800DD99B3 /* Blabber.app */,
+				9C22D31A26D6A0F200983935 /* BlabberTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C6C0FD626BE532800DD99B3 /* Blabber */ = {
+			isa = PBXGroup;
+			children = (
+				9CE044E626C29EAF00BDF5AF /* Model */,
+				9C4B37CB26C289B900300602 /* Assets */,
+				9C67694326D56FBD00502FA3 /* Views */,
+				9C6C0FED26BF94CD00DD99B3 /* Utility */,
+				9C6C0FD726BE532800DD99B3 /* BlabberApp.swift */,
+				9C6C0FE726BE609600DD99B3 /* LoginView.swift */,
+				9C6C0FD926BE532800DD99B3 /* ChatView.swift */,
+			);
+			path = Blabber;
+			sourceTree = "<group>";
+		};
+		9C6C0FE926BED0DE00DD99B3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9C6C0FEA26BED0E800DD99B3 /* 19919.ttf */,
+				9C67693F26D5548E00502FA3 /* LICENSE */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9C6C0FED26BF94CD00DD99B3 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9CCA913926BF95A800066CF6 /* AddressEncoder.swift */,
+				9C67694126D56DA700502FA3 /* ChatLocationDelegate.swift */,
+				9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */,
+				9C1B549426D7626100CE4F70 /* Utilities.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9CE044E626C29EAF00BDF5AF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C6C0FE526BE5D1200DD99B3 /* BlabberModel.swift */,
+				9CE044E726C29EBD00BDF5AF /* DataModels.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C22D31926D6A0F200983935 /* BlabberTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C22D32026D6A0F200983935 /* Build configuration list for PBXNativeTarget "BlabberTests" */;
+			buildPhases = (
+				9C22D31626D6A0F200983935 /* Sources */,
+				9C22D31726D6A0F200983935 /* Frameworks */,
+				9C22D31826D6A0F200983935 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C22D32226D6A38A00983935 /* PBXTargetDependency */,
+			);
+			name = BlabberTests;
+			productName = ChatUITests;
+			productReference = 9C22D31A26D6A0F200983935 /* BlabberTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9C6C0FD326BE532800DD99B3 /* Blabber */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C6C0FE226BE532A00DD99B3 /* Build configuration list for PBXNativeTarget "Blabber" */;
+			buildPhases = (
+				795EF16326E4D0C20074D4C2 /* ShellScript */,
+				9C6C0FD026BE532800DD99B3 /* Sources */,
+				9C6C0FD126BE532800DD99B3 /* Frameworks */,
+				9C6C0FD226BE532800DD99B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Blabber;
+			productName = ChatUI;
+			productReference = 9C6C0FD426BE532800DD99B3 /* Blabber.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C6C0FCC26BE532800DD99B3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					9C22D31926D6A0F200983935 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 9C6C0FD326BE532800DD99B3;
+					};
+					9C6C0FD326BE532800DD99B3 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+				};
+			};
+			buildConfigurationList = 9C6C0FCF26BE532800DD99B3 /* Build configuration list for PBXProject "Blabber" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9C6C0FCB26BE532800DD99B3;
+			productRefGroup = 9C6C0FD526BE532800DD99B3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9C6C0FD326BE532800DD99B3 /* Blabber */,
+				9C22D31926D6A0F200983935 /* BlabberTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9C22D31826D6A0F200983935 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C6C0FD226BE532800DD99B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C4B37CD26C289F500300602 /* StartUp.storyboard in Resources */,
+				9C6C0FEB26BED0E800DD99B3 /* 19919.ttf in Resources */,
+				9C6C0FDC26BE532A00DD99B3 /* Assets.xcassets in Resources */,
+				9C67694026D5548E00502FA3 /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		795EF16326E4D0C20074D4C2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C22D31626D6A0F200983935 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */,
+				9C22D32526D6C55600983935 /* InputStream+.swift in Sources */,
+				9C22D32726D6C59500983935 /* TestURLProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C6C0FD026BE532800DD99B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C6C0FDA26BE532800DD99B3 /* ChatView.swift in Sources */,
+				9C67694226D56DA700502FA3 /* ChatLocationDelegate.swift in Sources */,
+				9C6C0FD826BE532800DD99B3 /* BlabberApp.swift in Sources */,
+				9CCA913A26BF95A800066CF6 /* AddressEncoder.swift in Sources */,
+				9C1B549326D7611200CE4F70 /* NotificationCenter+.swift in Sources */,
+				9CE044E826C29EBD00BDF5AF /* DataModels.swift in Sources */,
+				9C6C0FE826BE609600DD99B3 /* LoginView.swift in Sources */,
+				9CE044EA26C29EE100BDF5AF /* MessageView.swift in Sources */,
+				9C1B549526D7626100CE4F70 /* Utilities.swift in Sources */,
+				9C6C0FE626BE5D1200DD99B3 /* BlabberModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C22D32226D6A38A00983935 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9C6C0FD326BE532800DD99B3 /* Blabber */;
+			targetProxy = 9C22D32126D6A38A00983935 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9C22D31E26D6A0F200983935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.BlabberTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blabber.app/Blabber";
+			};
+			name = Debug;
+		};
+		9C22D31F26D6A0F200983935 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.BlabberTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blabber.app/Blabber";
+			};
+			name = Release;
+		};
+		9C6C0FE026BE532A00DD99B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9C6C0FE126BE532A00DD99B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9C6C0FE326BE532A00DD99B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Blabber/Assets/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Blabber;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		9C6C0FE426BE532A00DD99B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Blabber/Assets/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Blabber;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C22D32026D6A0F200983935 /* Build configuration list for PBXNativeTarget "BlabberTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C22D31E26D6A0F200983935 /* Debug */,
+				9C22D31F26D6A0F200983935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C6C0FCF26BE532800DD99B3 /* Build configuration list for PBXProject "Blabber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C6C0FE026BE532A00DD99B3 /* Debug */,
+				9C6C0FE126BE532A00DD99B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C6C0FE226BE532A00DD99B3 /* Build configuration list for PBXNativeTarget "Blabber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C6C0FE326BE532A00DD99B3 /* Debug */,
+				9C6C0FE426BE532A00DD99B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C6C0FCC26BE532800DD99B3 /* Project object */;
+}

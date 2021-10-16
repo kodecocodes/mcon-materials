@@ -34,14 +34,13 @@ import UIKit
 
 @globalActor actor ImageDatabase {
   static let shared = ImageDatabase()
-
   let imageLoader = ImageLoader()
 
   private var storage: DiskStorage!
   private var storedImagesIndex: [String] = []
 
   func setUp() async throws {
-    storage = try await DiskStorage()
+    storage = await DiskStorage()
     for fileURL in try await storage.persistedFiles() {
       storedImagesIndex.append(fileURL.lastPathComponent)
     }
@@ -64,24 +63,20 @@ import UIKit
     }
 
     do {
-      // 1
       let fileName = DiskStorage.fileName(for: key)
       if !storedImagesIndex.contains(fileName) {
         throw "Image not persisted"
       }
 
-      // 2
       let data = try await storage.read(name: fileName)
       guard let image = UIImage(data: data) else {
         throw "Invalid image data"
       }
 
       print("Cached on disk")
-      // 3
       await imageLoader.add(image, forKey: key)
       return image
     } catch {
-      // 4
       let image = try await imageLoader.image(key)
       try await store(image: image, forKey: key)
       return image

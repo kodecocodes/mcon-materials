@@ -35,7 +35,7 @@ import Foundation
 @ImageDatabase class DiskStorage {
   private var folder: URL
 
-  init() throws {
+  init() {
     guard let supportFolderURL = FileManager.default
       .urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
       fatalError("Couldn't open the application support folder")

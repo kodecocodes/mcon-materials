@@ -104,6 +104,10 @@ import UIKit
     onDiskAccessCounter = 0
   }
 
+  func clearInMemoryAssets() async {
+    await imageLoader.clear()
+  }
+
   deinit {
     onDiskAcccessContinuation?.finish()
   }

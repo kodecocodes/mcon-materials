@@ -48,7 +48,7 @@ struct BottomToolbar: View {
 
       Button(action: {
         Task {
-          await ImageDatabase.shared.imageLoader.clear()
+          await ImageDatabase.shared.clearInMemoryAssets()
           try await model.loadImages()
         }
       }, label: {

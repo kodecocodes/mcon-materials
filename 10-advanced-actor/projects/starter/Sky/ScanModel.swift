@@ -76,6 +76,7 @@ class ScanModel: ObservableObject {
         case .failure(let error):
           print("Failed: \(error.localizedDescription)")
         }
+
         if index < total {
           group.addTask { [index] in
             await self.worker(number: index)

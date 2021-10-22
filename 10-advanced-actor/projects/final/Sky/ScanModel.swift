@@ -33,6 +33,11 @@
 import Foundation
 
 class ScanModel: ObservableObject {
+  @MainActor @Published var isConnected = false
+  @MainActor @Published var isCollaborating = false
+  private var systems: Systems
+  private(set) var service: ScanTransport
+
   // MARK: - Private state
   private var counted = 0
   private var started = Date()
@@ -57,14 +62,6 @@ class ScanModel: ObservableObject {
 
   @Published var total: Int
 
-  @MainActor @Published var isCollaborating = false
-
-  // MARK: - Distributed actors
-
-  @MainActor @Published var isConnected = false
-  private var systems: Systems
-  private(set) var service: ScanTransport
-
   // MARK: - Methods
 
   init(total: Int, localName: String) {
@@ -76,10 +73,45 @@ class ScanModel: ObservableObject {
     systemConnectivityHandler()
   }
 
+  func run(_ task: ScanTask) async throws -> String {
+    Task { @MainActor in scheduled += 1 }
+    defer {
+      Task { @MainActor in scheduled -= 1 }
+    }
+    return try await systems.localSystem.run(task)
+  }
+
+  func systemConnectivityHandler() {
+    Task {
+      for await notification in
+        NotificationCenter.default.notifications(named: .connected) {
+        guard let name = notification.object as? String else { continue }
+        print("[Notification] Connected: \(name)")
+        await systems.addSystem(name: name, service: self.service)
+        Task { @MainActor in
+          isConnected = await systems.systems.count > 1
+        }
+      }
+    }
+
+    Task {
+      for await notification in
+        NotificationCenter.default.notifications(named: .disconnected) {
+        guard let name = notification.object as? String else { return }
+        print("[Notification] Disconnected: \(name)")
+        await systems.removeSystem(name: name)
+        Task { @MainActor in
+          isConnected = await systems.systems.count > 1
+        }
+      }
+    }
+  }
+
   func runAllTasks() async throws {
     started = Date()
     try await withThrowingTaskGroup(
-      of: ScanTaskResult.self) { [unowned self] group in
+      of: Result<String, ScanTaskError>.self
+    ) { [unowned self] group in
       for number in 0 ..< total {
         let system = await systems.firstAvailableSystem()
         group.addTask {
@@ -91,11 +123,12 @@ class ScanModel: ObservableObject {
         switch result {
         case .success(let result):
           print("Completed: \(result)")
-        case .failed(let task):
+        case .failure(let error):
           group.addTask(priority: .high) {
-            print("Re-run task: \(task.input)")
+            print("Re-run task: \(error.task.input).",
+                  "Failed with: \(error.underlyingError.localizedDescription)")
             return await self.worker(
-              number: task.input,
+              number: error.task.input,
               system: self.systems.localSystem)
           }
         }
@@ -109,7 +142,8 @@ class ScanModel: ObservableObject {
     }
   }
 
-  func worker(number: Int, system: ScanSystem) async -> ScanTaskResult {
+  func worker(number: Int, system: ScanSystem) async
+  -> Result<String, ScanTaskError> {
     await onScheduled()
 
     let task = ScanTask(input: number)
@@ -118,51 +152,14 @@ class ScanModel: ObservableObject {
     do {
       result = try await system.run(task)
     } catch {
-      return .failed(task)
+      return .failure(.init(
+        underlyingError: error,
+        task: task
+      ))
     }
 
     await onTaskCompleted()
     return .success(result)
-  }
-
-  func systemConnectivityHandler() {
-    Task {
-      for await notification in
-        NotificationCenter.default.notifications(named: .connected) {
-        if let name = notification.object as? String {
-          print("[Notification] Connected: \(name)")
-          await systems.addSystem(name: name, service: self.service)
-          Task { @MainActor in
-            isConnected = await systems.systems.count > 1
-          }
-        }
-      }
-    }
-    Task {
-      for await notification in
-        NotificationCenter.default.notifications(named: .disconnected) {
-        if let name = notification.object as? String {
-          print("[Notification] Disconnected: \(name)")
-          await systems.removeSystem(name: name)
-          Task { @MainActor in
-            isConnected = await systems.systems.count > 1
-          }
-        }
-      }
-    }
-  }
-
-  func run(_ task: ScanTask) async throws -> String {
-    Task { @MainActor in scheduled += 1 }
-    defer {
-      Task { @MainActor in scheduled -= 1 }
-    }
-    return try await systems.localSystem.run(task)
-  }
-
-  enum ScanTaskResult {
-    case success(String)
-    case failed(ScanTask)
   }
 }
 
@@ -181,4 +178,9 @@ extension ScanModel {
   private func onScheduled() {
     scheduled += 1
   }
+}
+
+struct ScanTaskError: Error {
+  let underlyingError: Error
+  let task: ScanTask
 }

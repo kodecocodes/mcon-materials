@@ -35,12 +35,10 @@ import Foundation
 actor Systems {
   private(set) var systems: [ScanSystem]
 
+  var localSystem: ScanSystem { systems[0] }
+
   init(_ localSystem: ScanSystem) {
     systems = [localSystem]
-  }
-
-  var localSystem: ScanSystem {
-    return systems[0]
   }
 
   func addSystem(name: String, service: ScanTransport) {

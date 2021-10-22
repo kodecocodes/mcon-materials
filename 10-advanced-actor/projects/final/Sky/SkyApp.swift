@@ -90,16 +90,16 @@ struct SkyApp: App {
           .buttonStyle(.bordered)
           .disabled(isScanning)
         }
-        .alert("Message", isPresented: $isDisplayingMessage, actions: {
-          Button("Close", role: .cancel) { }
-        }, message: {
-          Text(lastMessage)
-        })
         .toolbar {
           if scanModel.isConnected {
             Image(systemName: "link.circle")
           }
         }
+        .alert("Message", isPresented: $isDisplayingMessage, actions: {
+          Button("Close", role: .cancel) { }
+        }, message: {
+          Text(lastMessage)
+        })
         .padding()
         .statusBar(hidden: true)
       }

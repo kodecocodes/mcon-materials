@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		799665672708925200ECF21A /* ScanSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799665662708925200ECF21A /* ScanSystem.swift */; };
-		799665692708941D00ECF21A /* Systems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799665682708941D00ECF21A /* Systems.swift */; };
 		9C04757826EB5534009EA1EC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9C04757726EB5534009EA1EC /* LICENSE */; };
 		9C594C4326BD84520027B2C4 /* Datalegreya-Gradient.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */; };
 		9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C594C4726BD9F880027B2C4 /* ScanTask.swift */; };
@@ -20,11 +18,11 @@
 		9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE7D26A144E50010330C /* ScanningView.swift */; };
 		9CD5AE8126A145030010330C /* ScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8026A145030010330C /* ScanModel.swift */; };
 		9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8326A186BB0010330C /* ScanTransport.swift */; };
+		DB97B0A7272338310000C3A9 /* ScanSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97B0A6272338310000C3A9 /* ScanSystem.swift */; };
+		DB97B0A927233A420000C3A9 /* Systems.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97B0A827233A420000C3A9 /* Systems.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		799665662708925200ECF21A /* ScanSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSystem.swift; sourceTree = "<group>"; };
-		799665682708941D00ECF21A /* Systems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Systems.swift; sourceTree = "<group>"; };
 		9C04757726EB5534009EA1EC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Datalegreya-Gradient.otf"; sourceTree = "<group>"; };
 		9C594C4726BD9F880027B2C4 /* ScanTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTask.swift; sourceTree = "<group>"; };
@@ -38,6 +36,8 @@
 		9CD5AE7D26A144E50010330C /* ScanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
 		9CD5AE8026A145030010330C /* ScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanModel.swift; sourceTree = "<group>"; };
 		9CD5AE8326A186BB0010330C /* ScanTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTransport.swift; sourceTree = "<group>"; };
+		DB97B0A6272338310000C3A9 /* ScanSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSystem.swift; sourceTree = "<group>"; };
+		DB97B0A827233A420000C3A9 /* Systems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Systems.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				9C594C4726BD9F880027B2C4 /* ScanTask.swift */,
-				799665662708925200ECF21A /* ScanSystem.swift */,
-				799665682708941D00ECF21A /* Systems.swift */,
+				DB97B0A6272338310000C3A9 /* ScanSystem.swift */,
+				DB97B0A827233A420000C3A9 /* Systems.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -230,12 +230,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				799665692708941D00ECF21A /* Systems.swift in Sources */,
+				DB97B0A927233A420000C3A9 /* Systems.swift in Sources */,
 				9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */,
 				9CD220CD26EA00D2007F8A1E /* Utility.swift in Sources */,
 				9CD5AE6E26A13FB10010330C /* SkyApp.swift in Sources */,
 				9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */,
-				799665672708925200ECF21A /* ScanSystem.swift in Sources */,
+				DB97B0A7272338310000C3A9 /* ScanSystem.swift in Sources */,
 				9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */,
 				9C934CEF26EA124F0046A00D /* TitleView.swift in Sources */,
 				9C92C33726EA61C600115EC7 /* TimeoutTask.swift in Sources */,

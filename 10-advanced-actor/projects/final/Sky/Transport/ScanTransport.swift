@@ -71,30 +71,25 @@ class ScanTransport: NSObject {
     serviceBrowser.startBrowsingForPeers()
   }
 
-  deinit {
-    session.delegate = nil
-    serviceAdvertiser.stopAdvertisingPeer()
-    serviceAdvertiser.delegate = nil
-    serviceBrowser.stopBrowsingForPeers()
-    serviceBrowser.delegate = nil
-  }
-
-  func send(task: ScanTask, to recipient: String)
-  async throws -> String {
+  func send(
+    task: ScanTask,
+    to recipient: String
+  ) async throws -> String {
     guard let targetPeer = session.connectedPeers.first(
       where: { $0.displayName == recipient }) else {
         throw "Peer '\(recipient)' not connected anymore."
       }
+
     let payload = try JSONEncoder().encode(task)
     try session.send(payload, toPeers: [targetPeer], with: .reliable)
 
     let networkRequest = TimeoutTask(seconds: 5) { () -> String in
       for await notification in
         NotificationCenter.default.notifications(named: .response) {
-        if let response = notification.object as? TaskResponse,
-          response.id == task.id {
-          return "\(response.result) by \(recipient)"
-        }
+        guard let response = notification.object as? TaskResponse,
+              response.id == task.id else { continue }
+
+        return "\(response.result) by \(recipient)"
       }
       fatalError("Will never execute")
     }
@@ -102,10 +97,9 @@ class ScanTransport: NSObject {
     Task {
       for await notification in
         NotificationCenter.default.notifications(named: .disconnected) {
-        if let peerName = notification.object as? String,
-          peerName == recipient {
-          await networkRequest.cancel()
-        }
+        guard notification.object as? String == recipient else { continue }
+
+        await networkRequest.cancel()
       }
     }
 
@@ -119,6 +113,14 @@ class ScanTransport: NSObject {
 
     let payload = try JSONEncoder().encode(response)
     try session.send(payload, toPeers: [peerID], with: .reliable)
+  }
+
+  deinit {
+    session.delegate = nil
+    serviceAdvertiser.stopAdvertisingPeer()
+    serviceAdvertiser.delegate = nil
+    serviceBrowser.stopBrowsingForPeers()
+    serviceBrowser.delegate = nil
   }
 }
 
@@ -145,7 +147,7 @@ extension ScanTransport: MCSessionDelegate {
     if let task = try? decoder.decode(ScanTask.self, from: data) {
       Task { [weak self] in
         guard let self = self,
-          let taskModel = self.taskModel else { return }
+              let taskModel = self.taskModel else { return }
 
         let result = try await taskModel.run(task)
         let response = TaskResponse(result: result, id: task.id)

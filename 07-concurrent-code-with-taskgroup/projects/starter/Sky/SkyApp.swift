@@ -52,7 +52,7 @@ struct SkyApp: App {
     WindowGroup {
       NavigationView {
         VStack {
-          TitleView(isAnimating: .constant(false))
+          TitleView(isAnimating: $scanModel.isCollaborating)
 
           Text("Scanning deep space")
             .font(.subheadline)

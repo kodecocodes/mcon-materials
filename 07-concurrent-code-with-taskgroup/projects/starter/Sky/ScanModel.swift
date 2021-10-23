@@ -50,6 +50,8 @@ class ScanModel: ObservableObject {
 
   @Published var total: Int
 
+	@MainActor @Published var isCollaborating = false
+	
   // MARK: - Methods
 
   init(total: Int, localName: String) {

@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C04757826EB5534009EA1EC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9C04757726EB5534009EA1EC /* LICENSE */; };
+		9C594C4326BD84520027B2C4 /* Datalegreya-Gradient.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */; };
+		9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C594C4726BD9F880027B2C4 /* ScanTask.swift */; };
+		9C92C33726EA61C600115EC7 /* TimeoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C92C33626EA61C600115EC7 /* TimeoutTask.swift */; };
+		9C934CEF26EA124F0046A00D /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C934CEE26EA124F0046A00D /* TitleView.swift */; };
+		9CD220CD26EA00D2007F8A1E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD220CC26EA00D2007F8A1E /* Utility.swift */; };
+		9CD5AE6E26A13FB10010330C /* SkyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE6026A13FB00010330C /* SkyApp.swift */; };
+		9CD5AE7226A13FB10010330C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CD5AE6226A13FB10010330C /* Assets.xcassets */; };
+		9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE7D26A144E50010330C /* ScanningView.swift */; };
+		9CD5AE8126A145030010330C /* ScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8026A145030010330C /* ScanModel.swift */; };
+		9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8326A186BB0010330C /* ScanTransport.swift */; };
+		DB97B0A7272338310000C3A9 /* ScanSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97B0A6272338310000C3A9 /* ScanSystem.swift */; };
+		DB97B0A927233A420000C3A9 /* Systems.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97B0A827233A420000C3A9 /* Systems.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9C04757726EB5534009EA1EC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Datalegreya-Gradient.otf"; sourceTree = "<group>"; };
+		9C594C4726BD9F880027B2C4 /* ScanTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTask.swift; sourceTree = "<group>"; };
+		9C92C33626EA61C600115EC7 /* TimeoutTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeoutTask.swift; sourceTree = "<group>"; };
+		9C934CEE26EA124F0046A00D /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		9CD220CC26EA00D2007F8A1E /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		9CD5AE6026A13FB00010330C /* SkyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyApp.swift; sourceTree = "<group>"; };
+		9CD5AE6226A13FB10010330C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9CD5AE6726A13FB10010330C /* Sky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sky.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CD5AE7C26A13FDC0010330C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CD5AE7D26A144E50010330C /* ScanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
+		9CD5AE8026A145030010330C /* ScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanModel.swift; sourceTree = "<group>"; };
+		9CD5AE8326A186BB0010330C /* ScanTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTransport.swift; sourceTree = "<group>"; };
+		DB97B0A6272338310000C3A9 /* ScanSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSystem.swift; sourceTree = "<group>"; };
+		DB97B0A827233A420000C3A9 /* Systems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Systems.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9CD5AE6426A13FB10010330C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C4B37CE26C28CE400300602 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9C594C3E26BD781A0027B2C4 /* Fonts */,
+				9CD5AE6226A13FB10010330C /* Assets.xcassets */,
+				9CD5AE7C26A13FDC0010330C /* Info.plist */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		9C594C3E26BD781A0027B2C4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9C04757726EB5534009EA1EC /* LICENSE */,
+				9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9C594C4526BD9E6D0027B2C4 /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				9CD5AE8326A186BB0010330C /* ScanTransport.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		9C594C4626BD9F790027B2C4 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				9C594C4726BD9F880027B2C4 /* ScanTask.swift */,
+				DB97B0A6272338310000C3A9 /* ScanSystem.swift */,
+				DB97B0A827233A420000C3A9 /* Systems.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		9C934CED26EA12420046A00D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9CD5AE7D26A144E50010330C /* ScanningView.swift */,
+				9C934CEE26EA124F0046A00D /* TitleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9CD220CB26EA00C2007F8A1E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9C92C33626EA61C600115EC7 /* TimeoutTask.swift */,
+				9CD220CC26EA00D2007F8A1E /* Utility.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9CD5AE5A26A13FB00010330C = {
+			isa = PBXGroup;
+			children = (
+				9C4B37CE26C28CE400300602 /* Assets */,
+				9CD5AE5F26A13FB00010330C /* Sky */,
+				9CD5AE6826A13FB10010330C /* Products */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		9CD5AE5F26A13FB00010330C /* Sky */ = {
+			isa = PBXGroup;
+			children = (
+				9CD220CB26EA00C2007F8A1E /* Utility */,
+				9C594C4626BD9F790027B2C4 /* Tasks */,
+				9C594C4526BD9E6D0027B2C4 /* Transport */,
+				9C934CED26EA12420046A00D /* Views */,
+				9CD5AE8026A145030010330C /* ScanModel.swift */,
+				9CD5AE6026A13FB00010330C /* SkyApp.swift */,
+			);
+			path = Sky;
+			sourceTree = "<group>";
+		};
+		9CD5AE6826A13FB10010330C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9CD5AE6726A13FB10010330C /* Sky.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9CD5AE6626A13FB10010330C /* Sky (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CD5AE7626A13FB10010330C /* Build configuration list for PBXNativeTarget "Sky (iOS)" */;
+			buildPhases = (
+				9C92C33526EA606100115EC7 /* ShellScript */,
+				9CD5AE6326A13FB10010330C /* Sources */,
+				9CD5AE6426A13FB10010330C /* Frameworks */,
+				9CD5AE6526A13FB10010330C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sky (iOS)";
+			productName = "ActorsUnite (iOS)";
+			productReference = 9CD5AE6726A13FB10010330C /* Sky.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9CD5AE5B26A13FB00010330C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					9CD5AE6626A13FB10010330C = {
+						CreatedOnToolsVersion = 13.0;
+					};
+				};
+			};
+			buildConfigurationList = 9CD5AE5E26A13FB00010330C /* Build configuration list for PBXProject "Sky" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9CD5AE5A26A13FB00010330C;
+			productRefGroup = 9CD5AE6826A13FB10010330C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9CD5AE6626A13FB10010330C /* Sky (iOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9CD5AE6526A13FB10010330C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C04757826EB5534009EA1EC /* LICENSE in Resources */,
+				9CD5AE7226A13FB10010330C /* Assets.xcassets in Resources */,
+				9C594C4326BD84520027B2C4 /* Datalegreya-Gradient.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9C92C33526EA606100115EC7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9CD5AE6326A13FB10010330C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB97B0A927233A420000C3A9 /* Systems.swift in Sources */,
+				9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */,
+				9CD220CD26EA00D2007F8A1E /* Utility.swift in Sources */,
+				9CD5AE6E26A13FB10010330C /* SkyApp.swift in Sources */,
+				9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */,
+				DB97B0A7272338310000C3A9 /* ScanSystem.swift in Sources */,
+				9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */,
+				9C934CEF26EA124F0046A00D /* TitleView.swift in Sources */,
+				9C92C33726EA61C600115EC7 /* TimeoutTask.swift in Sources */,
+				9CD5AE8126A145030010330C /* ScanModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9CD5AE7426A13FB10010330C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9CD5AE7526A13FB10010330C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		9CD5AE7726A13FB10010330C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assets/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use devices across the local network to scan for alien life signs.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.sky;
+				PRODUCT_NAME = Sky;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		9CD5AE7826A13FB10010330C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assets/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use devices across the local network to scan for alien life signs.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.sky;
+				PRODUCT_NAME = Sky;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9CD5AE5E26A13FB00010330C /* Build configuration list for PBXProject "Sky" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CD5AE7426A13FB10010330C /* Debug */,
+				9CD5AE7526A13FB10010330C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CD5AE7626A13FB10010330C /* Build configuration list for PBXNativeTarget "Sky (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CD5AE7726A13FB10010330C /* Debug */,
+				9CD5AE7826A13FB10010330C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9CD5AE5B26A13FB00010330C /* Project object */;
+}

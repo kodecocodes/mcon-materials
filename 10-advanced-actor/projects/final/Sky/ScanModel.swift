@@ -125,8 +125,10 @@ class ScanModel: ObservableObject {
           print("Completed: \(result)")
         case .failure(let error):
           group.addTask(priority: .high) {
-            print("Re-run task: \(error.task.input).",
-                  "Failed with: \(error.underlyingError.localizedDescription)")
+            print(
+							"Re-run task: \(error.task.input).",
+							"Failed with: \(error.underlyingError.localizedDescription)"
+						)
             return await self.worker(
               number: error.task.input,
               system: self.systems.localSystem)

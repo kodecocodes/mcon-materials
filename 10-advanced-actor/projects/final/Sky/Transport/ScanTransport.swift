@@ -87,7 +87,7 @@ class ScanTransport: NSObject {
       for await notification in
         NotificationCenter.default.notifications(named: .response) {
         guard let response = notification.object as? TaskResponse,
-              response.id == task.id else { continue }
+					response.id == task.id else { continue }
 
         return "\(response.result) by \(recipient)"
       }
@@ -147,7 +147,7 @@ extension ScanTransport: MCSessionDelegate {
     if let task = try? decoder.decode(ScanTask.self, from: data) {
       Task { [weak self] in
         guard let self = self,
-              let taskModel = self.taskModel else { return }
+					let taskModel = self.taskModel else { return }
 
         let result = try await taskModel.run(task)
         let response = TaskResponse(result: result, id: task.id)

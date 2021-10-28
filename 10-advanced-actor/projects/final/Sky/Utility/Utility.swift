@@ -52,7 +52,6 @@ extension Task where Success == Never, Failure == Never {
   }
 }
 
-// swiftlint:disable:next convenience_type
 actor UnreliableAPI {
   struct Error: LocalizedError {
     var errorDescription: String? {

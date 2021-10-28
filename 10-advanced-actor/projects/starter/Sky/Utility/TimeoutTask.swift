@@ -58,7 +58,6 @@ class TimeoutTask<Success> {
   }
 
   var value: Success {
-    // swiftlint:disable:next implicit_getter
     get async throws {
       return try await
         withCheckedThrowingContinuation { continuation in

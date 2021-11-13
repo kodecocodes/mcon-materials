@@ -71,8 +71,8 @@ class BlabberModel: ObservableObject {
       }
     }
 
-    try await counter.forEach { [weak self] in
-      try await self?.say($0)
+    try await counter.forEach {
+      try await self.say($0)
     }
   }
 

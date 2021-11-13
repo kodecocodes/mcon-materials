@@ -37,12 +37,12 @@ import UIKit
   let imageLoader = ImageLoader()
 
   private var storage: DiskStorage!
-  private var storedImagesIndex: [String] = []
+  private var storedImagesIndex = Set<String>()
 
   func setUp() async throws {
     storage = await DiskStorage()
     for fileURL in try await storage.persistedFiles() {
-      storedImagesIndex.append(fileURL.lastPathComponent)
+      storedImagesIndex.insert(fileURL.lastPathComponent)
     }
     await imageLoader.setUp()
   }
@@ -53,7 +53,7 @@ import UIKit
     }
     let fileName = DiskStorage.fileName(for: key)
     try await storage.write(data, name: fileName)
-    storedImagesIndex.append(fileName)
+    storedImagesIndex.insert(fileName)
   }
 
   func image(_ key: String) async throws -> UIImage {

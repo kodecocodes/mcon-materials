@@ -44,7 +44,7 @@ class TestURLProtocol: URLProtocol {
 
   static private var continuation: AsyncStream<URLRequest>.Continuation?
   static var requests: AsyncStream<URLRequest> = {
-    return AsyncStream { continuation in
+    AsyncStream { continuation in
       TestURLProtocol.continuation = continuation
     }
   }()

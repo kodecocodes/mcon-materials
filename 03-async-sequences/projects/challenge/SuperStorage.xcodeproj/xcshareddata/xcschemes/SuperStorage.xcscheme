@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1300"
+   LastUpgradeVersion = "1320"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9CD5AE6626A13FB10010330C"
-               BuildableName = "Sky.app"
-               BlueprintName = "Sky (iOS)"
-               ReferencedContainer = "container:Sky.xcodeproj">
+               BlueprintIdentifier = "9C972CCE26C116F600E48FAC"
+               BuildableName = "SuperStorage.app"
+               BlueprintName = "SuperStorage"
+               ReferencedContainer = "container:SuperStorage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9CD5AE6626A13FB10010330C"
-            BuildableName = "Sky.app"
-            BlueprintName = "Sky (iOS)"
-            ReferencedContainer = "container:Sky.xcodeproj">
+            BlueprintIdentifier = "9C972CCE26C116F600E48FAC"
+            BuildableName = "SuperStorage.app"
+            BlueprintName = "SuperStorage"
+            ReferencedContainer = "container:SuperStorage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,10 +62,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9CD5AE6626A13FB10010330C"
-            BuildableName = "Sky.app"
-            BlueprintName = "Sky (iOS)"
-            ReferencedContainer = "container:Sky.xcodeproj">
+            BlueprintIdentifier = "9C972CCE26C116F600E48FAC"
+            BuildableName = "SuperStorage.app"
+            BlueprintName = "SuperStorage"
+            ReferencedContainer = "container:SuperStorage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

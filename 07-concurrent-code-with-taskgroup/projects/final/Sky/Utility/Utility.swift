@@ -59,9 +59,11 @@ actor UnreliableAPI {
     }
   }
 
-  static var counter = 0
+  static let shared = UnreliableAPI()
 
-  static func action(failingEvery: Int) throws {
+  var counter = 0
+
+  func action(failingEvery: Int) throws {
     counter += 1
     if counter % failingEvery == 0 {
       counter = 0

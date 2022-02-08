@@ -57,7 +57,8 @@ import UIKit
   }
 
   func image(_ key: String) async throws -> UIImage {
-    if await imageLoader.cache.keys.contains(key) {
+    let keys = await imageLoader.cache.keys
+    if keys.contains(key) {
       print("Cached in-memory")
       return try await imageLoader.image(key)
     }

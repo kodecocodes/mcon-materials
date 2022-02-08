@@ -48,7 +48,7 @@ extension Task where Success == Never, Failure == Never {
   /// Suspends the current task for at least the given duration in seconds.
   /// - Parameter seconds: The sleep duration in seconds.
   static func sleep(seconds: TimeInterval) async {
-		try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+    try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
   }
 }
 

@@ -97,9 +97,10 @@ class SuperStorageModel: ObservableObject {
         let byte = try await asyncDownloadIterator.next() {
         accumulator.append(byte)
       }
-      Task.detached(priority: .medium) { [weak self] in
-        await self?
-          .updateDownload(name: name, progress: accumulator.progress)
+      let progress = accumulator.progress
+      Task.detached(priority: .medium) {
+        await self
+          .updateDownload(name: name, progress: progress)
       }
       print(accumulator.description)
     }

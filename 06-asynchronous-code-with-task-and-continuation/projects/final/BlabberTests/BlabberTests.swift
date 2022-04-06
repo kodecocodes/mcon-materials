@@ -68,13 +68,13 @@ class BlabberTests: XCTestCase {
     async let messages = TimeoutTask(seconds: 10) {
       await TestURLProtocol.requests
         .prefix(4)
-        .reduce(into: []) { result, request in
-          result.append(request)
-        }
         .compactMap(\.httpBody)
         .compactMap { data in
           try? JSONDecoder()
             .decode(Message.self, from: data).message
+        }
+        .reduce(into: []) { result, request in
+          result.append(request)
         }
     }
     .value

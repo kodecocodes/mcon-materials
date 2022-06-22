@@ -90,7 +90,7 @@ class SuperStorageModel: ObservableObject {
 
     var asyncDownloadIterator = result.downloadStream.makeAsyncIterator()
 
-    let accumulator = ByteAccumulator(name: name, size: size)
+    var accumulator = ByteAccumulator(name: name, size: size)
 
     while !stopDownloads, !accumulator.checkCompleted() {
       while !accumulator.isBatchCompleted,

@@ -33,7 +33,7 @@
 import Foundation
 
 /// Type that accumulates incoming data into an array of bytes.
-class ByteAccumulator: CustomStringConvertible {
+struct ByteAccumulator: CustomStringConvertible {
   private var offset = 0
   private var counter = -1
   private let name: String
@@ -51,7 +51,7 @@ class ByteAccumulator: CustomStringConvertible {
   }
 
   /// Appends a byte to the accumulator.
-  func append(_ byte: UInt8) {
+  mutating func append(_ byte: UInt8) {
     bytes[offset] = byte
     counter += 1
     offset += 1
@@ -62,7 +62,7 @@ class ByteAccumulator: CustomStringConvertible {
     return counter >= chunkCount
   }
 
-  func checkCompleted() -> Bool {
+  mutating func checkCompleted() -> Bool {
     defer { counter = 0 }
     return counter == 0
   }

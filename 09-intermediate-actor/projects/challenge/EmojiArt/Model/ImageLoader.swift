@@ -43,13 +43,13 @@ actor ImageLoader: ObservableObject {
   @MainActor private(set) var inMemoryAccess: AsyncStream<Int>?
 
   private var inMemoryAccessCounter = 0 {
-    didSet { inMemoryAcccessContinuation?.yield(inMemoryAccessCounter) }
+    didSet { inMemoryAccessContinuation?.yield(inMemoryAccessCounter) }
   }
-  private var inMemoryAcccessContinuation: AsyncStream<Int>.Continuation?
+  private var inMemoryAccessContinuation: AsyncStream<Int>.Continuation?
 
   func setUp() async {
     let accessStream = AsyncStream<Int> { continuation in
-      inMemoryAcccessContinuation = continuation
+      inMemoryAccessContinuation = continuation
     }
 
     await MainActor.run { inMemoryAccess = accessStream }
@@ -97,6 +97,6 @@ actor ImageLoader: ObservableObject {
   }
 
   deinit {
-    inMemoryAcccessContinuation?.finish()
+    inMemoryAccessContinuation?.finish()
   }
 }

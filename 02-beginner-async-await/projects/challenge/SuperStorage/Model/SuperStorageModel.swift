@@ -87,9 +87,9 @@ class SuperStorageModel: ObservableObject {
   }
 
   /// Flag that stops ongoing downloads.
-  var stopDownloads = false
+  @MainActor var stopDownloads = false
 
-  func reset() {
+  @MainActor func reset() {
     stopDownloads = false
     downloads.removeAll()
   }

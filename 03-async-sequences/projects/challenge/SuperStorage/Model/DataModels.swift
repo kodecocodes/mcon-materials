@@ -32,7 +32,7 @@
 
 import Foundation
 
-/// A downloadble file.
+/// A downloadable file.
 struct DownloadFile: Codable, Identifiable, Equatable {
   var id: String { return name }
   let name: String

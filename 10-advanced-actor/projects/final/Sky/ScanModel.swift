@@ -150,18 +150,18 @@ class ScanModel: ObservableObject {
 
     let task = ScanTask(input: number)
 
-    let result: String
+    let result: Result<String, ScanTaskError>
     do {
-      result = try await system.run(task)
+      result = try .success(await system.run(task))
     } catch {
-      return .failure(.init(
+      result = .failure(.init(
         underlyingError: error,
         task: task
       ))
     }
 
     await onTaskCompleted()
-    return .success(result)
+    return result
   }
 }
 

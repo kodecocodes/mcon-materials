@@ -48,6 +48,7 @@ class BlabberModel: ObservableObject {
 
   /// A chat location delegate
   private var delegate: ChatLocationDelegate?
+  private let manager = CLLocationManager()
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {

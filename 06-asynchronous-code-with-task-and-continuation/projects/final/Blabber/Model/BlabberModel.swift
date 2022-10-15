@@ -86,7 +86,7 @@ class BlabberModel: ObservableObject {
   var sleep: (UInt64) async throws -> Void = Task.sleep(nanoseconds:)
 
   /// Does a countdown and sends the message.
-  func countdown(to message: String) async throws {
+  @MainActor func countdown(to message: String) async throws {
     let sleep = self.sleep
     guard !message.isEmpty else { return }
     var countdown = 3

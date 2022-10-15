@@ -84,7 +84,7 @@ class BlabberModel: ObservableObject {
   }
 
   /// Does a countdown and sends the message.
-  func countdown(to message: String) async throws {
+  @MainActor func countdown(to message: String) async throws {
     guard !message.isEmpty else { return }
     var countdown = 3
     let counter = AsyncStream<String> {

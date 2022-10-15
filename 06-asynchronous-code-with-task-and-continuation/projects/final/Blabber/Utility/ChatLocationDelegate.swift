@@ -36,9 +36,8 @@ import CoreLocation
 class ChatLocationDelegate: NSObject, CLLocationManagerDelegate {
   typealias LocationContinuation = CheckedContinuation<CLLocation, Error>
   private var continuation: LocationContinuation?
-  private let manager = CLLocationManager()
 
-  init(continuation: LocationContinuation) {
+  init(manager: CLLocationManager, continuation: LocationContinuation) {
     self.continuation = continuation
     super.init()
     manager.delegate = self

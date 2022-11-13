@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -47,50 +47,46 @@ struct SymbolListView: View {
   @State var isDisplayingTicker = false
 
   var body: some View {
-    NavigationView {
-      VStack {
-        // Programatically push the live ticker view.
-        NavigationLink(destination: TickerView(selectedSymbols: Array($selected.wrappedValue).sorted())
-                        .environmentObject(model), isActive: $isDisplayingTicker) {
-          EmptyView()
-        }.hidden()
-        // The list of stock symbols.
-        List {
-          Section(content: {
-            if symbols.isEmpty {
-              ProgressView().padding()
-            }
-            ForEach(symbols, id: \.self) { symbolName in
-              SymbolRow(symbolName: symbolName, selected: $selected)
-            }
-            .font(.custom("FantasqueSansMono-Regular", size: 18))
-          }, header: Header.init)
-        }
-        .listStyle(PlainListStyle())
-        .statusBar(hidden: true)
-        .toolbar {
-          Button("Live ticker") {
-            if !selected.isEmpty {
-              isDisplayingTicker = true
-            }
+    NavigationStack {
+      // The list of stock symbols.
+      List {
+        Section(content: {
+          if symbols.isEmpty {
+            ProgressView().padding()
           }
-          .disabled(selected.isEmpty)
-        }
-        .alert("Error", isPresented: $isDisplayingError, actions: {
-          Button("Close", role: .cancel) { }
-        }, message: {
-          Text(lastErrorMessage)
-        })
-        .padding(.horizontal)
-        .task {
-          guard symbols.isEmpty else { return }
-
-          do {
-            symbols = try await model.availableSymbols()
-          } catch {
-            lastErrorMessage = error.localizedDescription
+          ForEach(symbols, id: \.self) { symbolName in
+            SymbolRow(symbolName: symbolName, selected: $selected)
+          }
+          .font(.custom("FantasqueSansMono-Regular", size: 18))
+        }, header: Header.init)
+      }
+      .listStyle(.plain)
+      .statusBar(hidden: true)
+      .toolbar {
+        Button("Live ticker") {
+          if !selected.isEmpty {
+            isDisplayingTicker = true
           }
         }
+        .disabled(selected.isEmpty)
+      }
+      .alert("Error", isPresented: $isDisplayingError, actions: {
+        Button("Close", role: .cancel) { }
+      }, message: {
+        Text(lastErrorMessage)
+      })
+      .padding(.horizontal)
+      .task {
+        guard symbols.isEmpty else { return }
+        do {
+          symbols = try await model.availableSymbols()
+        } catch {
+          lastErrorMessage = error.localizedDescription
+        }
+      }
+      .navigationDestination(isPresented: $isDisplayingTicker) {
+        TickerView(selectedSymbols: Array(selected).sorted())
+          .environmentObject(model)
       }
     }
   }

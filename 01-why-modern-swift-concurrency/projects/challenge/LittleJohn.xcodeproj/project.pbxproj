@@ -11,8 +11,8 @@
 		9C1AFC5826C284910009636E /* StartUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C1AFC5726C284910009636E /* StartUp.storyboard */; };
 		9C39C0D926B9C64E007A318E /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C39C0D826B9C64E007A318E /* DataModels.swift */; };
 		9C39C0DB26B9C781007A318E /* LittleJohnModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C39C0DA26B9C781007A318E /* LittleJohnModel.swift */; };
-		9C3CAB5327117F220017A49D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CAB5127117F220017A49D /* Header.swift */; };
-		9C3CAB5427117F220017A49D /* SymbolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CAB5227117F220017A49D /* SymbolRow.swift */; };
+		9C3CAB4027117B8F0017A49D /* SymbolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CAB3F27117B8F0017A49D /* SymbolRow.swift */; };
+		9C3CAB4227117D030017A49D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CAB4127117D030017A49D /* Header.swift */; };
 		9C59D76726B6F45200AB05B4 /* TickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C59D76626B6F45200AB05B4 /* TickerView.swift */; };
 		9CA9D30726B6DFBD00F9C822 /* LittleJohnApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */; };
 		9CA9D30926B6DFBD00F9C822 /* SymbolListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA9D30826B6DFBD00F9C822 /* SymbolListView.swift */; };
@@ -26,8 +26,8 @@
 		9C1AFC5726C284910009636E /* StartUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartUp.storyboard; sourceTree = "<group>"; };
 		9C39C0D826B9C64E007A318E /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		9C39C0DA26B9C781007A318E /* LittleJohnModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleJohnModel.swift; sourceTree = "<group>"; };
-		9C3CAB5127117F220017A49D /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		9C3CAB5227117F220017A49D /* SymbolRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolRow.swift; sourceTree = "<group>"; };
+		9C3CAB3F27117B8F0017A49D /* SymbolRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolRow.swift; sourceTree = "<group>"; };
+		9C3CAB4127117D030017A49D /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		9C59D76626B6F45200AB05B4 /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
 		9CA9D30326B6DFBD00F9C822 /* LittleJohn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleJohn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleJohnApp.swift; sourceTree = "<group>"; };
@@ -76,13 +76,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9C3CAB4827117DFD0017A49D /* View */ = {
+		9C3CAB3E27117B5E0017A49D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9C3CAB5127117F220017A49D /* Header.swift */,
-				9C3CAB5227117F220017A49D /* SymbolRow.swift */,
+				9C3CAB4127117D030017A49D /* Header.swift */,
+				9C3CAB3F27117B8F0017A49D /* SymbolRow.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9CA9D2FA26B6DFBD00F9C822 = {
@@ -106,7 +106,7 @@
 		9CA9D30526B6DFBD00F9C822 /* LittleJohn */ = {
 			isa = PBXGroup;
 			children = (
-				9C3CAB4827117DFD0017A49D /* View */,
+				9C3CAB3E27117B5E0017A49D /* Views */,
 				9C1AFC5626C284430009636E /* Assets */,
 				9C39C0D726B9C632007A318E /* Model */,
 				9CA9D30626B6DFBD00F9C822 /* LittleJohnApp.swift */,
@@ -190,10 +190,10 @@
 			files = (
 				9CA9D30926B6DFBD00F9C822 /* SymbolListView.swift in Sources */,
 				9C39C0DB26B9C781007A318E /* LittleJohnModel.swift in Sources */,
-				9C3CAB5427117F220017A49D /* SymbolRow.swift in Sources */,
 				9C39C0D926B9C64E007A318E /* DataModels.swift in Sources */,
+				9C3CAB4227117D030017A49D /* Header.swift in Sources */,
 				9CA9D30726B6DFBD00F9C822 /* LittleJohnApp.swift in Sources */,
-				9C3CAB5327117F220017A49D /* Header.swift in Sources */,
+				9C3CAB4027117B8F0017A49D /* SymbolRow.swift in Sources */,
 				9C59D76726B6F45200AB05B4 /* TickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,16 +333,18 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.LittleJohn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.LittleJohn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -365,16 +367,18 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.LittleJohn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.LittleJohn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

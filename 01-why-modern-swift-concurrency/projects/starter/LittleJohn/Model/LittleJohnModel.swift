@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,6 @@ class LittleJohnModel: ObservableObject {
 
   /// Start live updates for the provided stock symbols.
   func startTicker(_ selectedSymbols: [String]) async throws {
-    tickerSymbols = []
     guard let url = URL(string: "http://localhost:8080/littlejohn/ticker?\(selectedSymbols.joined(separator: ","))") else {
       throw "The URL could not be created."
     }

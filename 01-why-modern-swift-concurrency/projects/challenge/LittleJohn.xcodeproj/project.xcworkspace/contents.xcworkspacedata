@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/marin/Desktop/Projects/ConcurrencyBook/mcon-materials/01-hello-modern-concurrency/projects/challenge/LittleJohn.xcodeproj">
+      location = "self:/Users/marin/Desktop/Projects/ConcurrencyBook/mcon-materials/01-hello-modern-concurrency/projects/starter/LittleJohn.xcodeproj">
    </FileRef>
 </Workspace>

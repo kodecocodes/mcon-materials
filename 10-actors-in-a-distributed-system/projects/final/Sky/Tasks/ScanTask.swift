@@ -44,19 +44,19 @@ struct ScanTask: Identifiable, Codable {
 
   /// A method that performs the scanning.
   /// > Note: This is a mock method that just suspends for a second.
-  func run() async throws -> String {
-    try UnreliableAPI.action(failingEvery: 10)
+  func run() async throws -> Data {
+    try await UnreliableAPI.shared.action(failingEvery: 10)
 
     await Task(priority: .medium) {
-      // Block the thread as a real heavy-computation functon will.
+      // Block the thread as a real heavy-computation function will.
       Thread.sleep(forTimeInterval: 1)
     }.value
 
-    return "\(input)"
+    return Data(input.description.utf8)
   }
 }
 
 struct TaskResponse: Codable {
-  let result: String
+  let result: Data?
   let id: UUID
 }

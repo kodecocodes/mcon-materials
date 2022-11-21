@@ -88,7 +88,7 @@ struct SkyApp: App {
             }
           })
           .buttonStyle(.bordered)
-          .disabled(isScanning)
+          .disabled(isScanning || scanModel.isCollaborating)
         }
         .toolbar {
           if scanModel.isConnected {

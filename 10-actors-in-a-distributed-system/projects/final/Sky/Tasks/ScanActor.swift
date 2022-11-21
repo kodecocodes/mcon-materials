@@ -31,28 +31,38 @@
 /// THE SOFTWARE.
 
 import Foundation
+import Distributed
 
-actor ScanSystem {
-  let name: String
-  let service: ScanTransport?
+distributed actor ScanActor {
+  typealias ActorSystem = BonjourActorSystem
 
-  init(name: String, service: ScanTransport? = nil) {
-    self.name = name
-    self.service = service
-  }
-
-  private(set) var count = 0
-
-  func commit() {
-    count += 1
-  }
-
-  func run(_ task: ScanTask) async throws -> String {
-    defer { count -= 1 }
-    if let service = service {
-      return try await service.send(task: task, to: name)
-    } else {
-      return try await task.run()
+  private let _name: String
+  distributed var name: String {
+    get throws {
+      _name
     }
+  }
+
+  init(name: String, actorSystem: ActorSystem) {
+    self._name = name
+    self.actorSystem = actorSystem
+  }
+
+  private(set) var countValue = 0
+  distributed var count: Int {
+    get throws { countValue }
+  }
+
+  distributed func commit() {
+    countValue += 1
+    NotificationCenter.default.post(name: .localTaskUpdate, object: nil)
+  }
+
+  distributed func run(_ task: ScanTask) async throws -> Data {
+    defer {
+      countValue -= 1
+      NotificationCenter.default.post(name: .localTaskUpdate, object: nil)
+    }
+    return try await task.run()
   }
 }

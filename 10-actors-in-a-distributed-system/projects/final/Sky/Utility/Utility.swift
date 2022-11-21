@@ -36,6 +36,8 @@ extension Notification.Name {
   static let response = Notification.Name("response")
   static let connected = Notification.Name("connected")
   static let disconnected = Notification.Name("disconnected")
+
+  static let localTaskUpdate = Notification.Name("localTaskUpdate")
 }
 
 extension String: LocalizedError {
@@ -59,9 +61,12 @@ actor UnreliableAPI {
     }
   }
 
-  static var counter = 0
+  static let shared = UnreliableAPI()
 
-  static func action(failingEvery: Int) throws {
+  var counter = 0
+
+  func action(failingEvery: Int) throws {
+    // TODO: fix access race
     counter += 1
     if counter % failingEvery == 0 {
       counter = 0

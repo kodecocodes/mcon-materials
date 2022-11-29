@@ -86,11 +86,11 @@ struct DownloadView: View {
     }
     .animation(.easeOut(duration: 0.33), value: model.downloads)
     .listStyle(.insetGrouped)
-    .toolbar(content: {
+    .toolbar {
       Button(action: {
       }, label: { Text("Cancel All") })
         .disabled(model.downloads.isEmpty)
-    })
+    }
     .onDisappear {
       fileData = nil
       model.reset()

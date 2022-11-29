@@ -38,7 +38,7 @@ class SuperStorageModel: ObservableObject {
   @Published var downloads: [DownloadInfo] = []
 
   @TaskLocal static var supportsPartialDownloads = false
-  
+
   /// Downloads a file and returns its content.
   func download(file: DownloadFile) async throws -> Data {
     guard let url = URL(string: "http://localhost:8080/files/download?\(file.name)") else {
@@ -176,7 +176,7 @@ extension SuperStorageModel {
     let downloadInfo = DownloadInfo(id: UUID(), name: name, progress: 0.0)
     downloads.append(downloadInfo)
   }
-  
+
   /// Updates a the progress of a given download.
   @MainActor func updateDownload(name: String, progress: Double) {
     if let index = downloads.firstIndex(where: { $0.name == name }) {

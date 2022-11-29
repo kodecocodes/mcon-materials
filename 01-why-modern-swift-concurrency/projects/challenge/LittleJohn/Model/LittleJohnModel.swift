@@ -54,7 +54,7 @@ extension String: Error { }
     for try await line in stream.lines {
       let sortedSymbols = try JSONDecoder()
         .decode([Stock].self, from: Data(line.utf8))
-        .sorted(by: { $0.name < $1.name })
+        .sorted { $0.name < $1.name }
 
       tickerSymbols = sortedSymbols
       print("Updated: \(Date())")

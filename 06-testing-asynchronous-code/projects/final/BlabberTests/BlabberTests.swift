@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,14 +35,17 @@ import XCTest
 
 class BlabberTests: XCTestCase {
   let model: BlabberModel = {
+    // 1
     let model = BlabberModel()
     model.username = "test"
 
+    // 2
     let testConfiguration = URLSessionConfiguration.default
     testConfiguration.protocolClasses = [TestURLProtocol.self]
 
+    // 3
     model.urlSession = URLSession(configuration: testConfiguration)
-    model.sleep = { try await Task.sleep(nanoseconds: $0 / 1_000_000_000) }
+    model.sleep = { try await Task.sleep(for: .nanoseconds($0)) }
     return model
   }()
 
@@ -78,9 +81,7 @@ class BlabberTests: XCTestCase {
         }
     }
     .value
-
     let (messagesResult, _) = try await (messages, countdown)
-
     XCTAssertEqual(
       ["3...", "2...", "1...", "🎉 Tada!"],
       messagesResult

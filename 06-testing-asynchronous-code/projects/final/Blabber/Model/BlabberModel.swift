@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -46,9 +46,12 @@ class BlabberModel: ObservableObject {
   /// Current live updates
   @Published var messages: [Message] = []
 
-  /// A chat location delegate
-  private var delegate: ChatLocationDelegate?
   private let manager = CLLocationManager()
+  private var delegate: ChatLocationDelegate?
+
+  var sleep: (UInt64) async throws -> Void = {
+    try await Task.sleep(for: .seconds($0))
+  }
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {
@@ -59,6 +62,7 @@ class BlabberModel: ObservableObject {
         manager.startUpdatingLocation()
       }
     }
+
     print(location.description)
     manager.stopUpdatingLocation()
     delegate = nil
@@ -83,31 +87,48 @@ class BlabberModel: ObservableObject {
     try await say("📍 \(address)")
   }
 
-  var sleep: (UInt64) async throws -> Void = Task.sleep(nanoseconds:)
-
   /// Does a countdown and sends the message.
   func countdown(to message: String) async throws {
     let sleep = self.sleep
+
     guard !message.isEmpty else { return }
     var countdown = 3
     let counter = AsyncStream<String> {
+      guard countdown >= 0 else { return nil }
       do {
-        try await sleep(1_000_000_000)
+        try await sleep(1)
       } catch {
         return nil
       }
-
       defer { countdown -= 1 }
 
-      switch countdown {
-      case (1...): return "\(countdown)..."
-      case 0: return "🎉 " + message
-      default: return nil
+      if countdown == 0 {
+        return "🎉 " + message
+      } else {
+        return "\(countdown)..."
       }
     }
 
-    try await counter.forEach { [weak self] in
-      try await self?.say($0)
+    try await counter.forEach {
+      try await say($0)
+    }
+  }
+
+  func observeAppStatus() async {
+    func observeAppStatus() async {
+      Task {
+        for await _ in await NotificationCenter.default
+          .notifications(for: UIApplication.willResignActiveNotification) {
+          try? await say("\(username) went away", isSystemMessage: true)
+        }
+      }
+
+      Task {
+        for await _ in await NotificationCenter.default
+          .notifications(for: UIApplication.didBecomeActiveNotification) {
+          try? await say("\(username) came back", isSystemMessage: true)
+        }
+      }
     }
   }
 
@@ -128,12 +149,12 @@ class BlabberModel: ObservableObject {
 
     print("Start live updates")
 
-    try await withTaskCancellationHandler {
+    try await withTaskCancellationHandler(operation: {
+      try await readMessages(stream: stream)
+    }, onCancel: {
       print("End live updates")
       messages = []
-    } operation: {
-      try await readMessages(stream: stream)
-    }
+    })
   }
 
   /// Reads the server chat stream and updates the data model.
@@ -144,27 +165,22 @@ class BlabberModel: ObservableObject {
     guard let first = try await iterator.next() else {
       throw "No response from server"
     }
-
     guard let data = first.data(using: .utf8),
-          let status = try? JSONDecoder()
-            .decode(ServerStatus.self, from: data) else {
+      let status = try? JSONDecoder()
+        .decode(ServerStatus.self, from: data) else {
       throw "Invalid response from server"
     }
-
     messages.append(
       Message(
         message: "\(status.activeUsers) active users"
       )
     )
-
     let notifications = Task {
       await observeAppStatus()
     }
-
     defer {
       notifications.cancel()
     }
-
     for try await line in stream.lines {
       if let data = line.data(using: .utf8),
         let update = try? JSONDecoder().decode(Message.self, from: data) {
@@ -189,22 +205,6 @@ class BlabberModel: ObservableObject {
     let (_, response) = try await urlSession.data(for: request, delegate: nil)
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
-    }
-  }
-
-  func observeAppStatus() async {
-    Task {
-      for await _ in await NotificationCenter.default
-        .notifications(for: UIApplication.willResignActiveNotification) {
-        try? await say("\(username) went away", isSystemMessage: true)
-      }
-    }
-
-    Task {
-      for await _ in await NotificationCenter.default
-        .notifications(for: UIApplication.didBecomeActiveNotification) {
-        try? await say("\(username) came back", isSystemMessage: true)
-      }
     }
   }
 

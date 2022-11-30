@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ class BlabberModel: ObservableObject {
   }
 
   /// Does a countdown and sends the message.
-  func countdown(to message: String) async throws {
+  @MainActor func countdown(to message: String) async throws {
     guard !message.isEmpty else { return }
   }
 
@@ -72,12 +72,12 @@ class BlabberModel: ObservableObject {
 
     print("Start live updates")
 
-    try await withTaskCancellationHandler {
+    try await withTaskCancellationHandler(operation: {
+      try await readMessages(stream: stream)
+    }, onCancel: {
       print("End live updates")
       messages = []
-    } operation: {
-      try await readMessages(stream: stream)
-    }
+    })
   }
 
   /// Reads the server chat stream and updates the data model.

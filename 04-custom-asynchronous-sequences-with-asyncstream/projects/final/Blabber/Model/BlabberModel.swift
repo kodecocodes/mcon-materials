@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -53,26 +53,43 @@ class BlabberModel: ObservableObject {
   /// Does a countdown and sends the message.
   func countdown(to message: String) async throws {
     guard !message.isEmpty else { return }
+    var countdown = 3
+    let counter = AsyncStream<String> {
+      guard countdown >= 0 else { return nil }
+      do {
+        try await Task.sleep(for: .seconds(1))
+      } catch {
+        return nil
+      }
+      defer { countdown -= 1 }
 
-    let counter = AsyncStream<String> { continuation in
-      var countdown = 3
-      Timer.scheduledTimer(
-        withTimeInterval: 1.0,
-        repeats: true
-      ) { timer in
-        guard countdown > 0 else {
-          timer.invalidate()
-          continuation.yield(with: .success("🎉 " + message))
-          return
-        }
-
-        continuation.yield("\(countdown) ...")
-        countdown -= 1
+      if countdown == 0 {
+        return "🎉 " + message
+      } else {
+        return "\(countdown)..."
       }
     }
 
     try await counter.forEach {
-      try await self.say($0)
+      try await say($0)
+    }
+  }
+
+  func observeAppStatus() async {
+    func observeAppStatus() async {
+      Task {
+        for await _ in await NotificationCenter.default
+          .notifications(for: UIApplication.willResignActiveNotification) {
+          try? await say("\(username) went away", isSystemMessage: true)
+        }
+      }
+
+      Task {
+        for await _ in await NotificationCenter.default
+          .notifications(for: UIApplication.didBecomeActiveNotification) {
+          try? await say("\(username) came back", isSystemMessage: true)
+        }
+      }
     }
   }
 
@@ -93,12 +110,12 @@ class BlabberModel: ObservableObject {
 
     print("Start live updates")
 
-    try await withTaskCancellationHandler {
+    try await withTaskCancellationHandler(operation: {
+      try await readMessages(stream: stream)
+    }, onCancel: {
       print("End live updates")
       messages = []
-    } operation: {
-      try await readMessages(stream: stream)
-    }
+    })
   }
 
   /// Reads the server chat stream and updates the data model.
@@ -109,27 +126,22 @@ class BlabberModel: ObservableObject {
     guard let first = try await iterator.next() else {
       throw "No response from server"
     }
-
     guard let data = first.data(using: .utf8),
-          let status = try? JSONDecoder()
-            .decode(ServerStatus.self, from: data) else {
+      let status = try? JSONDecoder()
+        .decode(ServerStatus.self, from: data) else {
       throw "Invalid response from server"
     }
-
     messages.append(
       Message(
         message: "\(status.activeUsers) active users"
       )
     )
-
     let notifications = Task {
       await observeAppStatus()
     }
-
     defer {
       notifications.cancel()
     }
-
     for try await line in stream.lines {
       if let data = line.data(using: .utf8),
         let update = try? JSONDecoder().decode(Message.self, from: data) {
@@ -154,22 +166,6 @@ class BlabberModel: ObservableObject {
     let (_, response) = try await urlSession.data(for: request, delegate: nil)
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
-    }
-  }
-
-  func observeAppStatus() async {
-    Task {
-      for await _ in await NotificationCenter.default
-        .notifications(for: UIApplication.willResignActiveNotification) {
-        try? await say("\(username) went away", isSystemMessage: true)
-      }
-    }
-
-    Task {
-      for await _ in await NotificationCenter.default
-        .notifications(for: UIApplication.didBecomeActiveNotification) {
-        try? await say("\(username) came back", isSystemMessage: true)
-      }
     }
   }
 

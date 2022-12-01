@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,8 @@ actor ImageLoader: ObservableObject {
     }
 
     let download: Task<UIImage, Error> = Task.detached {
-      guard let url = URL(string: "http://localhost:8080".appending(serverPath)) else {
+      guard let url = URL(string: "http://localhost:8080".appending(serverPath))
+      else {
         throw "Could not create the download URL"
       }
       print("Download: \(url.absoluteString)")

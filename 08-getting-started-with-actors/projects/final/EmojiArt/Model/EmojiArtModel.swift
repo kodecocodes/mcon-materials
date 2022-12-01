@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,21 +36,6 @@ import UIKit
 actor EmojiArtModel: ObservableObject {
   @Published @MainActor private(set) var imageFeed: [ImageFile] = []
 
-  private(set) var verifiedCount = 0
-
-  func verifyImages() async throws {
-    try await withThrowingTaskGroup(of: Void.self) { group in
-      await imageFeed.forEach { file in
-        group.addTask { [unowned self] in
-          try await Checksum.verify(file.checksum)
-          await self.increaseVerifiedCount()
-        }
-      }
-
-      try await group.waitForAll()
-    }
-  }
-
   nonisolated func loadImages() async throws {
     await MainActor.run {
       imageFeed.removeAll()
@@ -81,6 +66,21 @@ actor EmojiArtModel: ObservableObject {
       throw "The server responded with an error."
     }
     return data
+  }
+
+  private(set) var verifiedCount = 0
+
+  func verifyImages() async throws {
+    try await withThrowingTaskGroup(of: Void.self) { group in
+      await imageFeed.forEach { file in
+        group.addTask { [unowned self] in
+          try await Checksum.verify(file.checksum)
+          await self.increaseVerifiedCount()
+        }
+      }
+
+      try await group.waitForAll()
+    }
   }
 
   private func increaseVerifiedCount() {

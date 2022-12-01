@@ -62,6 +62,7 @@ import UIKit
       print("Cached in-memory")
       return try await imageLoader.image(key)
     }
+
     do {
       // 1
       let fileName = DiskStorage.fileName(for: key)

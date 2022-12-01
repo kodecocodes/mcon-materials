@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,6 @@ enum Checksum {
   static var cnt = 0
   static func verify(_ checksum: String) async throws {
     let duration = Double.random(in: 0.5...2.5)
-    await Task.sleep(seconds: duration)
+    try await Task.sleep(for: .seconds(duration))
   }
 }

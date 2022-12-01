@@ -47,6 +47,7 @@ struct BottomToolbar: View {
       })
 
       Button(action: {
+        // Clear in-memory cache
         Task {
           await ImageDatabase.shared.clearInMemoryAssets()
           try await model.loadImages()

@@ -18,12 +18,12 @@
 		9C55E79F27018E8200C0DF06 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C55E79E27018E8200C0DF06 /* DetailsView.swift */; };
 		9C659CD32700FDE00048C168 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C659CD22700FDE00048C168 /* DataModels.swift */; };
 		9C659CD52700FDF90048C168 /* ThumbImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C659CD42700FDF90048C168 /* ThumbImage.swift */; };
+		9C776DE92938DEDE00284BE6 /* ImageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C776DE82938DEDE00284BE6 /* ImageDatabase.swift */; };
 		9C8AFE1526FCDB8A00EC76D3 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1426FCDB8A00EC76D3 /* ListView.swift */; };
 		9C8AFE1726FCDBA600EC76D3 /* EmojiArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1626FCDBA600EC76D3 /* EmojiArtModel.swift */; };
 		9C8AFE1926FCDCB000EC76D3 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1826FCDCB000EC76D3 /* Utility.swift */; };
 		9CD905E62701BCCB00D77741 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD905E52701BCCB00D77741 /* DiskStorage.swift */; };
 		DB282AE72718CDE900C30F5C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB282AE62718CDE900C30F5C /* ImageLoader.swift */; };
-		DB7DCE81271B529100335C2F /* ImageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7DCE80271B529100335C2F /* ImageDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,12 +40,12 @@
 		9C55E79E27018E8200C0DF06 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		9C659CD22700FDE00048C168 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		9C659CD42700FDF90048C168 /* ThumbImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbImage.swift; sourceTree = "<group>"; };
+		9C776DE82938DEDE00284BE6 /* ImageDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDatabase.swift; sourceTree = "<group>"; };
 		9C8AFE1426FCDB8A00EC76D3 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		9C8AFE1626FCDBA600EC76D3 /* EmojiArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtModel.swift; sourceTree = "<group>"; };
 		9C8AFE1826FCDCB000EC76D3 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		9CD905E52701BCCB00D77741 /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
 		DB282AE62718CDE900C30F5C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		DB7DCE80271B529100335C2F /* ImageDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDatabase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD905E52701BCCB00D77741 /* DiskStorage.swift */,
+				9C776DE82938DEDE00284BE6 /* ImageDatabase.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -137,7 +138,6 @@
 				9C11323426FF73CB00571AB3 /* Checksum.swift */,
 				9C659CD22700FDE00048C168 /* DataModels.swift */,
 				DB282AE62718CDE900C30F5C /* ImageLoader.swift */,
-				DB7DCE80271B529100335C2F /* ImageDatabase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 				9CD905E62701BCCB00D77741 /* DiskStorage.swift in Sources */,
 				9C11323526FF73CB00571AB3 /* Checksum.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
-				DB7DCE81271B529100335C2F /* ImageDatabase.swift in Sources */,
+				9C776DE92938DEDE00284BE6 /* ImageDatabase.swift in Sources */,
 				9C8AFE1726FCDBA600EC76D3 /* EmojiArtModel.swift in Sources */,
 				9C659CD52700FDF90048C168 /* ThumbImage.swift in Sources */,
 				9C55E79D27018D8200C0DF06 /* BottomToolbar.swift in Sources */,

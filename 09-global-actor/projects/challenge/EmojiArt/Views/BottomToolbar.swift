@@ -42,14 +42,12 @@ struct BottomToolbar: View {
     HStack {
       Button(action: {
         // Clear on-disk cache
-        Task {
-          await ImageDatabase.shared.clear()
-        }
       }, label: {
         Image(systemName: "folder.badge.minus")
       })
 
       Button(action: {
+        // Clear in-memory cache
         Task {
           await ImageDatabase.shared.clearInMemoryAssets()
           try await model.loadImages()

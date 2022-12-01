@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -62,22 +62,25 @@ import UIKit
       print("Cached in-memory")
       return try await imageLoader.image(key)
     }
-
     do {
+      // 1
       let fileName = DiskStorage.fileName(for: key)
       if !storedImagesIndex.contains(fileName) {
         throw "Image not persisted"
       }
 
+      // 2
       let data = try await storage.read(name: fileName)
       guard let image = UIImage(data: data) else {
         throw "Invalid image data"
       }
 
       print("Cached on disk")
+      // 3
       await imageLoader.add(image, forKey: key)
       return image
     } catch {
+      // 4
       let image = try await imageLoader.image(key)
       try await store(image: image, forKey: key)
       return image

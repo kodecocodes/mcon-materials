@@ -36,11 +36,12 @@ import Combine
 import UIKit
 
 /// The app model that communicates with the server.
+@MainActor
 class BlabberModel: ObservableObject {
   var username = ""
   var urlSession = URLSession.shared
 
-  init() {
+  nonisolated init() {
   }
 
   /// Current live updates
@@ -51,12 +52,11 @@ class BlabberModel: ObservableObject {
   }
 
   /// Does a countdown and sends the message.
-  @MainActor func countdown(to message: String) async throws {
+  func countdown(to message: String) async throws {
     guard !message.isEmpty else { return }
   }
 
   /// Start live chat updates
-  @MainActor
   func chat() async throws {
     guard
       let query = username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -76,12 +76,13 @@ class BlabberModel: ObservableObject {
       try await readMessages(stream: stream)
     }, onCancel: {
       print("End live updates")
-      messages = []
+      Task { @MainActor in
+        messages = []
+      }
     })
   }
 
   /// Reads the server chat stream and updates the data model.
-  @MainActor
   private func readMessages(stream: URLSession.AsyncBytes) async throws {
   }
 

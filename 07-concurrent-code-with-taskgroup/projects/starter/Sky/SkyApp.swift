@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ struct SkyApp: App {
     WindowGroup {
       NavigationView {
         VStack {
-          TitleView(isAnimating: $scanModel.isCollaborating)
+          TitleView()
 
           Text("Scanning deep space")
             .font(.subheadline)

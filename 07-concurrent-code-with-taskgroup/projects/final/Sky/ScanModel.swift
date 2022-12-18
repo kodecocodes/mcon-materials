@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@ class ScanModel: ObservableObject {
 
   func runAllTasks() async throws {
     started = Date()
+
     try await withThrowingTaskGroup(of: Result<String, Error>.self) { [unowned self] group in
       let batchSize = 4
 
@@ -69,8 +70,10 @@ class ScanModel: ObservableObject {
         }
       }
 
+      // 1
       var index = batchSize
 
+      // 2
       for try await result in group {
         switch result {
         case .success(let result):
@@ -79,6 +82,7 @@ class ScanModel: ObservableObject {
           print("Failed: \(error.localizedDescription)")
         }
 
+        // 3
         if index < total {
           group.addTask { [index] in
             await self.worker(number: index)
@@ -92,8 +96,6 @@ class ScanModel: ObservableObject {
         countPerSecond = 0
         scheduled = 0
       }
-
-      print("Done.")
     }
   }
 

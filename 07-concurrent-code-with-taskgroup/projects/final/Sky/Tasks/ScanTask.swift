@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,6 @@ struct ScanTask: Identifiable {
   /// > Note: This is a mock method that just suspends for a second.
   func run() async throws -> String {
     try await UnreliableAPI.shared.action(failingEvery: 10)
-
     await Task(priority: .medium) {
       // Block the thread as a real heavy-computation functon will.
       Thread.sleep(forTimeInterval: 1)

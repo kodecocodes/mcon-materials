@@ -34,7 +34,6 @@ final class BonjourActorSystem: DistributedActorSystem, @unchecked Sendable {
     self.transport = BonjourService(localName: UIDevice.current.name, actorSystem: self)
     self.localSystem = ScanActor(name: localName, actorSystem: self)
     self.peers.add(localSystem)
-    print("REG ADDED LOCAL '\(localName)'")
   }
 
   func resolve<Act>(id: String, as actorType: Act.Type) throws -> Act? where Act: DistributedActor, String == Act.ID {
@@ -68,12 +67,6 @@ final class BonjourActorSystem: DistributedActorSystem, @unchecked Sendable {
     Act.ID == ActorID,
     Err: Error,
     Res: SerializationRequirement {
-
-      print("Remote call:")
-      print("  - actor: '\(recipientActor.id)'")
-      print("  - target: '\(target.description)'")
-      print("  - return: '\(returning)'")
-
       var invocation = invocation
       invocation.setCallSignature(target.identifier)
 
@@ -92,68 +85,50 @@ final class BonjourActorSystem: DistributedActorSystem, @unchecked Sendable {
   ) async throws where Act: DistributedActor,
     Act.ID == ActorID,
     Err: Error {
-      print("Remote call:")
-      print("  - actor: '\(recipientActor.id)'")
-      print("  - target: '\(target.description)'")
-      print("  - return: 'Void'")
-
       var invocation = invocation
       invocation.setCallSignature(target.identifier)
 
-      let _ = try await transport.send(invocation: invocation, to: recipientActor.id)
+      _ = try await transport.send(invocation: invocation, to: recipientActor.id)
   }
 }
 
 extension BonjourActorSystem {
   func didReceiveInvocation(_ invocationMessage: InvocationMessage, data: Data, from sender: MCPeerID) {
-      guard let recipient = peers.get(localName) else {
-          return
+    guard let recipient = peers.get(localName) else {
+      return
+    }
+
+    Task {
+      let target = RemoteCallTarget(invocationMessage.callSignature)
+      var invocationDecoder = BonjourInvocationDecoder(data: data)
+      let resultHandler = ResultHandler()
+
+      do {
+        try await executeDistributedTarget(
+          on: recipient,
+          target: target,
+          invocationDecoder: &invocationDecoder,
+          handler: resultHandler
+        )
+
+        let responseData = try await resultHandler.result?.get()
+        let response = TaskResponse(result: responseData, id: invocationMessage.id)
+        try self.transport.send(response: response, to: sender)
+      } catch {
+        // Let the invocation timeout and the sender will retry
+        print(error)
       }
-
-      Task {
-        let target = RemoteCallTarget(invocationMessage.callSignature)
-        var invocationDecoder = BonjourInvocationDecoder(data: data)
-        let resultHandler = ResultHandler()
-
-        do {
-          print("Received invocation: ")
-          print(" - recipient '\(recipient.id)'")
-          print(" - call: \(target.description)")
-
-          try await executeDistributedTarget(on: recipient, target: target, invocationDecoder: &invocationDecoder, handler: resultHandler)
-
-          let responseData = try await resultHandler.result?.get()
-          let response = TaskResponse(result: responseData, id: invocationMessage.id)
-          try self.transport.send(response: response, to: sender)
-
-          print("SENT response '\(response.result)'")
-          print()
-        } catch {
-          // Let the invocation timeout and the sender will retry
-          print("ERROR: '\(error.localizedDescription)'")
-          print(error)
-          print()
-        }
-      }
+    }
   }
 }
 
 extension BonjourActorSystem {
-  func firstAvailableSystem() async -> ScanActor {
+  func firstAvailableSystem() async throws -> ScanActor {
     while true {
       for nextID in peers.ids {
-        print("REG nextID '\(nextID)'")
-
-        guard let nextSystem = try? ScanActor.resolve(id: nextID, using: self) else {
-          print("REG can't get actor for id '\(nextID)'")
-          continue
-        }
-        guard let remoteTaskCount = try? await nextSystem.count else {
-          print("REG id '\(nextID)' could not get remote count")
-          continue
-        }
-        guard remoteTaskCount < 4 else {
-          print("REG id \(nextID) has already \(remoteTaskCount) tasks")
+        guard let nextSystem = try? ScanActor.resolve(id: nextID, using: self),
+          let remoteTaskCount = try? await nextSystem.count,
+          remoteTaskCount < 4 else {
           continue
         }
 
@@ -162,7 +137,7 @@ extension BonjourActorSystem {
           return nextSystem
         } catch { }
       }
-      await Task.sleep(seconds: 0.1)
+      try await Task.sleep(for: .seconds(0.1))
     }
     fatalError("Will never execute")
   }

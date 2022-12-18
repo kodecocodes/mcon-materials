@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -75,7 +75,6 @@ final class BonjourService: NSObject {
     invocation: BonjourInvocationEncoder,
     to recipient: String
   ) async throws -> TaskResponse {
-
     guard let targetPeer = session.connectedPeers.first(
       where: { $0.displayName == recipient }) else {
         throw "Peer '\(recipient)' not connected anymore."
@@ -143,10 +142,6 @@ extension BonjourService: MCSessionDelegate {
   /// Handles incoming data.
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
     let decoder = JSONDecoder()
-
-    print("Received data: \(data.count) bytes")
-    print("'\(String(data: data, encoding: .utf8) ?? "n/a")'")
-    print("-----")
 
     if let invocationMessage = try? decoder.decode(InvocationMessage.self, from: data) {
       actorSystem?.didReceiveInvocation(invocationMessage, data: data, from: peerID)

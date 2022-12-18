@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -71,7 +71,7 @@ final class ScanModel: ObservableObject {
   func systemConnectivityHandler() {
     Task {
       for await notification in
-            NotificationCenter.default.notifications(named: .connected) {
+        NotificationCenter.default.notifications(named: .connected) {
         guard let name = notification.object as? String else { continue }
         print("[Notification] Connected: \(name)")
 
@@ -86,7 +86,7 @@ final class ScanModel: ObservableObject {
 
     Task {
       for await notification in
-            NotificationCenter.default.notifications(named: .disconnected) {
+        NotificationCenter.default.notifications(named: .disconnected) {
         guard let name = notification.object as? String else { return }
         print("[Notification] Disconnected: \(name)")
         actorSystem.peers.remove(name)
@@ -98,8 +98,7 @@ final class ScanModel: ObservableObject {
 
     Task {
       for await _ in
-            NotificationCenter.default.notifications(named: .localTaskUpdate) {
-
+        NotificationCenter.default.notifications(named: .localTaskUpdate) {
         let runningTasksCount = try await actorSystem.localSystem.count
         Task { @MainActor in
           if scheduled == 0 {
@@ -108,7 +107,6 @@ final class ScanModel: ObservableObject {
         }
       }
     }
-
   }
 
   func worker(number: Int, system: ScanActor) async
@@ -137,7 +135,7 @@ final class ScanModel: ObservableObject {
       of: Result<Data, ScanTaskError>.self
     ) { [unowned self] group in
       for number in 0 ..< total {
-        let system = await actorSystem.firstAvailableSystem()
+        let system = try await actorSystem.firstAvailableSystem()
 
         group.addTask {
           return await self.worker(number: number, system: system)
@@ -169,7 +167,6 @@ final class ScanModel: ObservableObject {
       print("Done.")
     }
   }
-
 }
 
 // MARK: - Tracking task progress.

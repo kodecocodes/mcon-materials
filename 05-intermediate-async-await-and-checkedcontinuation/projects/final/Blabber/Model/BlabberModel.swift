@@ -36,18 +36,18 @@ import Combine
 import UIKit
 
 /// The app model that communicates with the server.
+@MainActor
 class BlabberModel: ObservableObject {
   var username = ""
   var urlSession = URLSession.shared
+  private let manager = CLLocationManager()
+  private var delegate: ChatLocationDelegate?
 
-  init() {
+  nonisolated init() {
   }
 
   /// Current live updates
   @Published var messages: [Message] = []
-
-  private let manager = CLLocationManager()
-  private var delegate: ChatLocationDelegate?
 
   /// Shares the current user's address in chat.
   func shareLocation() async throws {
@@ -58,11 +58,9 @@ class BlabberModel: ObservableObject {
         manager.startUpdatingLocation()
       }
     }
-
     print(location.description)
     manager.stopUpdatingLocation()
     delegate = nil
-
     let address: String = try await
     withCheckedThrowingContinuation { continuation in
       AddressEncoder.addressFor(location: location) { address, error in
@@ -79,7 +77,6 @@ class BlabberModel: ObservableObject {
         }
       }
     }
-
     try await say("📍 \(address)")
   }
 
@@ -95,7 +92,6 @@ class BlabberModel: ObservableObject {
         return nil
       }
       defer { countdown -= 1 }
-
       if countdown == 0 {
         return "🎉 " + message
       } else {
@@ -108,26 +104,7 @@ class BlabberModel: ObservableObject {
     }
   }
 
-  func observeAppStatus() async {
-    func observeAppStatus() async {
-      Task {
-        for await _ in await NotificationCenter.default
-          .notifications(for: UIApplication.willResignActiveNotification) {
-          try? await say("\(username) went away", isSystemMessage: true)
-        }
-      }
-
-      Task {
-        for await _ in await NotificationCenter.default
-          .notifications(for: UIApplication.didBecomeActiveNotification) {
-          try? await say("\(username) came back", isSystemMessage: true)
-        }
-      }
-    }
-  }
-
   /// Start live chat updates
-  @MainActor
   func chat() async throws {
     guard
       let query = username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -147,34 +124,41 @@ class BlabberModel: ObservableObject {
       try await readMessages(stream: stream)
     }, onCancel: {
       print("End live updates")
-      messages = []
+      Task { @MainActor in
+        messages = []
+      }
     })
   }
 
   /// Reads the server chat stream and updates the data model.
-  @MainActor
   private func readMessages(stream: URLSession.AsyncBytes) async throws {
     var iterator = stream.lines.makeAsyncIterator()
 
     guard let first = try await iterator.next() else {
       throw "No response from server"
     }
-    guard let data = first.data(using: .utf8),
+
+    guard
+      let data = first.data(using: .utf8),
       let status = try? JSONDecoder()
-        .decode(ServerStatus.self, from: data) else {
+        .decode(ServerStatus.self, from: data)
+    else {
       throw "Invalid response from server"
     }
+
     messages.append(
       Message(
         message: "\(status.activeUsers) active users"
       )
     )
+
     let notifications = Task {
       await observeAppStatus()
     }
     defer {
       notifications.cancel()
     }
+
     for try await line in stream.lines {
       if let data = line.data(using: .utf8),
         let update = try? JSONDecoder().decode(Message.self, from: data) {
@@ -199,6 +183,22 @@ class BlabberModel: ObservableObject {
     let (_, response) = try await urlSession.data(for: request, delegate: nil)
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
+    }
+  }
+
+  func observeAppStatus() async {
+    Task {
+      for await _ in NotificationCenter.default
+        .notifications(for: UIApplication.willResignActiveNotification) {
+        try? await say("\(username) went away", isSystemMessage: true)
+      }
+    }
+
+    Task {
+      for await _ in NotificationCenter.default
+        .notifications(for: UIApplication.didBecomeActiveNotification) {
+        try? await say("\(username) came back", isSystemMessage: true)
+      }
     }
   }
 

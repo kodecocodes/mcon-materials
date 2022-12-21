@@ -44,6 +44,10 @@ class ChatLocationDelegate: NSObject, CLLocationManagerDelegate {
     manager.requestWhenInUseAuthorization()
   }
 
+  deinit {
+    continuation?.resume(throwing: CancellationError())
+  }
+
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     switch manager.authorizationStatus {
     case .notDetermined:

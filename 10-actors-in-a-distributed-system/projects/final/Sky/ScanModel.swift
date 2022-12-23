@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,24 +32,22 @@
 
 import Foundation
 
-class ScanModel: ObservableObject {
-  @MainActor @Published var isConnected = false
-  @MainActor @Published var isCollaborating = false
-  private var systems: Systems
-  private(set) var service: ScanTransport
-
+final class ScanModel: ObservableObject {
   // MARK: - Private state
+
   private var counted = 0
   private var started = Date()
 
   // MARK: - Public, bindable state
 
-  /// Currently scheduled for execution tasks.
+  @MainActor @Published var isConnected = false
+  @MainActor @Published var isCollaborating = false
+
   @MainActor @Published var scheduled = 0 {
     didSet {
       Task {
-        let systemCount = await systems.systems.count
-        isCollaborating = scheduled > 0 && systemCount > 1
+        isCollaborating = scheduled > 0
+          && actorSystem.actorCount > 1
       }
     }
   }
@@ -62,76 +60,83 @@ class ScanModel: ObservableObject {
 
   @Published var total: Int
 
-  // MARK: - Methods
+  let actorSystem: BonjourActorSystem
 
   init(total: Int, localName: String) {
     self.total = total
-    let localSystem = ScanSystem(name: localName)
-    systems = Systems(localSystem)
-    service = ScanTransport(localSystem: localSystem)
-    service.taskModel = self
+    self.actorSystem = BonjourActorSystem(localName: localName)
     systemConnectivityHandler()
-  }
-
-  func run(_ task: ScanTask) async throws -> String {
-    Task { @MainActor in scheduled += 1 }
-    defer {
-      Task { @MainActor in scheduled -= 1 }
-    }
-    return try await systems.localSystem.run(task)
   }
 
   func systemConnectivityHandler() {
     Task {
-      for await notification in
-        NotificationCenter.default.notifications(named: .connected) {
-        guard let name = notification.object as? String else { continue }
-        print("[Notification] Connected: \(name)")
-        await systems.addSystem(name: name, service: self.service)
+      for await count in actorSystem.$actorCount.values {
         Task { @MainActor in
-          isConnected = await systems.systems.count > 1
+          isConnected = count > 1
         }
       }
+    }
+    Task {
+      for await _ in NotificationCenter.default
+        .notifications(named: .localTaskUpdate) {
+        let runningTasksCount = try await actorSystem.localActor.count
+        Task { @MainActor in
+          if scheduled == 0 {
+            isCollaborating = runningTasksCount > 0
+          }
+        }
+      }
+    }
+  }
+
+  func worker(number: Int, actor: ScanActor) async
+  -> Result<Data, ScanTaskError> {
+    await onScheduled()
+
+    let task = ScanTask(input: number)
+
+    let result: Result<Data, ScanTaskError>
+    do {
+      result = try .success(await actor.run(task))
+    } catch {
+      result = .failure(.init(
+        underlyingError: error,
+        task: task
+      ))
     }
 
-    Task {
-      for await notification in
-        NotificationCenter.default.notifications(named: .disconnected) {
-        guard let name = notification.object as? String else { return }
-        print("[Notification] Disconnected: \(name)")
-        await systems.removeSystem(name: name)
-        Task { @MainActor in
-          isConnected = await systems.systems.count > 1
-        }
-      }
-    }
+    await onTaskCompleted()
+    return result
   }
 
   func runAllTasks() async throws {
     started = Date()
     try await withThrowingTaskGroup(
-      of: Result<String, ScanTaskError>.self
+      of: Result<Data, ScanTaskError>.self
     ) { [unowned self] group in
       for number in 0 ..< total {
-        let system = await systems.firstAvailableSystem()
+        let actor = try await
+          actorSystem.firstAvailableActor()
+
         group.addTask {
-          return await self.worker(number: number, system: system)
+          return await self.worker(
+            number: number,
+            actor: actor
+          )
         }
       }
-
       for try await result in group {
         switch result {
         case .success(let result):
           print("Completed: \(result)")
         case .failure(let error):
           group.addTask(priority: .high) {
-            print(
-							"Re-run task: \(error.task.input).",
-							"Failed with: \(error.underlyingError.localizedDescription)"
-						)
+            print("Re-run task: \(error.task.input).")
+            print("Failed with: \(error.underlyingError)")
             return await self.worker(
               number: error.task.input,
-              system: self.systems.localSystem)
+              actor: self.actorSystem.localActor
+            )
           }
         }
       }
@@ -142,26 +147,6 @@ class ScanModel: ObservableObject {
       }
       print("Done.")
     }
-  }
-
-  func worker(number: Int, system: ScanSystem) async
-  -> Result<String, ScanTaskError> {
-    await onScheduled()
-
-    let task = ScanTask(input: number)
-
-    let result: Result<String, ScanTaskError>
-    do {
-      result = try .success(await system.run(task))
-    } catch {
-      result = .failure(.init(
-        underlyingError: error,
-        task: task
-      ))
-    }
-
-    await onTaskCompleted()
-    return result
   }
 }
 

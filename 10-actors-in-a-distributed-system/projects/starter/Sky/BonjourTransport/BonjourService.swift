@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,21 +32,22 @@
 
 import Foundation
 import MultipeerConnectivity
+import Distributed
 
 /// Handles the discovery and data transport between systems.
-class ScanTransport: NSObject {
+final class BonjourService: NSObject {
   private let systemNetworkName = "skynet"
-  private let localSystemName: MCPeerID
+  let localSystemName: MCPeerID
 
   let session: MCSession
   private let serviceAdvertiser: MCNearbyServiceAdvertiser
   private let serviceBrowser: MCNearbyServiceBrowser
 
-  let localSystem: ScanSystem
-  var taskModel: ScanModel?
+  weak var actorSystem: BonjourActorSystem?
 
-  init(localSystem: ScanSystem) {
-    localSystemName = MCPeerID(displayName: localSystem.name)
+  init(localName: String, actorSystem: BonjourActorSystem) {
+    self.actorSystem = actorSystem
+    localSystemName = MCPeerID(displayName: localName)
     serviceAdvertiser = MCNearbyServiceAdvertiser(
       peer: localSystemName,
       discoveryInfo: nil,
@@ -55,8 +56,6 @@ class ScanTransport: NSObject {
     serviceBrowser = MCNearbyServiceBrowser(peer: localSystemName, serviceType: systemNetworkName)
     session = MCSession(peer: localSystemName, securityIdentity: nil, encryptionPreference: .required)
 
-    self.localSystem = localSystem
-
     super.init()
 
     // Set up the service session.
@@ -64,32 +63,34 @@ class ScanTransport: NSObject {
 
     // Set up service advertiser.
     serviceAdvertiser.delegate = self
-    serviceAdvertiser.startAdvertisingPeer()
 
     // Set up service browser.
     serviceBrowser.delegate = self
-    serviceBrowser.startBrowsingForPeers()
+
+    Task {
+      serviceBrowser.startBrowsingForPeers()
+      serviceAdvertiser.startAdvertisingPeer()
+    }
   }
 
   func send(
-    task: ScanTask,
+    invocation: BonjourInvocationEncoder,
     to recipient: String
-  ) async throws -> String {
+  ) async throws -> TaskResponse {
     guard let targetPeer = session.connectedPeers.first(
       where: { $0.displayName == recipient }) else {
         throw "Peer '\(recipient)' not connected anymore."
       }
 
-    let payload = try JSONEncoder().encode(task)
+    let payload = try invocation.data
     try session.send(payload, toPeers: [targetPeer], with: .reliable)
 
-    let networkRequest = TimeoutTask(seconds: 5) { () -> String in
+    let networkRequest = TimeoutTask(seconds: 5) { () -> TaskResponse in
       for await notification in
         NotificationCenter.default.notifications(named: .response) {
         guard let response = notification.object as? TaskResponse,
-					response.id == task.id else { continue }
-
-        return "\(response.result) by \(recipient)"
+          response.id == invocation.message.id else { continue }
+        return response
       }
       fatalError("Will never execute")
     }
@@ -125,34 +126,19 @@ class ScanTransport: NSObject {
 }
 
 /// Handles changes in connectivity and asynchronously receiving data.
-extension ScanTransport: MCSessionDelegate {
+extension BonjourService: MCSessionDelegate {
   /// Handles changes in session connectivity.
   func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
     /// If it's a change in connectivity of the local node, don't broadcast it.
-    guard peerID.displayName != localSystem.name else { return }
-
-    switch state {
-    case .notConnected:
-      NotificationCenter.default.post(name: .disconnected, object: peerID.displayName)
-    case .connected:
-      NotificationCenter.default.post(name: .connected, object: peerID.displayName)
-    default: break
-    }
+    guard peerID.displayName != localSystemName.displayName else { return }
   }
 
   /// Handles incoming data.
   func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
     let decoder = JSONDecoder()
 
-    if let task = try? decoder.decode(ScanTask.self, from: data) {
-      Task { [weak self] in
-        guard let self = self,
-					let taskModel = self.taskModel else { return }
-
-        let result = try await taskModel.run(task)
-        let response = TaskResponse(result: result, id: task.id)
-        try self.send(response: response, to: peerID)
-      }
+    if let invocationMessage = try? decoder.decode(InvocationMessage.self, from: data) {
+      actorSystem?.didReceiveInvocation(invocationMessage, data: data, from: peerID)
     }
 
     if let response = try? decoder
@@ -167,7 +153,7 @@ extension ScanTransport: MCSessionDelegate {
 
 // MARK: - Service advertiser delegate implementation.
 
-extension ScanTransport: MCNearbyServiceAdvertiserDelegate {
+extension BonjourService: MCNearbyServiceAdvertiserDelegate {
   func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
     print("ScanTransport service advertiser failed: \(error.localizedDescription)")
   }
@@ -178,9 +164,9 @@ extension ScanTransport: MCNearbyServiceAdvertiserDelegate {
   }
 }
 
-// MARK: - Service broswer delegate implementation.
+// MARK: - Service browser delegate implementation.
 
-extension ScanTransport: MCNearbyServiceBrowserDelegate {
+extension BonjourService: MCNearbyServiceBrowserDelegate {
   func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
     print("ScanTransport service browse failed: \(error.localizedDescription)")
   }
@@ -191,13 +177,12 @@ extension ScanTransport: MCNearbyServiceBrowserDelegate {
   }
 
   func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-    NotificationCenter.default.post(name: .disconnected, object: peerID.displayName)
   }
 }
 
 // MARK: - Required, unused `MCSessionDelegate` methods.
 
-extension ScanTransport {
+extension BonjourService {
   func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
   func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }
   func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) { }

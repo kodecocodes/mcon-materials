@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,19 +36,13 @@ extension Notification.Name {
   static let response = Notification.Name("response")
   static let connected = Notification.Name("connected")
   static let disconnected = Notification.Name("disconnected")
+
+  static let localTaskUpdate = Notification.Name("localTaskUpdate")
 }
 
 extension String: LocalizedError {
   public var errorDescription: String? {
     return self
-  }
-}
-
-extension Task where Success == Never, Failure == Never {
-  /// Suspends the current task for at least the given duration in seconds.
-  /// - Parameter seconds: The sleep duration in seconds.
-  static func sleep(seconds: TimeInterval) async {
-    try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
   }
 }
 
@@ -59,9 +53,11 @@ actor UnreliableAPI {
     }
   }
 
-  static var counter = 0
+  static let shared = UnreliableAPI()
 
-  static func action(failingEvery: Int) throws {
+  var counter = 0
+
+  func action(failingEvery: Int) throws {
     counter += 1
     if counter % failingEvery == 0 {
       counter = 0

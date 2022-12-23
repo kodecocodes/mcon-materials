@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2022 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,28 +31,40 @@
 /// THE SOFTWARE.
 
 import Foundation
+import Distributed
 
-actor ScanSystem {
-  let name: String
-  let service: ScanTransport?
+distributed actor ScanActor {
+  typealias ActorSystem = BonjourActorSystem
+  private let nameValue: String
 
-  init(name: String, service: ScanTransport? = nil) {
-    self.name = name
-    self.service = service
+  init(name: String, actorSystem: ActorSystem) {
+    self.nameValue = name
+    self.actorSystem = actorSystem
   }
 
-  private(set) var count = 0
-
-  func commit() {
-    count += 1
+  distributed var name: String {
+    nameValue
   }
 
-  func run(_ task: ScanTask) async throws -> String {
-    defer { count -= 1 }
-    if let service = service {
-      return try await service.send(task: task, to: name)
-    } else {
-      return try await task.run()
+  private var countValue = 0
+  distributed var count: Int {
+    countValue
+  }
+
+  distributed func commit() {
+    countValue += 1
+    NotificationCenter.default.post(
+      name: .localTaskUpdate, object: nil
+    )
+  }
+
+  distributed func run(_ task: ScanTask) async throws -> Data {
+    defer {
+      countValue -= 1
+      NotificationCenter.default.post(
+        name: .localTaskUpdate, object: nil
+      )
     }
+    return try await task.run()
   }
 }

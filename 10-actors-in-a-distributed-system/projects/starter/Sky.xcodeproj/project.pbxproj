@@ -17,7 +17,12 @@
 		9CD5AE7226A13FB10010330C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CD5AE6226A13FB10010330C /* Assets.xcassets */; };
 		9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE7D26A144E50010330C /* ScanningView.swift */; };
 		9CD5AE8126A145030010330C /* ScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8026A145030010330C /* ScanModel.swift */; };
-		9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8326A186BB0010330C /* ScanTransport.swift */; };
+		9CD5AE8426A186BB0010330C /* BonjourService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5AE8326A186BB0010330C /* BonjourService.swift */; };
+		9CFC9F07292A69A90003841C /* BonjourActorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFC9F06292A69A90003841C /* BonjourActorSystem.swift */; };
+		9CFC9F0C292BF28A0003841C /* BonjourResultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFC9F0B292BF28A0003841C /* BonjourResultHandler.swift */; };
+		9CFC9F0E292BF2B20003841C /* InvocationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFC9F0D292BF2B20003841C /* InvocationMessage.swift */; };
+		9CFC9F10292BF2C70003841C /* BonjourInvocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFC9F0F292BF2C70003841C /* BonjourInvocationEncoder.swift */; };
+		9CFC9F12292BF2F00003841C /* BonjourInvocationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFC9F11292BF2F00003841C /* BonjourInvocationDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +38,12 @@
 		9CD5AE7C26A13FDC0010330C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CD5AE7D26A144E50010330C /* ScanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
 		9CD5AE8026A145030010330C /* ScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanModel.swift; sourceTree = "<group>"; };
-		9CD5AE8326A186BB0010330C /* ScanTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTransport.swift; sourceTree = "<group>"; };
+		9CD5AE8326A186BB0010330C /* BonjourService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourService.swift; sourceTree = "<group>"; };
+		9CFC9F06292A69A90003841C /* BonjourActorSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourActorSystem.swift; sourceTree = "<group>"; };
+		9CFC9F0B292BF28A0003841C /* BonjourResultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourResultHandler.swift; sourceTree = "<group>"; };
+		9CFC9F0D292BF2B20003841C /* InvocationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMessage.swift; sourceTree = "<group>"; };
+		9CFC9F0F292BF2C70003841C /* BonjourInvocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourInvocationEncoder.swift; sourceTree = "<group>"; };
+		9CFC9F11292BF2F00003841C /* BonjourInvocationDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonjourInvocationDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,14 +74,6 @@
 				9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		9C594C4526BD9E6D0027B2C4 /* Transport */ = {
-			isa = PBXGroup;
-			children = (
-				9CD5AE8326A186BB0010330C /* ScanTransport.swift */,
-			);
-			path = Transport;
 			sourceTree = "<group>";
 		};
 		9C594C4626BD9F790027B2C4 /* Tasks */ = {
@@ -114,9 +116,10 @@
 		9CD5AE5F26A13FB00010330C /* Sky */ = {
 			isa = PBXGroup;
 			children = (
+				9CFC9F13292BF3900003841C /* BonjourTransport */,
+				9CFC9F0A292BF2710003841C /* BonjourActorSystem */,
 				9CD220CB26EA00C2007F8A1E /* Utility */,
 				9C594C4626BD9F790027B2C4 /* Tasks */,
-				9C594C4526BD9E6D0027B2C4 /* Transport */,
 				9C934CED26EA12420046A00D /* Views */,
 				9CD5AE8026A145030010330C /* ScanModel.swift */,
 				9CD5AE6026A13FB00010330C /* SkyApp.swift */,
@@ -132,6 +135,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9CFC9F0A292BF2710003841C /* BonjourActorSystem */ = {
+			isa = PBXGroup;
+			children = (
+				9CFC9F06292A69A90003841C /* BonjourActorSystem.swift */,
+				9CFC9F0B292BF28A0003841C /* BonjourResultHandler.swift */,
+				9CFC9F0F292BF2C70003841C /* BonjourInvocationEncoder.swift */,
+				9CFC9F11292BF2F00003841C /* BonjourInvocationDecoder.swift */,
+				9CFC9F0D292BF2B20003841C /* InvocationMessage.swift */,
+			);
+			path = BonjourActorSystem;
+			sourceTree = "<group>";
+		};
+		9CFC9F13292BF3900003841C /* BonjourTransport */ = {
+			isa = PBXGroup;
+			children = (
+				9CD5AE8326A186BB0010330C /* BonjourService.swift */,
+			);
+			path = BonjourTransport;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,7 +162,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CD5AE7626A13FB10010330C /* Build configuration list for PBXNativeTarget "Sky (iOS)" */;
 			buildPhases = (
-				9C92C33526EA606100115EC7 /* ShellScript */,
+				9C92C33526EA606100115EC7 /* swiftlint */,
 				9CD5AE6326A13FB10010330C /* Sources */,
 				9CD5AE6426A13FB10010330C /* Frameworks */,
 				9CD5AE6526A13FB10010330C /* Resources */,
@@ -161,7 +184,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					9CD5AE6626A13FB10010330C = {
 						CreatedOnToolsVersion = 13.0;
@@ -200,7 +223,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9C92C33526EA606100115EC7 /* ShellScript */ = {
+		9C92C33526EA606100115EC7 /* swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -209,6 +232,7 @@
 			);
 			inputPaths = (
 			);
+			name = swiftlint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -224,13 +248,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CD5AE8426A186BB0010330C /* ScanTransport.swift in Sources */,
+				9CD5AE8426A186BB0010330C /* BonjourService.swift in Sources */,
+				9CFC9F10292BF2C70003841C /* BonjourInvocationEncoder.swift in Sources */,
 				9CD220CD26EA00D2007F8A1E /* Utility.swift in Sources */,
+				9CFC9F0C292BF28A0003841C /* BonjourResultHandler.swift in Sources */,
 				9CD5AE6E26A13FB10010330C /* SkyApp.swift in Sources */,
 				9CD5AE7E26A144E50010330C /* ScanningView.swift in Sources */,
 				9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */,
 				9C934CEF26EA124F0046A00D /* TitleView.swift in Sources */,
+				9CFC9F0E292BF2B20003841C /* InvocationMessage.swift in Sources */,
+				9CFC9F07292A69A90003841C /* BonjourActorSystem.swift in Sources */,
 				9C92C33726EA61C600115EC7 /* TimeoutTask.swift in Sources */,
+				9CFC9F12292BF2F00003841C /* BonjourInvocationDecoder.swift in Sources */,
 				9CD5AE8126A145030010330C /* ScanModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +301,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -331,6 +361,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -361,23 +392,24 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Assets/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use devices across the local network to scan for alien life signs.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.sky;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.sky;
 				PRODUCT_NAME = Sky;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -396,23 +428,24 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Assets/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use devices across the local network to scan for alien life signs.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.sky;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.sky;
 				PRODUCT_NAME = Sky;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

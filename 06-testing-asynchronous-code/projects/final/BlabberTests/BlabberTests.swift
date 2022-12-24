@@ -34,6 +34,7 @@ import XCTest
 @testable import Blabber
 
 class BlabberTests: XCTestCase {
+  @MainActor
   let model: BlabberModel = {
     // 1
     let model = BlabberModel()
@@ -51,14 +52,12 @@ class BlabberTests: XCTestCase {
 
   func testModelSay() async throws {
     try await model.say("Hello!")
-
     let request = try XCTUnwrap(TestURLProtocol.lastRequest)
 
     XCTAssertEqual(
       request.url?.absoluteString,
       "http://localhost:8080/chat/say"
     )
-
     let httpBody = try XCTUnwrap(request.httpBody)
     let message = try XCTUnwrap(try? JSONDecoder()
       .decode(Message.self, from: httpBody))

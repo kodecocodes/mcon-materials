@@ -29,7 +29,7 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
-
+///
 import Foundation
 
 class TimeoutTask<Success> {
@@ -50,7 +50,6 @@ class TimeoutTask<Success> {
     get async throws {
       try await withCheckedThrowingContinuation { continuation in
         self.continuation = continuation
-
         Task {
           try await Task.sleep(for: .seconds(seconds))
           self.continuation?.resume(throwing: TimeoutError())

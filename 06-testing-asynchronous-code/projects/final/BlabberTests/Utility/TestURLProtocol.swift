@@ -60,7 +60,6 @@ class TestURLProtocol: URLProtocol {
     client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
     client.urlProtocol(self, didLoad: Data())
     client.urlProtocolDidFinishLoading(self)
-
     guard let stream = request.httpBodyStream else {
       fatalError("Unexpected test scenario")
     }

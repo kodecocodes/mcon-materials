@@ -46,8 +46,11 @@ struct ScanTask: Identifiable {
   /// > Note: This is a mock method that just suspends for a second.
   func run() async -> String {
     await Task {
-      // Block the thread as a real heavy-computation functon will.
-      Thread.sleep(forTimeInterval: 1)
+      // Block the thread as a real heavy-computation function will.
+      await withUnsafeContinuation { continuation in
+        Thread.sleep(forTimeInterval: 1)
+        continuation.resume()
+      }
     }.value
 
     return "\(input)"

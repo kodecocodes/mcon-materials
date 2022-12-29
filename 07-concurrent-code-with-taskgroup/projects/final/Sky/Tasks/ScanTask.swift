@@ -47,8 +47,11 @@ struct ScanTask: Identifiable {
   func run() async throws -> String {
     try await UnreliableAPI.shared.action(failingEvery: 10)
     await Task(priority: .medium) {
-      // Block the thread as a real heavy-computation functon will.
-      Thread.sleep(forTimeInterval: 1)
+      // Block the thread as a real heavy-computation function will.
+      await withUnsafeContinuation { continuation in
+        Thread.sleep(forTimeInterval: 1)
+        continuation.resume()
+      }
     }.value
 
     return "\(input)"

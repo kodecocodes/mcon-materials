@@ -78,19 +78,19 @@ final class ScanModel: ObservableObject {
         }
       }
     }
-Task {
-  for await notification in NotificationCenter.default
-    .notifications(named: .localTaskUpdate) {
-    let status = notification.taskStatus
-    let runningTasksCount = try await actorSystem.localActor.count
-    Task { @MainActor in
-      if scheduled == 0 {
-        isCollaborating = runningTasksCount > 0
+    Task {
+      for await notification in NotificationCenter.default
+        .notifications(named: .localTaskUpdate) {
+        let status = notification.taskStatus
+        let runningTasksCount = try await actorSystem.localActor.count
+        Task { @MainActor in
+          if scheduled == 0 {
+            isCollaborating = runningTasksCount > 0
+          }
+          localTasksCompleted.append(status)
+        }
       }
-      localTasksCompleted.append(status)
     }
-  }
-}
   }
 
   func worker(number: Int, actor: ScanActor) async

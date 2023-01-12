@@ -50,12 +50,12 @@ struct LogView: View {
 
   private func logEntries(with proxy: ScrollViewProxy) -> some View {
     VStack {
-      ForEach(0..<scanModel.localTasksCompleted.count, id: \.self) {
-        Text(scanModel.localTasksCompleted[$0])
+      ForEach(scanModel.localTasksCompleted, id: \.self) {
+        Text($0)
           .foregroundColor(.secondary)
       }
       .onChange(of: scanModel.localTasksCompleted) { newValue in
-        proxy.scrollTo(newValue.count - 1, anchor: .bottom)
+        proxy.scrollTo(newValue.last ?? "", anchor: .bottom)
       }
     }
   }

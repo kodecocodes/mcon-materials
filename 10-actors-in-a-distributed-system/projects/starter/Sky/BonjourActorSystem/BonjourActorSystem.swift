@@ -24,8 +24,10 @@ final class BonjourActorSystem: DistributedActorSystem, ObservableObject, @unche
   private var actors: [String: any DistributedActor] = [:] {
     didSet {
       let newCount = actors.count
+      let names = actors.keys.filter { $0 != localName }
       Task { @MainActor in
         actorCount = newCount
+        connectedActors = names
       }
     }
   }
@@ -33,6 +35,7 @@ final class BonjourActorSystem: DistributedActorSystem, ObservableObject, @unche
 
   let localName: String
   @Published var actorCount = 0
+  @Published var connectedActors: [String] = []
 
   // MARK: - Initialization
 

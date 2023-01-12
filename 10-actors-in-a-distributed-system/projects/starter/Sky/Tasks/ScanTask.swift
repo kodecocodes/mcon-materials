@@ -49,7 +49,10 @@ struct ScanTask: Identifiable, Codable {
 
     await Task(priority: .medium) {
       // Block the thread as a real heavy-computation function will.
-      Thread.sleep(forTimeInterval: 1)
+      await withUnsafeContinuation { continuation in
+        Thread.sleep(forTimeInterval: 1)
+        continuation.resume()
+      }
     }.value
 
     return Data(input.description.utf8)

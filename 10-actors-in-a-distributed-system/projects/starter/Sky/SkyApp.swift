@@ -92,7 +92,13 @@ struct SkyApp: App {
         }
         .toolbar {
           if scanModel.isConnected {
-            Image(systemName: "link.circle")
+            Menu {
+              ForEach(scanModel.actorSystem.connectedActors, id: \.self) {
+                Text($0)
+              }
+            } label: {
+              Image(systemName: "link.circle")
+            }
           }
         }
         .alert("Message", isPresented: $isDisplayingMessage, actions: {
@@ -102,6 +108,11 @@ struct SkyApp: App {
         })
         .padding()
         .statusBar(hidden: true)
+      }
+      .overlay(alignment: .bottom) {
+        LogView(scanModel: scanModel)
+          .frame(height: 130)
+          .padding(.bottom, 10)
       }
     }
   }

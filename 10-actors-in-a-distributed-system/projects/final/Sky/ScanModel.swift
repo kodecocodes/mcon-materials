@@ -58,6 +58,8 @@ final class ScanModel: ObservableObject {
   /// Completed scan tasks.
   @MainActor @Published var completed = 0
 
+  @MainActor @Published var localTasksCompleted: [String] = []
+
   @Published var total: Int
 
   let actorSystem: BonjourActorSystem
@@ -76,17 +78,19 @@ final class ScanModel: ObservableObject {
         }
       }
     }
-    Task {
-      for await _ in NotificationCenter.default
-        .notifications(named: .localTaskUpdate) {
-        let runningTasksCount = try await actorSystem.localActor.count
-        Task { @MainActor in
-          if scheduled == 0 {
-            isCollaborating = runningTasksCount > 0
-          }
-        }
+Task {
+  for await notification in NotificationCenter.default
+    .notifications(named: .localTaskUpdate) {
+    let status = notification.taskStatus
+    let runningTasksCount = try await actorSystem.localActor.count
+    Task { @MainActor in
+      if scheduled == 0 {
+        isCollaborating = runningTasksCount > 0
       }
+      localTasksCompleted.append(status)
     }
+  }
+}
   }
 
   func worker(number: Int, actor: ScanActor) async

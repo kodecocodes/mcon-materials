@@ -40,6 +40,20 @@ extension Notification.Name {
   static let localTaskUpdate = Notification.Name("localTaskUpdate")
 }
 
+extension Notification {
+  static let taskStatusKey = "taskStatus"
+
+  var taskStatus: String {
+    get { userInfo?[Self.taskStatusKey] as? String ?? "No Status" }
+    set {
+      if userInfo == nil {
+        userInfo = [:]
+      }
+      userInfo?[Self.taskStatusKey] = newValue
+    }
+  }
+}
+
 extension String: LocalizedError {
   public var errorDescription: String? {
     return self

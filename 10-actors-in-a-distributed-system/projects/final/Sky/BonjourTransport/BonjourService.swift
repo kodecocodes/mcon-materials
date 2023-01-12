@@ -47,14 +47,27 @@ final class BonjourService: NSObject {
 
   init(localName: String, actorSystem: BonjourActorSystem) {
     self.actorSystem = actorSystem
-    localSystemName = MCPeerID(displayName: localName)
+    let key = "peerID:\(localName)"
+    if
+      let data = UserDefaults.standard.data(forKey: key),
+      let peerID = try? NSKeyedUnarchiver.unarchivedObject(ofClass: MCPeerID.self, from: data) {
+      localSystemName = peerID
+    } else {
+      localSystemName = MCPeerID(displayName: localName)
+      do {
+        let data = try NSKeyedArchiver.archivedData(withRootObject: localSystemName, requiringSecureCoding: true)
+        UserDefaults.standard.set(data, forKey: key)
+      } catch {
+        print("Unable to archive peer ID")
+      }
+    }
     serviceAdvertiser = MCNearbyServiceAdvertiser(
       peer: localSystemName,
       discoveryInfo: nil,
       serviceType: systemNetworkName
     )
     serviceBrowser = MCNearbyServiceBrowser(peer: localSystemName, serviceType: systemNetworkName)
-    session = MCSession(peer: localSystemName, securityIdentity: nil, encryptionPreference: .required)
+    session = MCSession(peer: localSystemName, securityIdentity: nil, encryptionPreference: .none)
 
     super.init()
 

@@ -51,6 +51,8 @@ final class ScanModel: ObservableObject {
   /// Completed scan tasks.
   @MainActor @Published var completed = 0
 
+  @MainActor @Published var localTasksCompleted: [String] = []
+
   @Published var total: Int
 
   let actorSystem: BonjourActorSystem

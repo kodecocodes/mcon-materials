@@ -54,17 +54,29 @@ distributed actor ScanActor {
   distributed func commit() {
     countValue += 1
     NotificationCenter.default.post(
-      name: .localTaskUpdate, object: nil
+      name: .localTaskUpdate,
+      object: nil,
+      userInfo: [Notification.taskStatusKey: "Committed"]
     )
   }
 
   distributed func run(_ task: ScanTask) async throws -> Data {
+    var info: [String: Any] = [:]
     defer {
       countValue -= 1
       NotificationCenter.default.post(
-        name: .localTaskUpdate, object: nil
+        name: .localTaskUpdate,
+        object: nil,
+        userInfo: info
       )
     }
-    return try await task.run()
+    do {
+      let data = try await task.run()
+      info[Notification.taskStatusKey] = "Task \(task.input) Completed"
+      return data
+    } catch {
+      info[Notification.taskStatusKey] = "Task \(task.input) Failed"
+      throw error
+    }
   }
 }

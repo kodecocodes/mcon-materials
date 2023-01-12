@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7973117B296F517600FA3189 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973117A296F517600FA3189 /* LogView.swift */; };
 		9C04757826EB5534009EA1EC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9C04757726EB5534009EA1EC /* LICENSE */; };
 		9C594C4326BD84520027B2C4 /* Datalegreya-Gradient.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */; };
 		9C594C4826BD9F880027B2C4 /* ScanTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C594C4726BD9F880027B2C4 /* ScanTask.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7973117A296F517600FA3189 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		9C04757726EB5534009EA1EC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9C594C4226BD84520027B2C4 /* Datalegreya-Gradient.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Datalegreya-Gradient.otf"; sourceTree = "<group>"; };
 		9C594C4726BD9F880027B2C4 /* ScanTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTask.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				9CD5AE7D26A144E50010330C /* ScanningView.swift */,
 				9C934CEE26EA124F0046A00D /* TitleView.swift */,
+				7973117A296F517600FA3189 /* LogView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		9C92C33526EA606100115EC7 /* swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -260,6 +264,7 @@
 				9CFC9F07292A69A90003841C /* BonjourActorSystem.swift in Sources */,
 				9C92C33726EA61C600115EC7 /* TimeoutTask.swift in Sources */,
 				9CFC9F12292BF2F00003841C /* BonjourInvocationDecoder.swift in Sources */,
+				7973117B296F517600FA3189 /* LogView.swift in Sources */,
 				9CD5AE8126A145030010330C /* ScanModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

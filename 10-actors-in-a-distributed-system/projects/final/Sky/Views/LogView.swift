@@ -30,36 +30,61 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-/// A single scanning task.
-struct ScanTask: Identifiable, Codable {
-  let id: UUID
-  let input: Int
+struct LogView: View {
+  @ObservedObject var scanModel: ScanModel
 
-  init(input: Int, id: UUID = UUID()) {
-    self.id = id
-    self.input = input
+  var body: some View {
+    VStack {
+      Spacer()
+      ScrollView {
+        ScrollViewReader { proxy in
+          logEntries(with: proxy)
+        }
+      }
+      clearButton
+    }
+    .font(.caption)
   }
 
-  /// A method that performs the scanning.
-  /// > Note: This is a mock method that just suspends for a second.
-  func run() async throws -> Data {
-    try await UnreliableAPI.shared.action(failingEvery: 10)
-
-    await Task(priority: .medium) {
-      // Block the thread as a real heavy-computation function will.
-      await withUnsafeContinuation { continuation in
-        Thread.sleep(forTimeInterval: 1)
-        continuation.resume()
+  private func logEntries(with proxy: ScrollViewProxy) -> some View {
+    VStack {
+      ForEach(0..<scanModel.localTasksCompleted.count, id: \.self) {
+        Text(scanModel.localTasksCompleted[$0])
+          .foregroundColor(.secondary)
       }
-    }.value
+      .onChange(of: scanModel.localTasksCompleted) { newValue in
+        proxy.scrollTo(newValue.count - 1, anchor: .bottom)
+      }
+    }
+  }
 
-    return Data(input.description.utf8)
+  @ViewBuilder
+  private var clearButton: some View {
+    if !scanModel.localTasksCompleted.isEmpty {
+      Button("Clear Logs") {
+        scanModel.localTasksCompleted = []
+      }
+      .buttonStyle(.bordered)
+    }
   }
 }
 
-struct TaskResponse: Codable {
-  let result: Data?
-  let id: UUID
+struct LogView_Previews: PreviewProvider {
+  private static var previewModel: ScanModel = {
+    let model = ScanModel(total: 20, localName: "Preview")
+    model.localTasksCompleted = [
+      "Task 1 Completed",
+      "Task 2 Completed"
+    ]
+    return model
+  }()
+  static var previews: some View {
+    VStack {
+      Text("Other Content")
+      LogView(scanModel: previewModel)
+        .frame(height: 100)
+    }
+  }
 }

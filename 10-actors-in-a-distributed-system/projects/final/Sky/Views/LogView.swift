@@ -41,21 +41,26 @@ struct LogView: View {
       ScrollView {
         ScrollViewReader { proxy in
           logEntries(with: proxy)
+            .font(.caption)
+            .padding(.horizontal)
         }
       }
-      clearButton
+      .frame(maxWidth: .infinity)
+      .overlay(alignment: .topTrailing) {
+        clearButton
+      }
+      .padding(.horizontal)
     }
-    .font(.caption)
   }
 
   private func logEntries(with proxy: ScrollViewProxy) -> some View {
     VStack {
-      ForEach(scanModel.localTasksCompleted, id: \.self) {
-        Text($0)
+      ForEach(0..<scanModel.localTasksCompleted.count, id: \.self) {
+        Text(scanModel.localTasksCompleted[$0])
           .foregroundColor(.secondary)
       }
       .onChange(of: scanModel.localTasksCompleted) { newValue in
-        proxy.scrollTo(newValue.last ?? "", anchor: .bottom)
+        proxy.scrollTo(newValue.count - 1, anchor: .bottom)
       }
     }
   }
@@ -63,10 +68,11 @@ struct LogView: View {
   @ViewBuilder
   private var clearButton: some View {
     if !scanModel.localTasksCompleted.isEmpty {
-      Button("Clear Logs") {
+      Button {
         scanModel.localTasksCompleted = []
+      } label: {
+        Image(systemName: "x.circle.fill")
       }
-      .buttonStyle(.bordered)
     }
   }
 }

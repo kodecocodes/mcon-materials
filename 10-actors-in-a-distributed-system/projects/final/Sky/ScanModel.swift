@@ -148,6 +148,7 @@ final class ScanModel: ObservableObject {
         completed = 0
         countPerSecond = 0
         scheduled = 0
+        counted = 0
       }
       print("Done.")
     }

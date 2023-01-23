@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -89,7 +89,7 @@ extension SuperStorageModel {
     let downloadInfo = DownloadInfo(id: UUID(), name: name, progress: 0.0)
     downloads.append(downloadInfo)
   }
-  
+
   /// Updates a the progress of a given download.
   func updateDownload(name: String, progress: Double) {
     if let index = downloads.firstIndex(where: { $0.name == name }) {

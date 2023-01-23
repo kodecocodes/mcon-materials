@@ -1,4 +1,4 @@
-/// Copyright (c) 2022 Kodeco Inc.
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ extension String: Error { }
     for try await line in stream.lines {
       let sortedSymbols = try JSONDecoder()
         .decode([Stock].self, from: Data(line.utf8))
-        .sorted { $0.name < $1.name }
+        .sorted(by: { $0.name < $1.name })
 
       tickerSymbols = sortedSymbols
       print("Updated: \(Date())")

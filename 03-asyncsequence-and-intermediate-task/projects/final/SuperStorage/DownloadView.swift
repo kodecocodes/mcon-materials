@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,8 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import Combine
 import UIKit
+import Combine
 
 /// The file download view.
 struct DownloadView: View {
@@ -43,14 +43,12 @@ struct DownloadView: View {
   @State var fileData: Data?
   /// Should display a download activity indicator.
   @State var isDownloadActive = false
-  @State var duration = ""
+
   @State var downloadTask: Task<Void, Error>? {
     didSet {
       timerTask?.cancel()
-
       guard isDownloadActive else { return }
       let startTime = Date().timeIntervalSince1970
-
       let timerSequence = Timer
         .publish(every: 1, tolerance: 1, on: .main, in: .common)
         .autoconnect()
@@ -59,7 +57,6 @@ struct DownloadView: View {
           return "\(duration)s"
         }
         .values
-
       timerTask = Task {
         for await duration in timerSequence {
           self.duration = duration
@@ -67,7 +64,9 @@ struct DownloadView: View {
       }
     }
   }
+
   @State var timerTask: Task<Void, Error>?
+  @State var duration: String = ""
 
   var body: some View {
     List {
@@ -94,8 +93,8 @@ struct DownloadView: View {
               try await SuperStorageModel
                 .$supportsPartialDownloads
                 .withValue(file.name.hasSuffix(".jpeg")) {
-                fileData = try await model.downloadWithProgress(file: file)
-              }
+                  fileData = try await model.downloadWithProgress(file: file)
+                }
             } catch { }
             isDownloadActive = false
           }
@@ -120,14 +119,14 @@ struct DownloadView: View {
       }
     }
     .animation(.easeOut(duration: 0.33), value: model.downloads)
-    .listStyle(InsetGroupedListStyle())
-    .toolbar(content: {
+    .listStyle(.insetGrouped)
+    .toolbar {
       Button(action: {
         model.stopDownloads = true
         timerTask?.cancel()
       }, label: { Text("Cancel All") })
         .disabled(model.downloads.isEmpty)
-    })
+    }
     .onDisappear {
       fileData = nil
       model.reset()

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,19 +36,17 @@ import Foundation
 class SuperStorageModel: ObservableObject {
   /// The list of currently running downloads.
   @Published var downloads: [DownloadInfo] = []
+
   @TaskLocal static var supportsPartialDownloads = false
-  
+
   /// Downloads a file and returns its content.
   func download(file: DownloadFile) async throws -> Data {
     guard let url = URL(string: "http://localhost:8080/files/download?\(file.name)") else {
       throw "Could not create the URL."
     }
-
     await addDownload(name: file.name)
 
-    let (data, response) = try await
-      URLSession.shared.data(from: url, delegate: nil)
-
+    let (data, response) = try await URLSession.shared.data(from: url, delegate: nil)
     await updateDownload(name: file.name, progress: 1.0)
 
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -71,7 +69,6 @@ class SuperStorageModel: ObservableObject {
     await addDownload(name: name)
 
     let result: (downloadStream: URLSession.AsyncBytes, response: URLResponse)
-
     if let offset = offset {
       let urlRequest = URLRequest(url: url, offset: offset, length: size)
       result = try await
@@ -87,9 +84,7 @@ class SuperStorageModel: ObservableObject {
         throw "The server responded with an error."
       }
     }
-
     var asyncDownloadIterator = result.downloadStream.makeAsyncIterator()
-
     var accumulator = ByteAccumulator(name: name, size: size)
 
     while await !stopDownloads, !accumulator.checkCompleted() {
@@ -97,18 +92,18 @@ class SuperStorageModel: ObservableObject {
         let byte = try await asyncDownloadIterator.next() {
         accumulator.append(byte)
       }
+
       let progress = accumulator.progress
       Task.detached(priority: .medium) {
-        await self
-          .updateDownload(name: name, progress: progress)
+        await self.updateDownload(name: name, progress: progress)
       }
+
       print(accumulator.description)
     }
 
     if await stopDownloads, !Self.supportsPartialDownloads {
       throw CancellationError()
     }
-
     return accumulator.data
   }
 
@@ -123,15 +118,16 @@ class SuperStorageModel: ObservableObject {
     }
     let total = 4
     let parts = (0..<total).map { partInfo(index: $0, of: total) }
+
     // Add challenge code here.
     async let part1 =
-    downloadWithProgress(fileName: file.name, name: parts[0].name, size: parts[0].size, offset: parts[0].offset)
+      downloadWithProgress(fileName: file.name, name: parts[0].name, size: parts[0].size, offset: parts[0].offset)
     async let part2 =
-    downloadWithProgress(fileName: file.name, name: parts[1].name, size: parts[1].size, offset: parts[1].offset)
+      downloadWithProgress(fileName: file.name, name: parts[1].name, size: parts[1].size, offset: parts[1].offset)
     async let part3 =
-    downloadWithProgress(fileName: file.name, name: parts[2].name, size: parts[2].size, offset: parts[2].offset)
+      downloadWithProgress(fileName: file.name, name: parts[2].name, size: parts[2].size, offset: parts[2].offset)
     async let part4 =
-    downloadWithProgress(fileName: file.name, name: parts[3].name, size: parts[3].size, offset: parts[3].offset)
+      downloadWithProgress(fileName: file.name, name: parts[3].name, size: parts[3].size, offset: parts[3].offset)
 
     return try await [part1, part2, part3, part4]
       .reduce(Data(), +)
@@ -149,19 +145,15 @@ class SuperStorageModel: ObservableObject {
     guard let url = URL(string: "http://localhost:8080/files/list") else {
       throw "Could not create the URL."
     }
-
-    let (data, response) = try await
-    URLSession.shared.data(from: url)
+    let (data, response) = try await URLSession.shared.data(from: url)
 
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
     }
 
-    guard let list = try? JSONDecoder()
-            .decode([DownloadFile].self, from: data) else {
-              throw "The server response was not recognized."
-            }
-
+    guard let list = try? JSONDecoder().decode([DownloadFile].self, from: data) else {
+      throw "The server response was not recognized."
+    }
     return list
   }
 
@@ -169,14 +161,11 @@ class SuperStorageModel: ObservableObject {
     guard let url = URL(string: "http://localhost:8080/files/status") else {
       throw "Could not create the URL."
     }
-
-    let (data, response) = try await
-      URLSession.shared.data(from: url, delegate: nil)
+    let (data, response) = try await URLSession.shared.data(from: url, delegate: nil)
 
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
       throw "The server responded with an error."
     }
-
     return String(decoding: data, as: UTF8.self)
   }
 }
@@ -187,7 +176,7 @@ extension SuperStorageModel {
     let downloadInfo = DownloadInfo(id: UUID(), name: name, progress: 0.0)
     downloads.append(downloadInfo)
   }
-  
+
   /// Updates a the progress of a given download.
   @MainActor func updateDownload(name: String, progress: Double) {
     if let index = downloads.firstIndex(where: { $0.name == name }) {

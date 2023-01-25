@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@ struct DownloadView: View {
   @State var fileData: Data?
   /// Should display a download activity indicator.
   @State var isDownloadActive = false
+
   @State var duration = ""
 
   var body: some View {
@@ -84,12 +85,12 @@ struct DownloadView: View {
       }
     }
     .animation(.easeOut(duration: 0.33), value: model.downloads)
-    .listStyle(InsetGroupedListStyle())
-    .toolbar(content: {
+    .listStyle(.insetGrouped)
+    .toolbar {
       Button(action: {
       }, label: { Text("Cancel All") })
         .disabled(model.downloads.isEmpty)
-    })
+    }
     .onDisappear {
       fileData = nil
       model.reset()

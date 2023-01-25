@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -56,14 +56,9 @@ struct ListView: View {
   @State var isDisplayingError = false
 
   var body: some View {
-    NavigationView {
+    NavigationStack {
       VStack {
-        // Programatically push the file download view.
-        NavigationLink(destination: DownloadView(file: selected).environmentObject(model),
-                       isActive: $isDisplayingDownload) {
-          EmptyView()
-        }.hidden()
-        // The list of files avalable for download.
+        // The list of files available for download.
         List {
           Section(content: {
             if files.isEmpty {
@@ -79,13 +74,13 @@ struct ListView: View {
           }, header: {
             Label(" SuperStorage", systemImage: "externaldrive.badge.icloud")
               .font(.custom("SerreriaSobria", size: 27))
-              .foregroundColor(Color.accentColor)
+              .foregroundColor(.accentColor)
               .padding(.bottom, 20)
           }, footer: {
             Text(status)
           })
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
         .animation(.easeOut(duration: 0.33), value: files)
       }
       .alert("Error", isPresented: $isDisplayingError, actions: {
@@ -99,14 +94,15 @@ struct ListView: View {
         do {
           async let files = try model.availableFiles()
           async let status = try model.status()
-
           let (filesResult, statusResult) = try await (files, status)
-
           self.files = filesResult
           self.status = statusResult
         } catch {
           lastErrorMessage = error.localizedDescription
         }
+      }
+      .navigationDestination(isPresented: $isDisplayingDownload) {
+        DownloadView(file: selected).environmentObject(model)
       }
     }
   }

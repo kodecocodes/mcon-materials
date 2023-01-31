@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79740B2E29574704000FF02B /* TimeoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79740B2D29574704000FF02B /* TimeoutTask.swift */; };
 		9C1B549326D7611200CE4F70 /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */; };
 		9C1B549526D7626100CE4F70 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B549426D7626100CE4F70 /* Utilities.swift */; };
 		9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C22D31C26D6A0F200983935 /* BlabberTests.swift */; };
@@ -24,7 +25,6 @@
 		9CCA913A26BF95A800066CF6 /* AddressEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCA913926BF95A800066CF6 /* AddressEncoder.swift */; };
 		9CE044E826C29EBD00BDF5AF /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E726C29EBD00BDF5AF /* DataModels.swift */; };
 		9CE044EA26C29EE100BDF5AF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE044E926C29EE100BDF5AF /* MessageView.swift */; };
-		DB0080E3271233A500C869B1 /* TimeoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0080E2271233A500C869B1 /* TimeoutTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79740B2D29574704000FF02B /* TimeoutTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeoutTask.swift; sourceTree = "<group>"; };
 		9C1B549226D7611200CE4F70 /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
 		9C1B549426D7626100CE4F70 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9C22D31A26D6A0F200983935 /* BlabberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlabberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +59,6 @@
 		9CCA913926BF95A800066CF6 /* AddressEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressEncoder.swift; sourceTree = "<group>"; };
 		9CE044E726C29EBD00BDF5AF /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		9CE044E926C29EE100BDF5AF /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
-		DB0080E2271233A500C869B1 /* TimeoutTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeoutTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 			children = (
 				9C22D32426D6C55600983935 /* InputStream+.swift */,
 				9C22D32626D6C59500983935 /* TestURLProtocol.swift */,
-				DB0080E2271233A500C869B1 /* TimeoutTask.swift */,
+				79740B2D29574704000FF02B /* TimeoutTask.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -281,6 +281,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		795EF16326E4D0C20074D4C2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -305,7 +306,7 @@
 			files = (
 				9C22D31D26D6A0F200983935 /* BlabberTests.swift in Sources */,
 				9C22D32526D6C55600983935 /* InputStream+.swift in Sources */,
-				DB0080E3271233A500C869B1 /* TimeoutTask.swift in Sources */,
+				79740B2E29574704000FF02B /* TimeoutTask.swift in Sources */,
 				9C22D32726D6C59500983935 /* TestURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,17 +346,21 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.BlabberTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.BlabberTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blabber.app/Blabber";
 			};
 			name = Debug;
@@ -367,17 +372,21 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.BlabberTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.BlabberTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blabber.app/Blabber";
 			};
 			name = Release;
@@ -509,22 +518,27 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Blabber/Assets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Blabber;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location in order for you to share it with your friends in chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Blabber;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Blabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -542,22 +556,27 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Blabber/Assets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Blabber;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location in order for you to share it with your friends in chat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = StartUp;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Blabber;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Blabber;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

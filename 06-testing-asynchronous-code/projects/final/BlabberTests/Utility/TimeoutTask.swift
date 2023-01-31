@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,20 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
-
+///
 import Foundation
 
 class TimeoutTask<Success> {
-  let nanoseconds: UInt64
+  let seconds: Int
   let operation: @Sendable () async throws -> Success
+
+  init(
+    seconds: Int,
+    operation: @escaping @Sendable () async throws -> Success
+  ) {
+    self.seconds = seconds
+    self.operation = operation
+  }
 
   private var continuation: CheckedContinuation<Success, Error>?
 
@@ -42,13 +50,11 @@ class TimeoutTask<Success> {
     get async throws {
       try await withCheckedThrowingContinuation { continuation in
         self.continuation = continuation
-
         Task {
-          try await Task.sleep(nanoseconds: nanoseconds)
+          try await Task.sleep(for: .seconds(seconds))
           self.continuation?.resume(throwing: TimeoutError())
           self.continuation = nil
         }
-
         Task {
           let result = try await operation()
           self.continuation?.resume(returning: result)
@@ -61,14 +67,6 @@ class TimeoutTask<Success> {
   func cancel() {
     continuation?.resume(throwing: CancellationError())
     continuation = nil
-  }
-
-  init(
-    seconds: TimeInterval,
-    operation: @escaping @Sendable () async throws -> Success
-  ) {
-    self.nanoseconds = UInt64(seconds * 1_000_000_000)
-    self.operation = operation
   }
 }
 

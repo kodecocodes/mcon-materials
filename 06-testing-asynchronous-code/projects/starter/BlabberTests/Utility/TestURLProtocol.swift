@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -45,13 +45,9 @@ class TestURLProtocol: URLProtocol {
   /// Store the URL request and send success response back to the client.
   override func startLoading() {
     guard let client = client,
-          let url = request.url,
-          let response = HTTPURLResponse(url: url,
-                                         statusCode: 200,
-                                         httpVersion: nil,
-                                         headerFields: nil) else {
-      fatalError("Client or URL missing")
-    }
+      let url = request.url,
+      let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+      else { fatalError("Client or URL missing") }
 
     client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
     client.urlProtocol(self, didLoad: Data())

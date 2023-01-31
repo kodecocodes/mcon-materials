@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,28 +34,30 @@ import XCTest
 @testable import Blabber
 
 class BlabberTests: XCTestCase {
+  @MainActor
   let model: BlabberModel = {
+    // 1
     let model = BlabberModel()
     model.username = "test"
 
+    // 2
     let testConfiguration = URLSessionConfiguration.default
     testConfiguration.protocolClasses = [TestURLProtocol.self]
 
+    // 3
     model.urlSession = URLSession(configuration: testConfiguration)
-    model.sleep = { try await Task.sleep(nanoseconds: $0 / 1_000_000_000) }
+    model.sleep = { try await Task.sleep(for: .nanoseconds($0)) }
     return model
   }()
 
   func testModelSay() async throws {
     try await model.say("Hello!")
-
     let request = try XCTUnwrap(TestURLProtocol.lastRequest)
 
     XCTAssertEqual(
       request.url?.absoluteString,
       "http://localhost:8080/chat/say"
     )
-
     let httpBody = try XCTUnwrap(request.httpBody)
     let message = try XCTUnwrap(try? JSONDecoder()
       .decode(Message.self, from: httpBody))
@@ -78,9 +80,7 @@ class BlabberTests: XCTestCase {
         }
     }
     .value
-
     let (messagesResult, _) = try await (messages, countdown)
-
     XCTAssertEqual(
       ["3...", "2...", "1...", "🎉 Tada!"],
       messagesResult

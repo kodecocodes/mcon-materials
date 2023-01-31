@@ -1,4 +1,4 @@
-/// Copyright (c) 2022 Kodeco Inc.
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ class BlabberModel: ObservableObject {
   var urlSession = URLSession.shared
   private let manager = CLLocationManager()
   private var delegate: ChatLocationDelegate?
-  var sleep: (UInt64) async throws -> Void = {
+  var sleep: (Int) async throws -> Void = {
     try await Task.sleep(for: .seconds($0))
   }
   nonisolated init() {

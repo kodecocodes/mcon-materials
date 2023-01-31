@@ -1,4 +1,4 @@
-/// Copyright (c) 2022 Kodeco Inc.
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,11 +33,11 @@
 import Foundation
 
 class TimeoutTask<Success> {
-  let seconds: UInt64
+  let seconds: Int
   let operation: @Sendable () async throws -> Success
 
   init(
-    seconds: UInt64,
+    seconds: Int,
     operation: @escaping @Sendable () async throws -> Success
   ) {
     self.seconds = seconds

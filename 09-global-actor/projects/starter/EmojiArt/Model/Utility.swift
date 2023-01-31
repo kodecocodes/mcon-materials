@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,14 +37,6 @@ import Accelerate
 extension String: LocalizedError {
   public var errorDescription: String? {
     return self
-  }
-}
-
-extension Task where Success == Never, Failure == Never {
-  /// Suspends the current task for at least the given duration in seconds.
-  /// - Parameter seconds: The sleep duration in seconds.
-  static func sleep(seconds: TimeInterval) async {
-    try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
   }
 }
 

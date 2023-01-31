@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,12 +39,28 @@ import UIKit
   private var storage: DiskStorage!
   private var storedImagesIndex = Set<String>()
 
+  // Begin challenge code
+  @MainActor private(set) var onDiskAccess: AsyncStream<Int>?
+
+  private var onDiskAccessCounter = 0 {
+    didSet { onDiskAccessContinuation?.yield(onDiskAccessCounter) }
+  }
+  private var onDiskAccessContinuation: AsyncStream<Int>.Continuation?
+  // End challenge code
+
   func setUp() async throws {
     storage = await DiskStorage()
     for fileURL in try await storage.persistedFiles() {
       storedImagesIndex.insert(fileURL.lastPathComponent)
     }
     await imageLoader.setUp()
+
+    // Begin challenge code
+    let accessStream = AsyncStream<Int> { continuation in
+      onDiskAccessContinuation = continuation
+    }
+    await MainActor.run { self.onDiskAccess = accessStream }
+    // End challenge code
   }
 
   func store(image: UIImage, forKey key: String) async throws {
@@ -62,22 +78,29 @@ import UIKit
       print("Cached in-memory")
       return try await imageLoader.image(key)
     }
-
     do {
+      // 1
       let fileName = DiskStorage.fileName(for: key)
       if !storedImagesIndex.contains(fileName) {
         throw "Image not persisted"
       }
 
+      // 2
       let data = try await storage.read(name: fileName)
       guard let image = UIImage(data: data) else {
         throw "Invalid image data"
       }
 
       print("Cached on disk")
+      // Begin challenge code
+      onDiskAccessCounter += 1
+      // End challenge code
+
+      // 3
       await imageLoader.add(image, forKey: key)
       return image
     } catch {
+      // 4
       let image = try await imageLoader.image(key)
       try await store(image: image, forKey: key)
       return image
@@ -94,4 +117,10 @@ import UIKit
   func clearInMemoryAssets() async {
     await imageLoader.clear()
   }
+
+  // Begin challenge code
+  deinit {
+    onDiskAccessContinuation?.finish()
+  }
+  // End challenge code
 }

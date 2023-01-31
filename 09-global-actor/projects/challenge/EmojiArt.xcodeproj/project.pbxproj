@@ -14,6 +14,7 @@
 		9C11323526FF73CB00571AB3 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C11323426FF73CB00571AB3 /* Checksum.swift */; };
 		9C12FDB427011CD300A4AC4F /* YoungSerif-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C12FDB327011CD300A4AC4F /* YoungSerif-Regular.otf */; };
 		9C12FDB727011D0300A4AC4F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9C12FDB627011D0300A4AC4F /* LICENSE */; };
+		9C5248BC2938DAD900C2FA3A /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5248BB2938DAD900C2FA3A /* ImageLoader.swift */; };
 		9C55E79D27018D8200C0DF06 /* BottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C55E79C27018D8200C0DF06 /* BottomToolbar.swift */; };
 		9C55E79F27018E8200C0DF06 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C55E79E27018E8200C0DF06 /* DetailsView.swift */; };
 		9C659CD32700FDE00048C168 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C659CD22700FDE00048C168 /* DataModels.swift */; };
@@ -21,9 +22,8 @@
 		9C8AFE1526FCDB8A00EC76D3 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1426FCDB8A00EC76D3 /* ListView.swift */; };
 		9C8AFE1726FCDBA600EC76D3 /* EmojiArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1626FCDBA600EC76D3 /* EmojiArtModel.swift */; };
 		9C8AFE1926FCDCB000EC76D3 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8AFE1826FCDCB000EC76D3 /* Utility.swift */; };
+		9CC3C5992938E55900C75CEF /* ImageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC3C5982938E55900C75CEF /* ImageDatabase.swift */; };
 		9CD905E62701BCCB00D77741 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD905E52701BCCB00D77741 /* DiskStorage.swift */; };
-		DB282AE72718CDE900C30F5C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB282AE62718CDE900C30F5C /* ImageLoader.swift */; };
-		DB7DCE81271B529100335C2F /* ImageDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7DCE80271B529100335C2F /* ImageDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +36,7 @@
 		9C11323426FF73CB00571AB3 /* Checksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
 		9C12FDB327011CD300A4AC4F /* YoungSerif-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YoungSerif-Regular.otf"; sourceTree = "<group>"; };
 		9C12FDB627011D0300A4AC4F /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9C5248BB2938DAD900C2FA3A /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		9C55E79C27018D8200C0DF06 /* BottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbar.swift; sourceTree = "<group>"; };
 		9C55E79E27018E8200C0DF06 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		9C659CD22700FDE00048C168 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
@@ -43,9 +44,8 @@
 		9C8AFE1426FCDB8A00EC76D3 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		9C8AFE1626FCDBA600EC76D3 /* EmojiArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtModel.swift; sourceTree = "<group>"; };
 		9C8AFE1826FCDCB000EC76D3 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		9CC3C5982938E55900C75CEF /* ImageDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDatabase.swift; sourceTree = "<group>"; };
 		9CD905E52701BCCB00D77741 /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
-		DB282AE62718CDE900C30F5C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		DB7DCE80271B529100335C2F /* ImageDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDatabase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD905E52701BCCB00D77741 /* DiskStorage.swift */,
+				9CC3C5982938E55900C75CEF /* ImageDatabase.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -136,8 +137,7 @@
 				9C8AFE1826FCDCB000EC76D3 /* Utility.swift */,
 				9C11323426FF73CB00571AB3 /* Checksum.swift */,
 				9C659CD22700FDE00048C168 /* DataModels.swift */,
-				DB282AE62718CDE900C30F5C /* ImageLoader.swift */,
-				DB7DCE80271B529100335C2F /* ImageDatabase.swift */,
+				9C5248BB2938DAD900C2FA3A /* ImageLoader.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,12 +238,12 @@
 			files = (
 				9C659CD32700FDE00048C168 /* DataModels.swift in Sources */,
 				9C8AFE1926FCDCB000EC76D3 /* Utility.swift in Sources */,
-				DB282AE72718CDE900C30F5C /* ImageLoader.swift in Sources */,
+				9C5248BC2938DAD900C2FA3A /* ImageLoader.swift in Sources */,
 				18D775C522AD944300AE281E /* LoadingView.swift in Sources */,
 				9CD905E62701BCCB00D77741 /* DiskStorage.swift in Sources */,
 				9C11323526FF73CB00571AB3 /* Checksum.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* AppMain.swift in Sources */,
-				DB7DCE81271B529100335C2F /* ImageDatabase.swift in Sources */,
+				9CC3C5992938E55900C75CEF /* ImageDatabase.swift in Sources */,
 				9C8AFE1726FCDBA600EC76D3 /* EmojiArtModel.swift in Sources */,
 				9C659CD52700FDF90048C168 /* ThumbImage.swift in Sources */,
 				9C55E79D27018D8200C0DF06 /* BottomToolbar.swift in Sources */,
@@ -391,13 +391,16 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EmojiArt/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.EmojiArt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.EmojiArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -412,13 +415,16 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EmojiArt/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.EmojiArt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.EmojiArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

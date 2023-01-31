@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,8 @@ struct ThumbImage: View {
   let file: ImageFile
   @State var image = UIImage()
   @State var overlay = ""
+
+  @EnvironmentObject var imageLoader: ImageLoader
 
   @MainActor func updateImage(_ image: UIImage) {
     self.image = image

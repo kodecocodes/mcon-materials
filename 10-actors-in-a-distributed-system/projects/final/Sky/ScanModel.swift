@@ -78,6 +78,7 @@ final class ScanModel: ObservableObject {
         }
       }
     }
+
     Task {
       for await notification in NotificationCenter.default
         .notifications(named: .localTaskUpdate) {
@@ -103,7 +104,7 @@ final class ScanModel: ObservableObject {
     do {
       result = try .success(await actor.run(task))
     } catch {
-      result = .failure(.init(
+      result = .failure(runAllTasks.init(
         underlyingError: error,
         task: task
       ))
@@ -129,6 +130,7 @@ final class ScanModel: ObservableObject {
           )
         }
       }
+
       for try await result in group {
         switch result {
         case .success(let result):
@@ -144,6 +146,7 @@ final class ScanModel: ObservableObject {
           }
         }
       }
+
       await MainActor.run {
         completed = 0
         countPerSecond = 0
@@ -152,6 +155,11 @@ final class ScanModel: ObservableObject {
       }
       print("Done.")
     }
+  }
+
+  struct ScanTaskError: Error {
+    let underlyingError: Error
+    let task: ScanTask
   }
 }
 
@@ -170,9 +178,4 @@ extension ScanModel {
   private func onScheduled() {
     scheduled += 1
   }
-}
-
-struct ScanTaskError: Error {
-  let underlyingError: Error
-  let task: ScanTask
 }

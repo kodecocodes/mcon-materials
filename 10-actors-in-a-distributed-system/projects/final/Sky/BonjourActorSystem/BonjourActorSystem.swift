@@ -45,12 +45,33 @@ final class BonjourActorSystem: DistributedActorSystem, ObservableObject, @unche
   init(localName: String) {
     self.localName = localName
     self.service = BonjourService(localName: UIDevice.current.name, actorSystem: self)
+
     self.localActor = ScanActor(
       name: localName,
       actorSystem: self
     )
 
     withActors { $0[localActor.id] = localActor }
+  }
+
+  func firstAvailableActor() async throws
+    -> ScanActor {
+    while true {
+      for nextID in withActors(\.keys) {
+        guard let nextActor = try? ScanActor
+          .resolve(id: nextID, using: self),
+          await nextActor.count < 4 else {
+            continue
+          }
+
+          do {
+            try await nextActor.commit()
+            return nextActor
+          } catch { }
+      }
+      try await Task.sleep(for: .milliseconds(100))
+    }
+    fatalError("Will never execute")
   }
 
   func resolve<Act>(id: String, as actorType: Act.Type) throws -> Act? where Act: DistributedActor, String == Act.ID {
@@ -157,25 +178,5 @@ extension BonjourActorSystem {
         name: .disconnected, object: name
       )
     }
-  }
-
-  func firstAvailableActor() async throws
-    -> ScanActor {
-    while true {
-      for nextID in withActors({ $0.keys }) {
-        guard let nextActor = try? ScanActor
-          .resolve(id: nextID, using: self),
-          await nextActor.count < 4 else {
-            continue
-          }
-
-          do {
-            try await nextActor.commit()
-            return nextActor
-          } catch { }
-      }
-      try await Task.sleep(for: .seconds(0.1))
-    }
-    fatalError("Will never execute")
   }
 }

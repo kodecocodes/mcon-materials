@@ -144,8 +144,8 @@ extension BonjourService: MCSessionDelegate {
   func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
     /// If it's a change in connectivity of the local node, don't broadcast it.
     guard peerID.displayName != localSystemName.displayName else { return }
-    if [MCSessionState.connected, .notConnected]
-      .contains(state) {
+
+    if [.connected, .notConnected].contains(state) {
       actorSystem?.connectivityChangedFor(
         deviceName: peerID.displayName,
         to: state == .connected

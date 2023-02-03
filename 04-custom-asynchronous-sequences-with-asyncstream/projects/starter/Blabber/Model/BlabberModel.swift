@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,11 +36,12 @@ import Combine
 import UIKit
 
 /// The app model that communicates with the server.
+@MainActor
 class BlabberModel: ObservableObject {
   var username = ""
   var urlSession = URLSession.shared
 
-  init() {
+  nonisolated init() {
   }
 
   /// Current live updates
@@ -56,7 +57,6 @@ class BlabberModel: ObservableObject {
   }
 
   /// Start live chat updates
-  @MainActor
   func chat() async throws {
     guard
       let query = username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -72,16 +72,17 @@ class BlabberModel: ObservableObject {
 
     print("Start live updates")
 
-    try await withTaskCancellationHandler {
-      print("End live updates")
-      messages = []
-    } operation: {
+    try await withTaskCancellationHandler(operation: {
       try await readMessages(stream: stream)
-    }
+    }, onCancel: {
+      print("End live updates")
+      Task { @MainActor in
+        messages = []
+      }
+    })
   }
 
   /// Reads the server chat stream and updates the data model.
-  @MainActor
   private func readMessages(stream: URLSession.AsyncBytes) async throws {
   }
 

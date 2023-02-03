@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,18 @@ struct SkyApp: App {
             }
           })
           .buttonStyle(.bordered)
-          .disabled(isScanning)
+          .disabled(isScanning || scanModel.isCollaborating)
+        }
+        .toolbar {
+          if scanModel.isConnected {
+            Menu {
+              ForEach(scanModel.actorSystem.connectedActors, id: \.self) {
+                Text($0)
+              }
+            } label: {
+              Image(systemName: "link.circle")
+            }
+          }
         }
         .alert("Message", isPresented: $isDisplayingMessage, actions: {
           Button("Close", role: .cancel) { }
@@ -97,6 +108,11 @@ struct SkyApp: App {
         })
         .padding()
         .statusBar(hidden: true)
+      }
+      .overlay(alignment: .bottom) {
+        LogView(scanModel: scanModel)
+          .frame(height: 130)
+          .padding(.bottom, 10)
       }
     }
   }

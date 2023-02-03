@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 import Foundation
 
 /// A single scanning task.
-struct ScanTask: Identifiable {
+struct ScanTask: Identifiable, Codable {
   let id: UUID
   let input: Int
 
@@ -44,14 +44,22 @@ struct ScanTask: Identifiable {
 
   /// A method that performs the scanning.
   /// > Note: This is a mock method that just suspends for a second.
-  func run() async throws -> String {
-    try UnreliableAPI.action(failingEvery: 10)
+  func run() async throws -> Data {
+    try await UnreliableAPI.shared.action(failingEvery: 10)
 
     await Task(priority: .medium) {
-      // Block the thread as a real heavy-computation functon will.
-      Thread.sleep(forTimeInterval: 1)
+      // Block the thread as a real heavy-computation function will.
+      await withUnsafeContinuation { continuation in
+        Thread.sleep(forTimeInterval: 1)
+        continuation.resume()
+      }
     }.value
 
-    return "\(input)"
+    return Data(input.description.utf8)
   }
+}
+
+struct TaskResponse: Codable {
+  let result: Data?
+  let id: UUID
 }

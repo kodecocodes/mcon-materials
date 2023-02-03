@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,17 @@
 
 import Foundation
 
-class ScanModel: ObservableObject {
+final class ScanModel: ObservableObject {
   // MARK: - Private state
+
   private var counted = 0
   private var started = Date()
 
   // MARK: - Public, bindable state
 
-  /// Currently scheduled for execution tasks.
+  @MainActor @Published var isConnected = false
+  @MainActor @Published var isCollaborating = false
+
   @MainActor @Published var scheduled = 0
 
   /// Completed scan tasks per second.
@@ -48,19 +51,49 @@ class ScanModel: ObservableObject {
   /// Completed scan tasks.
   @MainActor @Published var completed = 0
 
+  @MainActor @Published var localTasksCompleted: [String] = []
+
   @Published var total: Int
 
-	@MainActor @Published var isCollaborating = false
-
-  // MARK: - Methods
+  let actorSystem: BonjourActorSystem
 
   init(total: Int, localName: String) {
     self.total = total
+    self.actorSystem = BonjourActorSystem(localName: localName)
+    systemConnectivityHandler()
+  }
+
+  func systemConnectivityHandler() {
+    Task {
+      for await count in actorSystem.$actorCount.values {
+        Task { @MainActor in
+          isConnected = count > 1
+        }
+      }
+    }
+  }
+
+  func worker(number: Int) async
+  -> Result<Data, Error> {
+    await onScheduled()
+
+    let task = ScanTask(input: number)
+
+    let result: Result<Data, Error>
+    do {
+      result = try .success(await task.run())
+    } catch {
+      result = .failure(error)
+    }
+
+    await onTaskCompleted()
+    return result
   }
 
   func runAllTasks() async throws {
     started = Date()
-    try await withThrowingTaskGroup(of: Result<String, Error>.self) { [unowned self] group in
+
+    try await withThrowingTaskGroup(of: Result<Data, Error>.self) { [unowned self] group in
       let batchSize = 4
 
       for index in 0..<batchSize {
@@ -69,8 +102,10 @@ class ScanModel: ObservableObject {
         }
       }
 
+      // 1
       var index = batchSize
 
+      // 2
       for try await result in group {
         switch result {
         case .success(let result):
@@ -79,6 +114,7 @@ class ScanModel: ObservableObject {
           print("Failed: \(error.localizedDescription)")
         }
 
+        // 3
         if index < total {
           group.addTask { [index] in
             await self.worker(number: index)
@@ -92,25 +128,7 @@ class ScanModel: ObservableObject {
         countPerSecond = 0
         scheduled = 0
       }
-
-      print("Done.")
     }
-  }
-
-  func worker(number: Int) async -> Result<String, Error> {
-    await onScheduled()
-
-    let task = ScanTask(input: number)
-
-    let result: Result<String, Error>
-    do {
-      result = try .success(await task.run())
-    } catch {
-      result = .failure(error)
-    }
-
-    await onTaskCompleted()
-    return result
   }
 }
 

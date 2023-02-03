@@ -30,39 +30,53 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import Distributed
 
-/// A view that displays the amount of total, completed, and avg. per second scan tasks.
-struct ScanningView: View {
-  @Binding var total: Int
-  @Binding var completed: Int
-  @Binding var perSecond: Double
-  @Binding var scheduled: Int
+distributed actor ScanActor {
+  typealias ActorSystem = BonjourActorSystem
+  private let nameValue: String
 
-  private func colorForAvg(_ num: Int) -> Color {
-    switch num {
-    case 0..<5: return .red
-    case 5..<10: return .yellow
-    case 10...: return .green
-    default: return .gray
-    }
+  init(name: String, actorSystem: ActorSystem) {
+    self.nameValue = name
+    self.actorSystem = actorSystem
   }
 
-  var body: some View {
-    VStack(alignment: .leading) {
-      ProgressView("\(scheduled) scheduled", value: Double(min(scheduled, total)), total: Double(total))
-        .tint(colorForAvg(scheduled))
-        .padding()
+  distributed var name: String {
+    nameValue
+  }
 
-      ProgressView(String(format: "%.2f per sec.", perSecond), value: min(perSecond, 10), total: 10)
-        .tint(colorForAvg(Int(perSecond)))
-        .padding()
+  private var countValue = 0
+  distributed var count: Int {
+    countValue
+  }
 
-      ProgressView("\(completed) tasks completed", value: min(1.0, Double(completed) / Double(total)))
-        .tint(Color.blue)
-        .padding()
+  distributed func commit() {
+    countValue += 1
+    NotificationCenter.default.post(
+      name: .localTaskUpdate,
+      object: nil,
+      userInfo: [Notification.taskStatusKey: "Committed"]
+    )
+  }
+
+  distributed func run(_ task: ScanTask) async throws -> Data {
+    var info: [String: Any] = [:]
+    defer {
+      countValue -= 1
+      NotificationCenter.default.post(
+        name: .localTaskUpdate,
+        object: nil,
+        userInfo: info
+      )
     }
-    .font(.callout)
-    .padding()
+    do {
+      let data = try await task.run()
+      info[Notification.taskStatusKey] = "Task \(task.input) Completed"
+      return data
+    } catch {
+      info[Notification.taskStatusKey] = "Task \(task.input) Failed"
+      throw error
+    }
   }
 }

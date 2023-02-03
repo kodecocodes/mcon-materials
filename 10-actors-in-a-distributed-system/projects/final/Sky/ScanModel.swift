@@ -104,7 +104,7 @@ final class ScanModel: ObservableObject {
     do {
       result = try .success(await actor.run(task))
     } catch {
-      result = .failure(runAllTasks.init(
+      result = .failure(.init(
         underlyingError: error,
         task: task
       ))

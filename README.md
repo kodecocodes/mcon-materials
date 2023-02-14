@@ -9,4 +9,4 @@ Each edition has its own branch, named `editions/[EDITION]`. The default branch 
 | Branch                                                                            | Edition | Release Date |
 | --------------------------------------------------------------------------------- |:-------:|:------------:|
 | [editions/1.0](https://github.com/kodecocodes/mcon-materials/tree/editions/1.0) | 1.0     | 2021-11-03   |
-| [editions/2.0](https://github.com/kodecocodes/mcon-materials/tree/editions/2.0) | 2.0     | YYYY-MM-DD   |
+| [editions/2.0](https://github.com/kodecocodes/mcon-materials/tree/editions/2.0) | 2.0     | 2023-02-15   |
